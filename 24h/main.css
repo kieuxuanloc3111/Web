@@ -1,3 +1,7 @@
+*{
+   margin:0;
+   padding:0;
+}
 .block_new {
     width: 730px;
     display: inline-block;
@@ -76,4 +80,107 @@
     border-top: 1px solid gray;
     padding: 10px 0px; /* Sửa lỗi: 10 px → 10px */
     font-weight: bold; /* Sửa: font: bold → font-weight: bold */
+}
+
+
+/* PHẦN 2 */
+
+.block2 {
+    width: 900px;
+    margin-top: 50px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+       }
+
+.trai {
+    width: 450px;
+    /* float: left; */
+}
+
+.phai {
+    margin-left: 40px;
+    width: 450px;
+    /* float: left;  */
+}
+
+.container {
+    display: flex;  
+    flex-direction: row;
+    justify-content: space-between;  
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    border-bottom: 1px solid gray;  
+    padding-bottom: 10px;
+    font-weight: normal;
+}
+
+/* .trai h3 {
+    width: auto;  
+    display: inline-block;
+    text-transform: none;  
+    color: black;  
+    border-bottom: none;  
+    padding-bottom: 0;
+    margin: 0 5px;  
+    white-space: nowrap;
+} */
+
+
+.container h3:first-child {
+    color: green;  
+    text-transform: uppercase;  
+
+}
+
+.trai h4,
+.phai h4 {
+    font-size: 20px;
+    display: inline-block;
+    width: 100%;
+    margin: 15px 0px;
+}
+
+
+/* cho list cạnh ảnh */
+
+.news-section {
+    display: flex;  /* Sử dụng flex để hình left, list right */
+    align-items: flex-start;  /* Căn trên cùng */
+    margin-top: 20px;  /* Khoảng cách dưới menu */
+}
+
+.news-img {
+    width: 200px;  /* Điều chỉnh kích thước hình (dựa trên ảnh, khoảng 255x170 nhưng scale) */
+    height: auto;
+    margin-right: 20px;  /* Khoảng cách giữa hình và list */
+    flex-shrink: 0;  /* Không co lại */
+}
+
+.news-list {
+    list-style: none;  /* Xóa dấu bullet mặc định */
+    padding: 0;
+    margin: 0;
+    flex: 1;  /* Chiếm hết không gian còn lại */
+}
+
+.news-list li {
+    position: relative;  
+    padding-left: 20px;  /* Khoảng cách cho dấu chấm */
+    margin-bottom: 10px;  /* Khoảng cách giữa các li */
+    font-size: 14px;  /* Font nhỏ như ảnh */
+    color: black;
+    border-bottom: 1px solid black;  /* Gạch dưới mỗi mục */
+}
+
+.news-list li::before {
+    content: "";  /* Tạo dấu chấm xanh */
+    position: absolute;
+    left: 0;
+    top: 7px;  /* Căn giữa chiều dọc */
+    width: 8px;
+    height: 8px;
+    background-color: green;  /* Màu xanh như ảnh */
+    border-radius: 50%;  /* Hình tròn */
 }
