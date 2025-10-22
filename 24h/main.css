@@ -90,9 +90,10 @@
 
 .ttdn {
     width: 500px;
-    height: 450px;
+    height: 300px;
     margin-left: 50px;
     border: 1px solid gray;
+    border-radius: 30px;
 }
 
 .ttdn h2 {
@@ -109,10 +110,11 @@
     display: flex;  /* Sử dụng flex để img left, p right */
     align-items: flex-start;  /* Căn trên cùng nếu p dài */
     margin: 10px 0;  /* Khoảng cách trên/dưới */
+    margin-left: 20px;
 }
 
 .ttdn img {
-    width: 250px;  /* Điều chỉnh width img để fit (nửa 500px, tùy chỉnh nếu cần) */
+    width: 100px;  /* Điều chỉnh width img để fit (nửa 500px, tùy chỉnh nếu cần) */
     height: auto;
     margin-right: 20px;  /* Khoảng cách giữa img và p */
     flex-shrink: 0;  /* Không co img */
