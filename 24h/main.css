@@ -2,8 +2,14 @@
    margin:0;
    padding:0;
 }
+
+.main {
+    width: auto; /* Đặt chiều rộng cố định cho toàn bộ nội dung */
+    display: flex
+
+}
 .block_new {
-    width: 730px;
+    width: auto;
     display: inline-block;
 }
 
@@ -82,6 +88,70 @@
     font-weight: bold; /* Sửa: font: bold → font-weight: bold */
 }
 
+.ttdn {
+    width: 500px;
+    height: 450px;
+    margin-left: 50px;
+    border: 1px solid gray;
+}
+
+.ttdn h2 {
+    background-color: #ff69b4; /* Màu hồng cho khung */
+    color: white; /* Màu chữ trắng */
+    text-align: center; /* Căn giữa chữ */
+    padding: 10px; /* Khoảng đệm bên trong */
+    font-size: 24px; /* Kích thước chữ lớn */
+    text-transform: uppercase; /* Chữ in hoa */
+    border-radius: 5px; /* Bo góc khung */
+}
+
+.image-desc {  /* Style cho div wrap */
+    display: flex;  /* Sử dụng flex để img left, p right */
+    align-items: flex-start;  /* Căn trên cùng nếu p dài */
+    margin: 10px 0;  /* Khoảng cách trên/dưới */
+}
+
+.ttdn img {
+    width: 250px;  /* Điều chỉnh width img để fit (nửa 500px, tùy chỉnh nếu cần) */
+    height: auto;
+    margin-right: 20px;  /* Khoảng cách giữa img và p */
+    flex-shrink: 0;  /* Không co img */
+}
+
+.ttdn .image-desc p {  /* Target p trong wrap */
+    flex: 1;  /* Chiếm hết không gian còn lại */
+    margin: 0;  /* Xóa margin mặc định */
+    float: none;  /* Xóa float right cũ để dùng flex */
+    font-size: 20px;  /* Font nếu cần */
+    font-weight: bold
+}
+
+/* Ul giữ nguyên, sẽ nằm dưới tự nhiên do block element */
+.ttdn ul {
+    margin-top: 10px;  /* Giữ khoảng cách dưới image-desc nếu cần */
+    padding-left: 0;  /* Xóa padding left mặc định của ul để custom bullet */
+    list-style: none;  /* Xóa bullet mặc định */
+}
+
+.ttdn ul li {
+    position: relative;  /* Để định vị ::before */
+    padding-left: 20px;  /* Khoảng cách cho chấm hồng */
+    margin-bottom: 10px;  /* Khoảng cách giữa các li nếu cần */
+}
+
+.ttdn ul li::before {
+    content: "";  /* Tạo chấm ảo */
+    position: absolute;
+    left: 0;
+    top: 50%;  /* Căn giữa chiều dọc */
+    transform: translateY(-50%);  /* Điều chỉnh chính xác giữa */
+    width: 8px;  /* Kích thước chấm */
+    height: 8px;
+    background-color: #ff69b4;  /* Màu hồng giống h2 */
+    border-radius: 50%;  /* Làm tròn */
+}
+
+
 
 /* PHẦN 2 */
 
@@ -115,17 +185,6 @@
     padding-bottom: 10px;
     font-weight: normal;
 }
-
-/* .trai h3 {
-    width: auto;  
-    display: inline-block;
-    text-transform: none;  
-    color: black;  
-    border-bottom: none;  
-    padding-bottom: 0;
-    margin: 0 5px;  
-    white-space: nowrap;
-} */
 
 
 .container h3:first-child {
