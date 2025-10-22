@@ -184,3 +184,104 @@
     background-color: green;  /* Màu xanh như ảnh */
     border-radius: 50%;  /* Hình tròn */
 }
+
+/* phan 3 */
+
+.multimedia {
+
+    margin-top: 50px;
+    width: 100%;
+    display: flex;  
+    flex-direction: column;  /* Xếp dọc: list trên, content dưới */
+    align-items: flex-start;  /* Align tất cả sang trái (left) */
+    width: fit-content;/* Sử dụng flex để xếp ngang tiêu đề và list */
+    
+    background: linear-gradient(to right, #e0f7e0, #f0f8ff);  /* Nền gradient xanh nhạt như hình (từ xanh lá nhạt sang xanh dương nhạt) */
+    padding: 10px 20px;  /* Padding quanh để giống thanh menu */
+    /* width: fit-content;  Chiều rộng tự động theo nội dung */
+    border-radius: 5px;  /* Bo tròn nhẹ nếu cần, nhưng hình khá thẳng */
+    font-family: sans-serif;  /* Font clean như hình */
+}
+
+
+
+.list {
+    display: flex;  /* Xếp các li ngang */
+    list-style: none;  /* Xóa bullet mặc định */
+    margin: 0;
+    padding: 0;
+}
+
+.list li {
+    background-color: #90ee90;  /* Nền xanh nhạt cho mỗi nút */
+    color: #008000;  /* Chữ xanh đậm */
+    padding: 5px 15px;  /* Padding trong nút */
+    margin: 0 5px;  /* Khoảng cách giữa các nút */
+    border-radius: 20px;  /* Bo tròn cạnh để giống nút */
+    font-size: 14px;  /* Font nhỏ hơn tiêu đề */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;  /* Không wrap text */
+}
+.list li:first-child {
+    background-color: transparent;  /* Không nền cho Multimedia */
+    border-radius: 0;  /* Không bo tròn */
+    font-size: 20px;  /* To hơn nữa cho tiêu đề đầu (từ 18px) */
+    margin-right: 10px;  /* Khoảng cách phải với nút sau */
+    padding: 5px 0;  /* Padding chỉ trên dưới, không ngang */
+    text-transform: uppercase;  /* Uppercase */
+}
+.list li:first-child {
+    margin-left: 0;  /* Xóa margin left cho nút đầu */
+}
+
+.content{
+    width: 100%;  /* Giữ 100% để full width của multimedia */
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-start;  /* Đổi space-between thành flex-start để .trai1 nằm sát trái */
+    margin-top: 20px;  /* Thêm khoảng cách dưới list nếu cần */
+}
+
+.trai1{
+    width: 450px;
+   }
+.trai1 h5{
+    font-size: 20px;
+    font-weight: bold;
+    font-style: Times New Roman;
+
+}
+
+.phai1 {
+    width: 450px;
+
+    display: flex;
+    flex-direction: column;  /* Xếp các li dọc (column) */
+    list-style: none;  /* Xóa bullet mặc định của ul */
+    padding: 0;
+    margin: 0;
+}
+
+.phai1 li {
+    display: flex;  /* Mỗi li flex ngang: img left, p right */
+    align-items: flex-start;  /* Căn trên cùng để text wrap nếu dài */
+    margin-bottom: 15px;  /* Khoảng cách giữa các li */
+}
+
+.hinh {
+    margin-left: 40px;
+    width: 120px;
+    height: auto;
+    margin-right: 15px;  /* Khoảng cách giữa img và p */
+    position: relative;  /* Để overlay icon play nếu cần */
+}
+
+.phai1 p {
+    flex: 1; /* Chiếm hết không gian còn lại */ 
+    margin: 0;
+    font-size: 14px;  /* Font nhỏ như mô tả trong ảnh */
+    line-height: 1.4;  /* Wrap text tốt hơn */
+    color: black;
+}
