@@ -396,14 +396,11 @@
     flex-direction: column;  /* Img trên, p dưới */
     align-items: center;  /* Căn giữa img và p */
     text-align: center;  /* Căn giữa text */
- 
-    padding: 15px;  /* Padding trong item */
-    border-radius: 6px;  /* Bo góc item */
 
 }
 
 .info-item p{
     font-weight: bold;
     font-style: Times New Roman;
-    color: #008000;
+    /* color: #008000; */
 }
