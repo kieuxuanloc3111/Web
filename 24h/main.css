@@ -346,3 +346,64 @@
     line-height: 1.4;  /* Wrap text tốt hơn */
     color: black;
 }
+
+/* phan cuoi  */
+
+.info{
+    background-color: rgb(233, 227, 227);
+    width: 1400px;
+    margin-top: 60px;
+    padding: 30px;  
+    border-radius: 8px;
+
+}
+
+.info h3{
+    font-weight: bold;
+    font-size: 24px;  
+    text-transform: uppercase;
+    color: #333;  
+    margin-bottom: 25px;  
+    position: relative;
+
+}
+
+.info h3::before {
+    content: "";
+    position: absolute;
+    left: -15px;  /* Cách trái 15px */
+    top: 0;
+    bottom: 0;
+    width: 4px;  /* Độ dày viền */
+    background-color: #00a651;  /* Màu xanh lá như hình */
+}
+
+.info-container {
+    /* Không cần style đặc biệt, chỉ wrap ul */
+}
+
+.info-list {
+    display: flex;  /* Xếp 4 li nằm ngang */
+    list-style: none;  /* Xóa bullet mặc định */
+    margin: 0;
+    padding: 0;
+    gap: 10px;  /* Khoảng cách giữa các li */
+}
+
+.info-item {
+    flex: 1;  /* Mỗi li chiếm đều không gian */
+    display: flex;
+    flex-direction: column;  /* Img trên, p dưới */
+    align-items: center;  /* Căn giữa img và p */
+    text-align: center;  /* Căn giữa text */
+ 
+    padding: 15px;  /* Padding trong item */
+    border-radius: 6px;  /* Bo góc item */
+
+}
+
+.info-item p{
+    font-weight: bold;
+    font-style: Times New Roman;
+    color: #008000;
+}
