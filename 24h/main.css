@@ -1,7 +1,9 @@
 *{
    margin:0;
    padding:0;
+
 }
+
 
 .main {
     width: auto; /* Đặt chiều rộng cố định cho toàn bộ nội dung */
@@ -403,4 +405,82 @@
     font-weight: bold;
     font-style: Times New Roman;
     /* color: #008000; */
+}
+
+/* footer  */
+
+.footer {
+    
+    margin-top: 50px;
+    margin-left: 180px;
+   
+    width: 1500px;  /* Full width */
+    text-align: center;  
+    justify-content: center;
+    margin-bottom: 200px;
+    position: relative;
+
+}
+
+.footer-list {
+    width: 90%;
+    list-style: none;  
+    padding: 0;
+    margin: 0;
+    display: flex;  /* Xếp li ngang */
+    justify-content: center;  
+    gap: 20px;  /* Khoảng cách giữa các li */
+    border-top: 1px solid #ccc; 
+    border-bottom: 1px solid #ccc;  
+}
+
+.footer-list li {
+    display: inline;  /* Đảm bảo li không xuống dòng */
+}
+
+.footer-list li a {
+    text-decoration: none;  /* Xóa gạch dưới */
+    color: black;  /* Màu chữ trắng trên nền tối */
+    font-size: 14px;  /* Kích thước chữ */
+    transition: color 0.2s;  /* Hiệu ứng hover */
+    text-transform: uppercase;
+}
+
+.footer-list li a:hover {
+    color: #00a651;  /* Màu xanh khi hover */
+}
+
+.footer-list li:not(:last-child) a::after {  /* Thêm dấu gạch dọc sau mỗi a trừ cuối */
+    content: "|";  /* Dấu gạch dọc */
+    margin-left: 30px;  /* Khoảng cách sau gạch dọc */
+    color: #161616;  /* Màu xám nhạt cho gạch dọc */
+}
+
+.left-footer {
+    width: 500px;
+    color: black;
+    padding: 20px 0 0 0;
+    position: absolute; /* Sử dụng absolute để định vị chính xác */
+    left: 0; /* Căn trái sát rìa của .footer */
+    top: 20px; /* Điều chỉnh khoảng cách từ đầu .footer nếu cần */
+}
+
+.left-footer h3 {
+
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.trusohanoi-list {
+    width: 500px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.trusohanoi-list li {
+
+    font-size: 14px;
+    margin-bottom: 5px;
 }
