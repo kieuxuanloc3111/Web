@@ -253,15 +253,15 @@
 .multimedia {
 
     margin-top: 50px;
-    width: 100%;
+   
     display: flex;  
     flex-direction: column;  /* Xếp dọc: list trên, content dưới */
     align-items: flex-start;  /* Align tất cả sang trái (left) */
-    width: fit-content;/* Sử dụng flex để xếp ngang tiêu đề và list */
+    width: fit-content;
     
     background: linear-gradient(to right, #e0f7e0, #f0f8ff);  /* Nền gradient xanh nhạt như hình (từ xanh lá nhạt sang xanh dương nhạt) */
     padding: 10px 20px;  /* Padding quanh để giống thanh menu */
-    /* width: fit-content;  Chiều rộng tự động theo nội dung */
+  
     border-radius: 5px;  /* Bo tròn nhẹ nếu cần, nhưng hình khá thẳng */
     font-family: sans-serif;  /* Font clean như hình */
 }
@@ -353,7 +353,7 @@
 
 .info{
     background-color: rgb(233, 227, 227);
-    width: 1400px;
+    width: 1200px;
     margin-top: 60px;
     padding: 30px;  
     border-radius: 8px;
@@ -409,12 +409,14 @@
 
 /* footer  */
 
+
+
 .footer {
     
     margin-top: 50px;
     margin-left: 180px;
    
-    width: 1500px;  /* Full width */
+    width: 1500px;  
     text-align: center;  
     justify-content: center;
     margin-bottom: 200px;
@@ -427,53 +429,54 @@
     list-style: none;  
     padding: 0;
     margin: 0;
-    display: flex;  /* Xếp li ngang */
+    display: flex;  
     justify-content: center;  
-    gap: 20px;  /* Khoảng cách giữa các li */
+    gap: 20px; 
     border-top: 1px solid #ccc; 
     border-bottom: 1px solid #ccc;  
 }
 
 .footer-list li {
-    display: inline;  /* Đảm bảo li không xuống dòng */
+    display: inline;  
 }
 
 .footer-list li a {
-    text-decoration: none;  /* Xóa gạch dưới */
-    color: black;  /* Màu chữ trắng trên nền tối */
-    font-size: 14px;  /* Kích thước chữ */
-    transition: color 0.2s;  /* Hiệu ứng hover */
+    text-decoration: none;  
+    color: black;  
+    font-size: 14px;  
+    transition: color 0.2s;  
     text-transform: uppercase;
 }
 
 .footer-list li a:hover {
-    color: #00a651;  /* Màu xanh khi hover */
+    color: #00a651;  
 }
 
-.footer-list li:not(:last-child) a::after {  /* Thêm dấu gạch dọc sau mỗi a trừ cuối */
-    content: "|";  /* Dấu gạch dọc */
-    margin-left: 30px;  /* Khoảng cách sau gạch dọc */
-    color: #161616;  /* Màu xám nhạt cho gạch dọc */
+.footer-list li:not(:last-child) a::after {  
+    content: "|";  
+    margin-left: 30px;  
+    color: #161616;  
 }
 
 .left-footer {
     width: 500px;
     color: black;
     padding: 20px 0 0 0;
-    position: absolute; /* Sử dụng absolute để định vị chính xác */
-    left: 0; /* Căn trái sát rìa của .footer */
-    top: 20px; /* Điều chỉnh khoảng cách từ đầu .footer nếu cần */
+    position: absolute; 
+    left: 0; 
+    top: 20px; 
 }
 
 .left-footer h3 {
     align-self: flex-start;
-
+    text-align: left;
     font-size: 18px;
     margin-bottom: 10px;
     font-weight: bold;
 }
 
 .trusohanoi-list {
+    text-align: left;
     align-self: flex-start;
     width: 500px;
     list-style: none;
