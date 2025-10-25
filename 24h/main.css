@@ -4,7 +4,86 @@
 
 }
 
+/* phần đầu */
+.phandau {
+    width: 1000px;
+    height: auto;
+    display: flex;
+    margin-left: 13%;
+    margin-bottom: 80px;
+    font-style: Arial;
+    
+}
+.phandau p{
+    color: gray;
+}
+.phandau a {
+    text-decoration: none;  
+    color: gray;       }  
 
+.con1{
+    width: 60%;
+    display: inline-block;
+}
+.con1 img{
+    width: 100%;
+}
+.first{
+    width: 100%;
+    display: inline-block;
+}
+.second{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.second ul {
+    display: flex;          
+    flex-direction: row;    
+    list-style: none;      
+    padding: 0;             
+    margin: 20px 0 0 0;              
+    gap: 10px;              
+}
+.second li{
+    display: flex;
+    flex-direction: column;
+}     
+
+.con2{
+    width: 30%;
+}
+.third{
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.third{
+    width: 100%;
+    display: inline-block;
+    list-style: none;
+    font-family: 'Times New Roman', Times, serif;
+}
+.third h5{
+    color: green    ;
+    padding-bottom:10px ;
+    padding-top: 20px;
+    font-weight: lighter;
+    font-size: medium;
+}
+.third h3{
+    font-weight: light;
+    font-size: 20px;
+    border-bottom: 1px solid rgb(175, 173, 173);
+    padding-bottom: 5px;
+}
+
+
+
+
+
+/*  */
 .main {
     width: auto; /* Đặt chiều rộng cố định cho toàn bộ nội dung */
     display: flex
