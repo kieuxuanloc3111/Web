@@ -415,11 +415,9 @@
     
     margin-top: 50px;
     margin-left: 180px;
-   
     width: 1500px;  
     text-align: center;  
     justify-content: center;
-    margin-bottom: 200px;
     position: relative;
 
 }
@@ -458,13 +456,23 @@
     color: #161616;  
 }
 
+
+
+.footer-info {
+    display: flex;
+    margin-left: 180px;   
+    width: 1500px;  
+    position: relative;
+    margin-bottom: 60px;
+}
+
 .left-footer {
-    width: 500px;
+    margin-top: 40px;
+    width: 700px;
     color: black;
-    padding: 20px 0 0 0;
     position: absolute; 
     left: 0; 
-    top: 20px; 
+
 }
 
 .left-footer h3 {
@@ -475,18 +483,39 @@
     font-weight: bold;
 }
 
-.trusohanoi-list {
+/* .trusohanoi-list {
     text-align: left;
     align-self: flex-start;
     width: 500px;
     list-style: none;
     padding: 0;
     margin: 0;
-}
+} */
 
+/* 
 .trusohanoi-list p {
-    align-self: flex-start;
-
+    /* align-self: flex-start; */
+/* 
     font-size: 14px;
     margin-bottom: 5px;
+}  */
+/* */ 
+
+
+.right-footer {
+    margin-top: 40px;
+    width: 700px;
+    color: black;
+    position: absolute; 
+    right: 0; 
+
+}
+.right-footer li{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.left-footer  {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
