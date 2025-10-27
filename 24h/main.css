@@ -5,8 +5,32 @@
 
 }
 
+.menu{
+    width: 100%;
+    background-color: #008000;
+    position: fixed;
+    /* margin-bottom: 100px; */
+    
+}
+.menu ul{
+    left: 50%;
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    gap: 30px;
+    justify-content: center;  
+    list-style: none;
+    color: white;
+    text-transform: uppercase;
+}
+.menu li{
+    color: white;
+
+}
+
 /* phần đầu */
 .phandau {
+    padding-top: 100px;
     width: 1000px;
     height: auto;
     display: flex;
