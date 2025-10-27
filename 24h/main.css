@@ -523,6 +523,14 @@
 .new img{
     width: 100px;
 }
+/*  */
+
+/* giai tri  */
+.giaitri{
+    background: linear-gradient(to right, #bdebbd, #c8ddf0);
+}
+
+
 
 
 
