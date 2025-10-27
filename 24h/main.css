@@ -431,7 +431,7 @@
 
 /* price  */
 .kinhte{
-    width: 1200px;
+    width: 1300px;
     height: fit-content;
     gap: 15px;
     display: flex;
@@ -495,7 +495,7 @@
 
 /* everydaynew  */
 .everydaynew{
-    width: 1100px;
+    width: 1300px;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -528,7 +528,7 @@
 
 /* giai tri  */
 .giaitri{
-    width: 1100px;
+    width: 1300px;
  
     margin: 20px auto;
     font-family: 'Times New Roman', Times, serif, sans-serif;
@@ -571,10 +571,11 @@
 }
 
 .giaitri-content-main{
-    /* padding: 40px; */
+    padding: 20px;
     /* padding-left: 100px;
     padding-right: 100px; */
     width: 100%;
+    height: 340px;
     margin-top: 10px;
     display: flex;
     flex-direction: row;
@@ -593,7 +594,7 @@
 }
 .giaitri-content2{
     font-size: 10px;
-    width: 25%;
+    width: 30%;
     font-weight: bold;
     display: flex;
     flex-direction: column;
@@ -608,6 +609,39 @@
     gap: 5px;
 }
 
+.giaitri-tail {
+
+    width: 100%;
+    background-color: #f8f5e8; /* Nền be nhạt tương tự hình */
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    font-size: 17px;
+}
+
+.giaitri-tail ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px; /* Khoảng cách cố định giữa các item, như bạn hỏi trước */
+}
+
+.giaitri-tail li {
+    position: relative;
+    padding-left: 15px; /* Không gian cho bullet */
+}
+
+.giaitri-tail li::before {
+    content: "•";
+    color: #4caf50; /* Màu xanh lá cho bullet */
+    font-size: 18px;
+    position: absolute;
+    left: 0;
+    /* top: -2px; */
+}
 
 
 
