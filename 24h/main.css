@@ -435,6 +435,7 @@
     gap: 15px;
     display: flex;
     margin: 60px auto;
+    margin-bottom: 2px;
 }
 
 .price-day {
@@ -491,7 +492,37 @@
 
 
 
+/* everydaynew  */
+.everydaynew{
+    width: 1200px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    /* margin-top: 10px; */
+    margin: 10px auto;
+    /* margin-left: 230px; */
 
+}
+.everydaynew a{
+    color: #00a651;
+    text-transform: uppercase;
+    font-size: medium;
+    /* border-bottom: 1px solid greenyellow; */
+}
+.today{
+    margin-top: 20px;
+    width: 100%;
+    display: inline-flex;
+    gap:12px;
+}
+.new{
+    width: 23%;
+    display: flex;
+
+}
+.new img{
+    width: 100px;
+}
 
 
 
