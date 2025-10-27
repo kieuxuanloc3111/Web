@@ -463,33 +463,19 @@
 
 .item {
     display: flex;
-    /* justify-content: space-between;
-    align-items: center; */
     gap: 6px;
 }
 
 .item .brand {
     font-weight: bold;
-    /* width: 40px; */
 }
 
 .item .price {
     display: flex;
     align-items: center;
-    /* width: 100px; */
-    /* padding: 1px; */
-    /* gap: 10px; */
+
 }
 
-
-
-/* .item .price.buy {
-    justify-content: flex-start;
-}
-
-.item .price.sell {
-    justify-content: flex-end;
-} */
 
 .up {
     color: green;
