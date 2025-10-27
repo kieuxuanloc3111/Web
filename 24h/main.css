@@ -1,6 +1,7 @@
 *{
    margin:0;
    padding:0;
+   /* width: 10px; */
 
 }
 
@@ -494,7 +495,7 @@
 
 /* everydaynew  */
 .everydaynew{
-    width: 1200px;
+    width: 1100px;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -527,7 +528,84 @@
 
 /* giai tri  */
 .giaitri{
-    background: linear-gradient(to right, #bdebbd, #c8ddf0);
+    width: 1100px;
+ 
+    margin: 20px auto;
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+}
+.giaitri-head{
+    padding: 10px;
+    /* margin-top: 10px; */
+    align-self: center;
+    width: 100%;
+    background: linear-gradient(to right, #bdebbd, #8aa8c2);
+    display: flex;
+    /* align-items: flex-start; */
+    flex-direction: row;
+    gap: 10px;
+}
+.giaitri-head h3{
+
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #00a651;
+    font-size: 22px;
+}
+.giaitri-head ul{
+    list-style: none;
+    gap: 10px;
+    display: flex;
+    /* font-family: Arial, sans-serif; */
+    font-weight: normal;
+    text-transform: uppercase;
+    color: white;
+    font-size: 20px;
+}
+.giaitri-head h4{
+    background-color: #90ee90;  
+    color: white; 
+    padding: 5px 15px;  
+    margin: 0 5px;  
+    border-radius: 20px; 
+}
+
+.giaitri-content-main{
+    /* padding: 40px; */
+    /* padding-left: 100px;
+    padding-right: 100px; */
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    /* gap: 40px; */
+    justify-content: space-between;
+    /* gap: 10px; */
+
+}
+.giaitri-content1{
+    font-size: 20px;
+    width: 25%;
+    font-weight: bold;
+}
+.giaitri-content1 img{
+    width: 400px;
+}
+.giaitri-content2{
+    font-size: 10px;
+    width: 25%;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.giaitri-content2-element{
+    font-weight: 5px;
+    font-size: 15px;
+    width: 100%;
+    height: 20%;
+    display: flex;
+    gap: 5px;
 }
 
 
