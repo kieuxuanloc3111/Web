@@ -4,59 +4,87 @@
    /* width: 10px; */
 }
 
-.menu{
+.menu {
     width: 100%;
     background-color: #008000;
     position: fixed;
-    /* margin-bottom: 100px; */
-    
 }
-.menu ul{
-    /* left: 50%; */
+
+.menu ul {
     padding: 10px;
     display: flex;
     flex-direction: row;
     font-size: 20px;
     gap: 20px;
-    justify-content: center;  
+    justify-content: center;
     list-style: none;
     color: white;
     text-transform: uppercase;
-
 }
-.menu li{
+
+.menu li {
     color: white;
     position: relative;
 }
 
-
-.menu li .submenu {
-    display: none; 
+.menu li .submenu,
+.menu li .sub-columns {
+    display: none;
     position: absolute;
-    top: 100%; 
-    background-color: white; 
+    top: 100%;
+    left: 0;
+    background-color: white;
     padding: 10px;
     list-style: none;
-    min-width: 150px; 
-
-    flex-direction: column; 
-    gap: 10px; 
-    /* z-index: 1;  */
+    min-width: 200px;
+    z-index: 1;
 }
-.menu li .submenu li {
-    color: gray; 
+
+.submenu2 {
+    /* position: relative; */
+    right: 0;
+    color: red;
+}
+.menu li .submenu {
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu li .sub-columns {
+    flex-direction: row;
+    gap: 20px;
+    min-width: 600px; /* Điều chỉnh độ rộng để phù hợp với 3 cột */
+    white-space: nowrap; /* Ngăn wrap dòng */
+}
+
+.menu li .sub-columns ul {
+    flex: 1; /* Mỗi ul chiếm đều không gian */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 180px; /* Độ rộng tối thiểu cho mỗi cột */
+}
+
+.menu li .submenu li,
+.menu li .sub-columns li {
+    color: gray;
     font-size: 15px;
     text-transform: none;
     border-bottom: 1px solid gray;
+    padding-bottom: 5px; /* Thêm padding để đẹp hơn */
 }
 
-
-.menu li:hover .submenu {
-    display: flex; 
+.menu li .submenu li:last-child,
+.menu li .sub-columns li:last-child {
+    border-bottom: none; /* Xóa border cuối cùng */
 }
 
+.menu li:hover .submenu,
+.menu li:hover .sub-columns {
+    display: flex;
+}
 
-
+/*  */
 
 /*  */
 .menu .submenu li .submenu1 {
@@ -82,8 +110,6 @@
 .menu .submenu li:hover .submenu1 {
     display: flex;
 }
-
-
 
 
 
