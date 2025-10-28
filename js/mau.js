@@ -15,7 +15,7 @@ function kiemTraMau(mau) {
     } else if (mauLower === "vàng") {
         console.log("đây là màu vàng");
     } else {
-        console.log("đây không phải màu xanh");
+        console.log("đây là 1 màu khác");
     }
 }
 
