@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kiểm tra màu sắc</title>
+</head>
+<body>
+    <script>
+        function kiemTraMau(mau) {
+            const mauLower = mau.toLowerCase().trim(); 
+
+            if (mauLower === "xanh") {
+                console.log("đây là màu xanh");
+            } 
+            else if (mauLower === "đỏ") {
+                console.log("đây là màu đỏ");
+            } 
+            else {
+                console.log("đây không phải màu xanh");
+            }
+        }
+
+        while (true) {
+            console.log("Nhập màu trong console"); 
+            let mau = prompt("Nhập màu (ví dụ: xanh, đỏ, vàng, ...):");
+
+            if (mau === null || mau.trim() === "") {
+                console.log("Bạn chưa nhập màu nào!");
+            } else {
+                kiemTraMau(mau);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -40,11 +40,7 @@
     z-index: 1;
 }
 
-.submenu2 {
-    /* position: relative; */
-    right: 0;
-    color: red;
-}
+
 .menu li .submenu {
     flex-direction: column;
     gap: 10px;
