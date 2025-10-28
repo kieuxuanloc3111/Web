@@ -26,10 +26,10 @@ function nhapMau() {
         } else {
             kiemTraMau(mau);
         }
-        nhapMau(); // Gọi lại để lặp
+        nhapMau();
     });
 }
 
 nhapMau();
-// console.log("Bạn chưa nhập màu nào!");
+
 
