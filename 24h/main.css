@@ -12,19 +12,47 @@
     
 }
 .menu ul{
-    left: 50%;
+    /* left: 50%; */
+    padding: 10px;
     display: flex;
     flex-direction: row;
-    font-size: 30px;
-    gap: 30px;
+    font-size: 20px;
+    gap: 20px;
     justify-content: center;  
     list-style: none;
     color: white;
     text-transform: uppercase;
+
 }
 .menu li{
     color: white;
+    position: relative;
+}
 
+
+.menu li .submenu {
+    color: gray;
+    display: none; 
+    position: absolute;
+    top: 100%; 
+    background-color: white; 
+    padding: 10px;
+    list-style: none;
+    min-width: 150px; 
+    flex-direction: column; 
+    gap: 10px; 
+    z-index: 1; 
+}
+.menu li .submenu li {
+    color: gray; 
+    font-size: 15px;
+    text-transform: none;
+    border-bottom: 1px solid gray;
+}
+
+
+.menu li:hover .submenu {
+    display: flex; 
 }
 
 /* phần đầu */
