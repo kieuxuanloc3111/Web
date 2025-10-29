@@ -8,11 +8,6 @@ const rl = readline.createInterface({
 function kiemTraNam(nam) {
     const so = parseInt(nam);
 
-    if (isNaN(so)) {
-        console.log("⚠️  Vui lòng nhập một số hợp lệ!");
-        return;
-    }
-
     if ((so % 400 === 0) || (so % 4 === 0 && so % 100 !== 0)) {
         console.log(`Đây là năm nhuận `);
     } else {

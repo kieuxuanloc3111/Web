@@ -6,7 +6,7 @@ const rl = readline.createInterface({
 });
 
 function kiemTraMau(mau) {
-    const mauLower = mau.toLowerCase().trim();
+    let mauLower = mau.toLowerCase().trim();
 
     if (mauLower === "xanh") {
         console.log("đây là màu xanh");

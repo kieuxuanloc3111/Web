@@ -6,11 +6,6 @@ const rl = readline.createInterface({
 });
 
 function kiemtraso(number) {
-    let so = parseInt(number);
-    if (isNaN(so)===true){
-        console.log("Vui lòng nhập một số hợp lệ!");
-        return;
-    }
     if (so % 2 === 0) {
         if (so>100){
             console.log(`Đây là số chẵn và lớn hơn 100`);
