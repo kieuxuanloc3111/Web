@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style>
+    .demo {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>hoc 1 số hàm jquery cơ bản</h1>
+  <button class="xx">click1 </button>
+
+  <button id="yy">click2</button>
+  
+  <!-- jquery, thu vien javascript + BE -->
+  <!-- Làm jquery thi goi thu viện cua nó vao: viet code nhanh va ngan hon
+  - goi thang tu trang chủ
+  - down ve may roi goi vao -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+
+      // cu phap: $(ten the).ten-ham()
+         // $ is not defined
+        $(document).ready(function(){
+
+          // click vao button có class xx
+          $("button.xx").click(function(){
+            // alert(1111)
+
+            // hide: ẩn di
+            // $("h1").hide()
+
+            // addClass: thêm 1 class vao the h1
+            $("h1").addClass("demo")
+          })
+
+          // click vao button có id yy
+          $("button#yy").click(function(){
+            // alert(222)
+
+            // show: hien thi ra
+            // $("h1").show()
+
+            // $("h1").removeClass("demo")
+
+            // hasClass: kiem tra 1 class co trong html k? 
+            // - neu co thi tra ve true 
+            // - k co thi tra ve false
+
+            // kiem tra the h1 co class demo k?
+            var checkClass = $("h1").hasClass("demo")
+            // alert(checkClass)
+
+            if(checkClass==true){
+              $("h1").removeClass("demo")
+            }else{
+              $("h1").addClass("demo")
+            }
+
+            
+          })
+        })
+    </script>
+
+</body>
+</html>
