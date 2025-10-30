@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hide / show</title>
+  <style>
+    button {
+      padding: 8px 16px;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0f5ed2;
+    }
+    p {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="btnToggle">Ẩn / Hiện</button>
+  <p id="doanvan">Đây là đoạn văn</p>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      let isVisible = true; 
+
+      $("#btnToggle").click(function() {
+        if (isVisible) {
+          $("#doanvan").hide(); 
+        } else {
+          $("#doanvan").show(); 
+        }
+        isVisible = !isVisible; 
+      });
+    });
+  </script>
+
+</body>
+</html>
