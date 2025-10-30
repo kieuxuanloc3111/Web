@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bài 3</title>
+  <style>
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 5px;
+      border: 2px solid #007bff;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      color: #007bff;
+      transition: 0.2s;
+    }
+    .active {
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <ul>
+    <li id="li1">Mục 1</li>
+    <li id="li2">Mục 2</li>
+    <li id="li3">Mục 3</li>
+    <li id="li4">Mục 4</li>
+  </ul>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("li").click(function() {
+        $("li").removeClass("active"); 
+        $(this).addClass("active");    
+
+      });
+    });
+  </script>
+
+</body>
+</html>
