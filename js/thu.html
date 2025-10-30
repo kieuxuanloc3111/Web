@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chạy các hàm for</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #1a73e8;
+      margin-top: 40px;
+      font-size: 22px;
+    }
+    input {
+      width: 100px;
+      padding: 5px;
+      margin-right: 10px;
+    }
+    button {
+      padding: 6px 12px;
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0f5ed2;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>In các số từ 1 đến n</h1>
+  <input type="number" id="input1" placeholder="Nhập n">
+  <button onclick="inTu1DenN()">Chạy</button>
+
+  <h1>In các số lẻ từ 1 đến n</h1>
+  <input type="number" id="input2" placeholder="Nhập n">
+  <button onclick="inSoLe()">Chạy</button>
+
+  <h1>In các số nhỏ hơn 5</h1>
+  <input type="number" id="input3" placeholder="Nhập n">
+  <button onclick="inSoNhoHon5()">Chạy</button>
+
+  <h1>In số bằng 6</h1>
+  <input type="number" id="input4" placeholder="Nhập n">
+  <button onclick="inSoBang6()">Chạy</button>
+
+  <h1>Tính tổng từ 1 đến n</h1>
+  <input type="number" id="input5" placeholder="Nhập n">
+  <button onclick="tinhTong()">Chạy</button>
+
+  <h1>Tính tổng S = 1 + 1/2 + ... + 1/n</h1>
+  <input type="number" id="input6" placeholder="Nhập n">
+  <button onclick="tinhTongPhanSo()">Chạy</button>
+
+  <h1>Tìm số lớn nhất trong 3 số</h1>
+  <input type="number" id="a" placeholder="a">
+  <input type="number" id="b" placeholder="b">
+  <input type="number" id="c" placeholder="c">
+  <button onclick="timSoLonNhat()">Chạy</button>
+
+  <script>
+    function inTu1DenN() {
+      let n = parseInt(input1.value);
+      for (let i = 1; i <= n; i++) {
+        console.log(i);
+      }
+    }
+
+    function inSoLe() {
+      let n = parseInt(input2.value);
+      for (let i = 1; i <= n; i++) {
+        if (i % 2 !== 0) console.log(i);
+      }
+    }
+
+    function inSoNhoHon5() {
+      let n = parseInt(input3.value);
+      for (let i = 1; i <= n; i++) {
+        if (i < 5) console.log(i);
+      }
+    }
+
+    function inSoBang6() {
+      let n = parseInt(input4.value);
+      for (let i = 1; i <= n; i++) {
+        if (i === 6) console.log(i);
+      }
+    }
+
+    function tinhTong() {
+      let n = parseInt(input5.value);
+      let tong = 0;
+      for (let i = 1; i <= n; i++) {
+        tong += i;
+      }
+      console.log(`Tổng từ 1 đến ${n} là: ${tong}`);
+    }
+
+    function tinhTongPhanSo() {
+      let n = parseInt(input6.value);
+      let s = 0;
+      for (let i = 1; i <= n; i++) {
+        s += 1 / i;
+      }
+      console.log(`Tổng S = ${s}`);
+    }
+
+    function timSoLonNhat() {
+      let a = parseFloat(document.getElementById("a").value);
+      let b = parseFloat(document.getElementById("b").value);
+      let c = parseFloat(document.getElementById("c").value);
+      let max;
+      if (a >= b && a >= c) max = a;
+      else if (b >= a && b >= c) max = b;
+      else max = c;
+      console.log(`Số lớn nhất là: ${max}`);
+    }
+  </script>
+</body>
+</html>
