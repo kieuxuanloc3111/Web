@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <style>
+
+  </style>
+</head>
+<body>
+  <button class="demo">click</button>
+  <p id="demo">click on this</p>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("button").click(function() {
+        var getClass = $(this).attr("class"); // Lấy giá trị của thuộc tính "class" của chính nút được bấm //
+        $("p#" + getClass).addClass("active"); // Ghép chuỗi để chọn phần tử <p> có id trùng với giá trị class của nút,$("p#" + getClass) sẽ trở thành $("p#demo"),thêm class active vào thẻ <p id="demo">//
+      });
+    });
+  </script>
+</body>
+</html>
