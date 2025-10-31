@@ -23,7 +23,7 @@
   </style>
 </head>
 <body>
-  <div class="demo">
+  <div>
     <ul>
       <li id="tab-tintuc">Tin tức</li>
       <li id="tab-bongda">Bóng đá</li>
@@ -46,15 +46,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
     $(document).ready(function() {
-      // Khi click vào 1 tab (li)
       $("ul li").click(function() {
-        // Lấy id của tab được click (vd: tab-tintuc)
+        // Lấy id của tab được click 
         let tabId = $(this).attr("id");
 
         // Ẩn tất cả hình ảnh
         $(".content div").removeClass("show").addClass("hide");
 
-        // Hiện hình tương ứng (vd: #content-tintuc)
+        // Hiện hình tương ứng 
         $("#content-" + tabId.replace("tab-", "")).removeClass("hide").addClass("show");
       });
     });
