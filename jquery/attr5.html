@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabs hình ảnh</title>
+  <style>
+    .hide {
+      display: none;
+    }
+    .show {
+      display: block;
+    }
+    ul li {
+      display: inline-block;
+      margin: 0 10px;
+      background-color: red;
+      color: white;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo">
+    <ul>
+      <li id="tab-tintuc">Tin tức</li>
+      <li id="tab-bongda">Bóng đá</li>
+      <li id="tab-thoitrang">Thời trang</li>
+    </ul>
+
+    <div class="content">
+      <div id="content-tintuc" class="show">
+        <img src="https://cdn.24h.com.vn/upload/4-2025/images/2025-10-31/1761909008-76f82d72732b3c2-2562-4355-width680height453.jpg" width="400">
+      </div>
+      <div id="content-bongda" class="hide">
+        <img src="https://cdn.24h.com.vn/upload/4-2025/images/2025-10-31/Be-boi-Malaysia-malaysia-nh---p-t---ch-chui-2-740-1761904563-160-width740height463.jpg" width="400">
+      </div>
+      <div id="content-thoitrang" class="hide">
+        <img src="https://cdn.24h.com.vn/upload/4-2025/images/2025-10-30//1761800803-anh-cuoi-cua-fashionista-tien-nguyen-18-2971-width1080height1440.jpg" width="400">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Khi click vào 1 tab (li)
+      $("ul li").click(function() {
+        // Lấy id của tab được click (vd: tab-tintuc)
+        let tabId = $(this).attr("id");
+
+        // Ẩn tất cả hình ảnh
+        $(".content div").removeClass("show").addClass("hide");
+
+        // Hiện hình tương ứng (vd: #content-tintuc)
+        $("#content-" + tabId.replace("tab-", "")).removeClass("hide").addClass("show");
+      });
+    });
+  </script>
+</body>
+</html>
