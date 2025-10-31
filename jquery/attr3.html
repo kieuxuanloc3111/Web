@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>hoán đổi ảnh</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    #big-img {
+      width: 500px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 0 8px #888;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+
+    .thumbs {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      /* flex-wrap: wrap; */
+    }
+
+    .thumbs img {
+      width: 175px;
+      /* height: auto; */
+      object-fit: cover;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <img id="big-img" src="https://preview.redd.it/show-me-the-cutest-pic-of-doraemon-you-got-this-ones-my-v0-r67h7j4irjod1.png?width=320&crop=smart&auto=webp&s=b88742b5b0c526bb6b9d4ca60ef6d14cc18659b4">
+
+  <div class="thumbs">
+    <img src="https://upload.wikimedia.org/wikipedia/en/b/bd/Doraemon_character.png">
+    <img src="https://preview.redd.it/can-doraemon-be-called-anime-v0-pjd2fi82k6xe1.jpeg?width=640&crop=smart&auto=webp&s=cfba787a3ea1e2f28fcab857e18dc1979505ced5">
+    <img src="https://vcdn1-giaitri.vnecdn.net/2017/10/04/doraemon-1-5971-1507114759.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=nUdcy2lclFBZa9cM0TUqEw">
+    <img src="https://media.vov.vn/sites/default/files/styles/large/public/2024-05/doraemon_5.jpg">
+    <img src="https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/441494409_437969088857758_6310114724225301459_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=2285d6&_nc_eui2=AeEDD0d4lwkgQekf0pSMRtBkdrWb0n51N912tZvSfnU33UXMHZsLSIxto9t4iQbNh5j_AqWVjuI4YtSCe-J2aE_1&_nc_ohc=U2UuOrsEOWoQ7kNvwHQgnLD&_nc_oc=AdmyOFjeFDeY9Sp7b1WO8J1MbQq8-wzIlQY3UuDufFrCKDdmRRDOo7KE5jgjRMA3Si-jEaKtqVlxkH4PGa7Gwnt1&_nc_zt=23&_nc_ht=scontent.fdad1-1.fna&_nc_gid=EkKZ0OSyAlsfQrrHPbAjkQ&oh=00_AffV_BrgeyYoVle-P06Cdy59EmFTlL5AUneVa8kUrsqXbA&oe=6909DB3E">
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $(".thumbs img").click(function() {
+        let srcNho = $(this).attr("src");
+
+
+        let srcLon = $("#big-img").attr("src");
+
+
+        $("#big-img").attr("src", srcNho);
+        $(this).attr("src", srcLon);
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>attr()</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 40px;
+    }
+    img {
+      width: 250px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 8px #aaa;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+    button {
+      padding: 8px 16px;
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0f5ed2;
+    }
+  </style>
+</head>
+<body>
+
+  <img id="hinh1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsudeNsry4OD3oej29TsOJzPDPbn4lmW3-tRdjemroNvZsxSu8F51c09VQsaJQHTwRDNYi98xiBQOs4MSPqxZinpj6cG_2zAQ_pHr9Xys&s=10" alt="Ảnh chưa đổi">
+  <br>
+  <button id="btnDoiAnh">Đổi ảnh</button>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      let isdoreamon = true;
+
+      $("#btnDoiAnh").click(function() {
+        // Lấy src hiện tại
+        let srcHienTai = $("#hinh1").attr("src");
+        console.log("Ảnh hiện tại là:", srcHienTai);
+
+
+        if (isdoreamon) {
+          $("#hinh1").attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_tE4kz8rYo9m9f6kAU04eEQz8YoCWNNINJg&s");
+          $("#hinh1").attr("alt", "Ảnh đã đổi");
+        } else {
+          $("#hinh1").attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsudeNsry4OD3oej29TsOJzPDPbn4lmW3-tRdjemroNvZsxSu8F51c09VQsaJQHTwRDNYi98xiBQOs4MSPqxZinpj6cG_2zAQ_pHr9Xys&s=10");
+          $("#hinh1").attr("alt", "Ảnh chưa đổi");
+        }
+
+        isdoreamon = !isdoreamon; 
+      });
+    });
+  </script>
+
+</body>
+</html>

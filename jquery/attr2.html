@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lấy và set ảnh</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 40px;
+    }
+    img {
+      width: 250px;
+      height: auto;
+      border-radius: 10px;
+      margin: 10px;
+      box-shadow: 0 0 8px #aaa;
+    }
+    button {
+      padding: 8px 16px;
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0f5ed2;
+    }
+  </style>
+</head>
+<body>
+
+  <img id="img1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsudeNsry4OD3oej29TsOJzPDPbn4lmW3-tRdjemroNvZsxSu8F51c09VQsaJQHTwRDNYi98xiBQOs4MSPqxZinpj6cG_2zAQ_pHr9Xys&s=10" alt="Ảnh 1">
+  <img id="img2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_tE4kz8rYo9m9f6kAU04eEQz8YoCWNNINJg&s" alt="Ảnh 2">
+  <br>
+  <button id="btnCopy">Sao chép ảnh 1 sang ảnh 2</button>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#btnCopy").click(function() {
+
+        let srcAnh1 = $("#img1").attr("src");
+        console.log("Ảnh 1 có src là:", srcAnh1);
+
+   
+        $("#img2").attr("src", srcAnh1);
+      });
+    });
+  </script>
+
+</body>
+</html>
