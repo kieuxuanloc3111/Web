@@ -5,8 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tabs hình ảnh</title>
-  <style>
-
+  <style type="text/css">
+    p{
+        background-color: red;
+    }
     
   </style>
 
@@ -15,12 +17,27 @@
 <script>
     $(document).ready(function() {
         $("form").submit(function() {
-            var getData = $("input").val();
-            if(getData == ""){
-                alert("vui long nhap")
-            }else{
-                return true
+            var getEmail = $("input.email").val();
+            var getPass = $("input.pass").val();
+            let x=1;
+            if(getEmail == ""){
+                $("p.err1").text("vui long nhap");
+                x=2;
             }
+            else{
+                $("p.err1").text("")
+            }
+            if(getPass == ""){
+                $("p.err2").text("vui long nhap");
+                x=2;
+            }
+            else{
+                $("p.err2").text("")
+            }
+            if (x==1){
+                return true;
+            }
+
             return false;
             
         });
@@ -29,7 +46,13 @@
 <body>
     <h1>xu ly form</h1>
     <form action="https://www.24h.com.vn/tin-tuc-trong-ngay-c46.html">
-        <input type="text" name="" value="">
+
+        <input type="text" name="" value="" class="email">
+        <p class="err1"></p>
+
+        <input type="text" name="" value="" class="pass">
+        <p class="err2"></p>
+
         <button type="submit">
             SEND
         </button>
