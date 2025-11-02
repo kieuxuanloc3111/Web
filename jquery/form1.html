@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabs hình ảnh</title>
+  <style>
+
+    
+  </style>
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("form").submit(function() {
+            var getData = $("input").val();
+            if(getData == ""){
+                alert("vui long nhap")
+            }else{
+                return true
+            }
+            return false;
+            
+        });
+    });
+</script>
+<body>
+    <h1>xu ly form</h1>
+    <form action="https://www.24h.com.vn/tin-tuc-trong-ngay-c46.html">
+        <input type="text" name="" value="">
+        <button type="submit">
+            SEND
+        </button>
+    </form>
+    
+
+
+</body>
+</html>
