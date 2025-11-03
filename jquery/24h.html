@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>24h</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="24h.css">
+    </head>
+
+    <body>
+        <div class="form">
+            <div class="tit"> 
+                <h2>góp ý - liên hệ với 24h</h2>
+            </div>
+
+            <form class="information" action="https://www.24h.com.vn/tin-tuc-trong-ngay-c46.html" method="post">
+                <p>họ và tên<textarea id="hoten"></textarea></p>
+                <p class="err1">vui lòng nhập họ và tên</p>
+
+                <p>địa chỉ email<textarea id="email"></textarea></p>
+                <p class="err2">vui lòng nhập email</p>
+
+                <p>số điện thoại<textarea id="sodienthoai"></textarea></p>
+                <p class="err3">vui lòng nhập số điện thoại</p>
+
+                <p>địa chỉ nơi cư trú<textarea id="address"></textarea></p>
+                <p class="err4">vui lòng nhập địa chỉ</p>
+
+                <p>tiêu đề<textarea id="tieude"></textarea></p>
+                <p class="err5">vui lòng nhập tiêu đề</p>
+
+                <p>nội dung<textarea id="content"></textarea></p>
+                <p class="err6">vui lòng nhập nội dung</p>
+
+                <button type="submit" class="btn-submit">Gửi</button>
+            </form>
+        </div>
+    </body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".information p[class^='err']").hide();
+
+            $(".btn-submit").click(function(e) {
+                let valid = 1;
+
+                if ($("#hoten").val().trim() == "") {
+                    $(".err1").show();
+                    valid = 2;
+                } else $(".err1").hide();
+
+                if ($("#email").val().trim() == "") {
+                    $(".err2").show();
+                    valid = 2;
+                } else $(".err2").hide();
+
+                if ($("#sodienthoai").val().trim() == "") {
+                    $(".err3").show();
+                    valid = 2;
+                } else $(".err3").hide();
+
+                if ($("#address").val().trim() == "") {
+                    $(".err4").show();
+                    valid = 2;
+                } else $(".err4").hide();
+
+                if ($("#tieude").val().trim() == "") {
+                    $(".err5").show();
+                    valid = 2;
+                } else $(".err5").hide();
+
+                if ($("#content").val().trim() == "") {
+                    $(".err6").show();
+                    valid = 2;
+                } else $(".err6").hide();
+                if (valid==1) {
+                    $(".information").submit();
+                }
+                else{
+                    return false;
+                }
+            });
+        });
+    </script>
+</html>
