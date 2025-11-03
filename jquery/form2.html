@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bài tập 2 form với jQuery</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f5f5f5;
+    }
+
+    .form {
+      margin: 20px auto;
+      display: flex;
+      flex-direction: column;
+      width: 400px;
+      row-gap: 20px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .form p {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    input {
+      width: 100%;
+      height: 30px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      display: none;
+      margin-top: 5px;
+    }
+
+    button {
+      width: 100px;
+      height: 35px;
+      background-color: rgb(71, 206, 71);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: rgb(60, 180, 60);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- FORM 1 -->
+  <form id="form1" class="form">
+    <h3>Form 1: Nhập thông tin</h3>
+
+    <p>Email:</p>
+    <input type="text" id="emailInput">
+    <p class="error err-email">Vui lòng nhập email</p>
+
+    <p>Mật khẩu:</p>
+    <input type="password" id="passInput">
+    <p class="error err-pass">Vui lòng nhập mật khẩu</p>
+
+    <button type="submit" id="btn1">Gửi</button>
+  </form>
+
+  <!-- FORM 2 -->
+  <form id="form2" class="form">
+    <h3>Form 2: Lấy thông tin đã nhập</h3>
+    <button type="button" id="btn2">Xem thông tin</button>
+  </form>
+
+
+  <script>
+    // 🔹 Khai báo 2 biến toàn cục
+    var globalEmail = "";
+    var globalPass = "";
+
+    // 🔹 Khi trang tải xong
+    $(document).ready(function() {
+
+      // Xử lý khi nhấn nút trong form 1
+      $("#form1").submit(function() {
+        var email = $("#emailInput").val().trim();
+        var pass = $("#passInput").val().trim();
+        var valid = true;
+
+        // Ẩn lỗi cũ
+        $(".error").hide();
+
+        // Kiểm tra email
+        if (email === "") {
+          $(".err-email").show();
+          valid = false;
+        }
+
+        // Kiểm tra mật khẩu
+        if (pass === "") {
+          $(".err-pass").show();
+          valid = false;
+        }
+
+        // Nếu hợp lệ
+        if (valid) {
+          globalEmail = email;
+          globalPass = pass;
+          alert("✅ Nhập thành công!\nEmail: " + globalEmail + "\nMật khẩu: " + globalPass);
+        }
+
+        // Luôn return false để không reload trang
+        return false;
+      });
+
+      // Xử lý khi nhấn nút trong form 2
+      $("#btn2").click(function() {
+        if (globalEmail === "" && globalPass === "") {
+          alert("⚠️ Chưa có dữ liệu từ form 1!");
+        } else {
+          alert("📧 Email: " + globalEmail + "\n🔒 Mật khẩu: " + globalPass);
+          console.log("Email:", globalEmail);
+          console.log("Mật khẩu:", globalPass);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

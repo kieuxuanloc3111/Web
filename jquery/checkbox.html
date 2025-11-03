@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ví dụ Checkbox trong Form</title>
+  <title>Chọn môn học yêu thích</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -48,13 +48,13 @@
 </head>
 <body>
 
-  <h2>Chọn loại trái cây bạn thích</h2>
-  <form id="fruitForm">
-    <label><input type="checkbox" name="fruit" value="Táo"> Táo 🍎</label>
-    <label><input type="checkbox" name="fruit" value="Chuối"> Chuối 🍌</label>
-    <label><input type="checkbox" name="fruit" value="Cam"> Cam 🍊</label>
-    <label><input type="checkbox" name="fruit" value="Dưa hấu"> Dưa hấu 🍉</label>
-    <label><input type="checkbox" name="fruit" value="Nho"> Nho 🍇</label>
+  <h2>Chọn môn học bạn yêu thích</h2>
+  <form id="subjectForm">
+    <label><input type="checkbox" name="subject" value="Toán"> Toán </label>
+    <label><input type="checkbox" name="subject" value="Văn"> Văn </label>
+    <label><input type="checkbox" name="subject" value="Anh"> Anh</label>
+    <label><input type="checkbox" name="subject" value="Lý"> Lý</label>
+    <label><input type="checkbox" name="subject" value="Hóa"> Hóa</label>
 
     <button type="button" onclick="showSelected()">Gửi lựa chọn</button>
   </form>
@@ -63,18 +63,23 @@
 
   <script>
     function showSelected() {
-      const checkboxes = document.querySelectorAll('input[name="fruit"]:checked');
-      const resultDiv = document.getElementById('result');
-      const selected = [];
+      var checkboxes = document.querySelectorAll('input[name="subject"]:checked');
 
-      checkboxes.forEach(cb => selected.push(cb.value));
+      var resultDiv = document.getElementById('result');
+
+      var selected = [];
+
+      for (var i = 0; i < checkboxes.length; i++) {
+        var value = checkboxes[i].value;
+        selected.push(value);
+      }
 
       if (selected.length > 0) {
-        resultDiv.style.display = 'block';
-        resultDiv.textContent = 'Bạn đã chọn: ' + selected.join(', ');
+        resultDiv.style.display = 'block'; 
+        resultDiv.textContent = 'Bạn đã chọn các môn: ' + selected.join(', ');
       } else {
-        resultDiv.style.display = 'block';
-        resultDiv.textContent = 'Bạn chưa chọn loại trái cây nào 🍃';
+        resultDiv.style.display = 'block'; 
+        resultDiv.textContent = 'Bạn chưa chọn môn nào';
       }
     }
   </script>
