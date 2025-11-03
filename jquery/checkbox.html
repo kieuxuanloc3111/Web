@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ví dụ Checkbox trong Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f7f7f7;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #e9f7ef;
+      border-left: 4px solid #28a745;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Chọn loại trái cây bạn thích</h2>
+  <form id="fruitForm">
+    <label><input type="checkbox" name="fruit" value="Táo"> Táo 🍎</label>
+    <label><input type="checkbox" name="fruit" value="Chuối"> Chuối 🍌</label>
+    <label><input type="checkbox" name="fruit" value="Cam"> Cam 🍊</label>
+    <label><input type="checkbox" name="fruit" value="Dưa hấu"> Dưa hấu 🍉</label>
+    <label><input type="checkbox" name="fruit" value="Nho"> Nho 🍇</label>
+
+    <button type="button" onclick="showSelected()">Gửi lựa chọn</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    function showSelected() {
+      const checkboxes = document.querySelectorAll('input[name="fruit"]:checked');
+      const resultDiv = document.getElementById('result');
+      const selected = [];
+
+      checkboxes.forEach(cb => selected.push(cb.value));
+
+      if (selected.length > 0) {
+        resultDiv.style.display = 'block';
+        resultDiv.textContent = 'Bạn đã chọn: ' + selected.join(', ');
+      } else {
+        resultDiv.style.display = 'block';
+        resultDiv.textContent = 'Bạn chưa chọn loại trái cây nào 🍃';
+      }
+    }
+  </script>
+
+</body>
+</html>
