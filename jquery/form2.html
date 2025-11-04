@@ -2,8 +2,8 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Bài tập 2 form với jQuery</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <title></title>
+
   <style>
     * {
       margin: 0;
@@ -87,7 +87,7 @@
     <button type="button" id="btn2">Xem thông tin</button>
   </form>
 
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
 
     var globalEmail = "";
@@ -100,6 +100,7 @@
         var pass = $("#passInput").val().trim();
         var valid = true;
 
+        
   
         $(".error").hide();
 
@@ -130,6 +131,7 @@
           alert("Email: " + globalEmail + "\n Mật khẩu: " + globalPass);
           console.log("Email:", globalEmail);
           console.log("Mật khẩu:", globalPass);
+    
         }
       });
     });
