@@ -17,13 +17,13 @@
 	
 </head>
 <script>
-function capNhatGioHang() {
-        $(".empty").text("Cart: " + TONG);
-}
+
 
 $(document).ready(function() {
     let TONG = 0;
-
+	function capNhatGioHang() {
+		$(".empty").text("Cart: " + TONG);
+	}
     $("#add").click(function() {
         const color = $(".color").val();
         const size = $(".size").val();
