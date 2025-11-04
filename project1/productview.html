@@ -16,6 +16,52 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
 </head>
+<script>
+function capNhatGioHang() {
+        $(".empty").text("Cart: " + TONG);
+}
+
+$(document).ready(function() {
+    let TONG = 0;
+
+    $("#add").click(function() {
+        const color = $(".color").val();
+        const size = $(".size").val();
+        const qty = parseInt($(".amount").val());
+
+        // Kiểm tra chưa chọn màu hoặc size
+        if (color === "" || size === "") {
+            alert("Vui lòng chọn đầy đủ MÀU và SIZE trước khi thêm vào giỏ hàng!");
+            return;
+        }
+
+        TONG += qty;
+        capNhatGioHang();
+        alert("Đã thêm " + qty + " sản phẩm vào giỏ. Tổng hiện tại: " + TONG);
+    });
+
+    $("#remove").click(function() {
+        const qty = parseInt($(".amount").val());
+
+        if (TONG === 0) {
+            alert("Không có sản phẩm nào trong giỏ để xóa!");
+            return;
+        }
+
+        if (qty > TONG) {
+            alert("Số lượng muốn xóa lớn hơn số lượng trong giỏ hàng!");
+            return;
+        }
+
+        TONG -= qty;
+        capNhatGioHang();
+        alert("Đã xóa " + qty + " sản phẩm khỏi giỏ. Tổng còn lại: " + TONG);
+    });
+
+    capNhatGioHang();
+});
+</script>
+
 <body>
 	<!-- top-bar -->
 	<div class="top-bar">
