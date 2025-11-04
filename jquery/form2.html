@@ -66,7 +66,7 @@
 
 <body>
 
-  <!-- FORM 1 -->
+
   <form id="form1" class="form">
     <h3>Form 1: Nhập thông tin</h3>
 
@@ -81,7 +81,7 @@
     <button type="submit" id="btn1">Gửi</button>
   </form>
 
-  <!-- FORM 2 -->
+
   <form id="form2" class="form">
     <h3>Form 2: Lấy thông tin đã nhập</h3>
     <button type="button" id="btn2">Xem thông tin</button>
@@ -89,51 +89,45 @@
 
 
   <script>
-    // 🔹 Khai báo 2 biến toàn cục
+
     var globalEmail = "";
     var globalPass = "";
 
-    // 🔹 Khi trang tải xong
     $(document).ready(function() {
 
-      // Xử lý khi nhấn nút trong form 1
       $("#form1").submit(function() {
         var email = $("#emailInput").val().trim();
         var pass = $("#passInput").val().trim();
         var valid = true;
 
-        // Ẩn lỗi cũ
+  
         $(".error").hide();
 
-        // Kiểm tra email
         if (email === "") {
           $(".err-email").show();
           valid = false;
         }
 
-        // Kiểm tra mật khẩu
         if (pass === "") {
           $(".err-pass").show();
           valid = false;
         }
 
-        // Nếu hợp lệ
+
         if (valid) {
           globalEmail = email;
           globalPass = pass;
-          alert("✅ Nhập thành công!\nEmail: " + globalEmail + "\nMật khẩu: " + globalPass);
+          alert("Nhập thành công!\nEmail: " + globalEmail + "\nMật khẩu: " + globalPass);
         }
 
-        // Luôn return false để không reload trang
         return false;
       });
 
-      // Xử lý khi nhấn nút trong form 2
       $("#btn2").click(function() {
         if (globalEmail === "" && globalPass === "") {
-          alert("⚠️ Chưa có dữ liệu từ form 1!");
+          alert("Chưa có dữ liệu từ form 1");
         } else {
-          alert("📧 Email: " + globalEmail + "\n🔒 Mật khẩu: " + globalPass);
+          alert("Email: " + globalEmail + "\n Mật khẩu: " + globalPass);
           console.log("Email:", globalEmail);
           console.log("Mật khẩu:", globalPass);
         }
