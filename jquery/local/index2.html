@@ -12,9 +12,9 @@
     let arr = JSON.parse(localStorage.getItem("myArray"));
 
     if (arr == false) {
-      console.log("❌ Không tìm thấy array trong localStorage!");
+      console.log("Không tìm thấy array");
     } else {
-      console.log("✅ Array lấy ra từ localStorage:", arr);
+      console.log("Array :", arr);
 
       arr.map(value => {
         if (value === 9) {
