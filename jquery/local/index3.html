@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merge Array + Tính Tổng</title>
+</head>
+<body>
+  <h2>Kiểm tra console để xem kết quả</h2>
+
+  <script>
+
+    let oldArr = JSON.parse(localStorage.getItem("myArray"));
+
+
+    if (oldArr == false) {
+      console.log("❌ Không tìm thấy array cũ trong localStorage!");
+    } else {
+      console.log("Array cũ:", oldArr);
+
+
+      let newArr = [];
+      for (let i = 11; i <= 20; i++) {
+        newArr.push(i);
+      }
+      console.log("Array mới:", newArr);
+
+  
+      let mergedArr = oldArr.concat(newArr);
+      console.log("Array sau khi merge:", mergedArr);
+
+    let total = 0;
+    for (let i = 0; i < mergedArr.length; i++) {
+    total = total + mergedArr[i];
+    }
+    console.log("Tổng các value trong array:", total);
+
+
+    localStorage.setItem("mergedArray", JSON.stringify(mergedArr));
+    console.log("Đã lưu mergedArray vào localStorage!");
+    }
+  </script>
+</body>
+</html>

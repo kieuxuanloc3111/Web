@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>index2</title>
+</head>
+<body>
+  <h2>Kiểm tra console để xem kết quả</h2>
+  <script>
+
+    let arr = JSON.parse(localStorage.getItem("myArray"));
+
+    if (arr == false) {
+      console.log("❌ Không tìm thấy array trong localStorage!");
+    } else {
+      console.log("✅ Array lấy ra từ localStorage:", arr);
+
+      arr.map(value => {
+        if (value === 9) {
+          console.log("Số 9 :", value);
+        }
+      });
+
+      let arrMap = [];
+      arr.map(value => {
+        if (value <= 5) {
+          arrMap.push(value);
+        }
+      });
+      console.log("Array mới (tạo bằng map/for):", arrMap);
+
+ 
+      let arrFilter = arr.filter(value => value <= 5);
+      console.log("Array mới (tạo bằng filter):", arrFilter);
+
+
+      localStorage.setItem("filteredArray", JSON.stringify(arrFilter));
+      console.log("✅ Đã lưu arrFilter vào localStorage!");
+    }
+  </script>
+</body>
+</html>
