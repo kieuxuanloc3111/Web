@@ -80,8 +80,9 @@
     <button type="submit" id="btn1">Gửi</button>
   </form>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
     var globalusername= "";
     var globalemail = "";
     let objCha = {};
@@ -103,8 +104,6 @@
           $(".err-email").show();
           valid = false;
         }
-
-
         if (valid) {
           globalusername = username;
           globalemail = email;
@@ -117,14 +116,12 @@
         let objCha = JSON.parse(localStorage.getItem('objCha'));
         objCha[globalusername] = objCon;
         localStorage.setItem('objCha', JSON.stringify(objCha));
-        console.log("Dữ liệu objCha sau khi lưu:", objCha);
+        console.log("objCha sau khi lưu:", objCha);
         }
 
         return false;
       });
 
     });
-  </script>
-
-</body>
+</script>
 </html>
