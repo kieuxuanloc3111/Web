@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        
+    </head>
+    <body>
+        
+    </body>
+    <script>
+        let arr = [
+            { id: "john", name: "john smith", age: 20 },
+            { id: "ann", name: "ann smith", age: 24 },
+            { id: "pete", name: "pete smith", age: 31 },
+        ];
+
+        function arraytoobject(arr) {
+            let obj = {};
+            for (let i = 0; i < arr.length; i++) {
+                let key = arr[i].id;  
+                obj[key] = arr[i];    
+            }
+            return obj;
+        }
+
+        let convert = arraytoobject(arr);
+        console.log(convert);
+
+    </script>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        
+    </head>
+    <body>
+        
+    </body>
+    <script>
+        objCha ={
+            'loc1' :{
+                'xx' : 'xuanloc1',
+                'yy' : 'kieuxuanloc2@gmail.com'
+            },
+            'loc2' :{
+                'xx' : 'xuanloc2',
+                'yy' : 'kieuxuanloc2@gmail.com'
+            },
+            'loc3' :{
+                'xx' : 'xuanloc3',
+                'yy' : 'kieuxuanloc3@gmail.com'
+            },
+            'loc4' :{
+                'xx' : 'xuanloc4',
+                'yy' : 'kieuxuanloc4@gmail.com'
+            }
+        }
+        Object.keys(objCha).map(function(key) {
+            console.log(key + " - " + objCha[key]['xx']);
+        });
+    </script>
+</html>
