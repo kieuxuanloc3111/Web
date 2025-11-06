@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Merge Array + Tính Tổng</title>
+  <title>index3</title>
 </head>
 <body>
-  <h2>Kiểm tra console để xem kết quả</h2>
+  <h2>f12</h2>
 
   <script>
 
@@ -14,30 +14,30 @@
 
 
     if (oldArr == false) {
-      console.log("❌ Không tìm thấy array cũ trong localStorage!");
+      console.log("không tìm thấy array cũ ");
     } else {
-      console.log("Array cũ:", oldArr);
+      console.log("array cũ:", oldArr);
 
 
       let newArr = [];
       for (let i = 11; i <= 20; i++) {
         newArr.push(i);
       }
-      console.log("Array mới:", newArr);
+      console.log("array mới:", newArr);
 
   
       let mergedArr = oldArr.concat(newArr);
-      console.log("Array sau khi merge:", mergedArr);
+      console.log("array sau khi merge:", mergedArr);
 
     let total = 0;
     for (let i = 0; i < mergedArr.length; i++) {
     total = total + mergedArr[i];
     }
-    console.log("Tổng các value trong array:", total);
+    console.log("tổng các value trong array:", total);
 
 
     localStorage.setItem("mergedArray", JSON.stringify(mergedArr));
-    console.log("Đã lưu mergedArray vào localStorage!");
+    console.log("đã lưu mergedArray ");
     }
   </script>
 </body>

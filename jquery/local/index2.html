@@ -6,13 +6,13 @@
   <title>index2</title>
 </head>
 <body>
-  <h2>Kiểm tra console để xem kết quả</h2>
+  <h2>f12</h2>
   <script>
 
     let arr = JSON.parse(localStorage.getItem("myArray"));
 
     if (arr == false) {
-      console.log("Không tìm thấy array");
+      console.log("không tìm thấy array");
     } else {
       console.log("Array :", arr);
 
@@ -28,15 +28,15 @@
           arrMap.push(value);
         }
       });
-      console.log("Array mới (tạo bằng map/for):", arrMap);
+      console.log("array mới (map/for):", arrMap);
 
  
       let arrFilter = arr.filter(value => value <= 5);
-      console.log("Array mới (tạo bằng filter):", arrFilter);
+      console.log("array mới ( filter):", arrFilter);
 
 
       localStorage.setItem("filteredArray", JSON.stringify(arrFilter));
-      console.log("✅ Đã lưu arrFilter vào localStorage!");
+      console.log("đã lưu ");
     }
   </script>
 </body>
