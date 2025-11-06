@@ -66,10 +66,10 @@
 
 <body>
 
-  <form class="form">
-    <h3>Nhập thông tin</h3>
+  <form id="form1" class="form">
+    <h3>Form 1: Nhập thông tin</h3>
 
-    <p>Username</p>
+    <p>Username:</p>
     <input type="text" id="userInput">
     <p class="error err-user">Vui lòng nhập username</p>
 
@@ -94,6 +94,8 @@
         var email = $("#emailInput").val().trim();
         var valid = true;
 
+        
+  
         $(".error").hide();
 
         if (username === "") {
@@ -108,22 +110,22 @@
 
 
         if (valid) {
-            globalusername = username;
-            globalemail = email;
-            alert("Nhập thành công!\nUsername: " + globalusername + "\nemail: " + globalemail);
-            let objCon = {
-                'xx': globalusername,
-                'yy': globalemail
-            };
+          globalusername = username;
+          globalemail = email;
+          alert("Nhập thành công!\n username: " + globalusername + "\nemail: " + globalemail);
+          let objCon = {
+            'xx': globalusername,
+            'yy': globalemail
+          };
 
-            let objCha = JSON.parse(localStorage.getItem('objCha'));
+        let objCha = JSON.parse(localStorage.getItem('objCha'));
 
-            objCha[globalusername] = objCon;
+        objCha[globalusername] = objCon;
 
 
-            localStorage.setItem('objCha', JSON.stringify(objCha));
+        localStorage.setItem('objCha', JSON.stringify(objCha));
 
-            console.log("Dữ liệu objCha sau khi lưu:", objCha);
+        console.log("Dữ liệu objCha sau khi lưu:", objCha);
         }
 
         return false;
