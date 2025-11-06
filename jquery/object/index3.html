@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index3</title>
+</head>
+<body>
+    <h2>f12</h2>
+
+    <script>
+        let data = localStorage.getItem("data");
+        if (data){
+            let obj = JSON.parse(data);
+            console.log("tìm thấy data");
+            if(obj["contact"]){  // kiểm tra phần đả thêm
+                console.log("đã có phần đã thêm");
+            }  
+            else{
+                console.log("ko có phần đã thêm");
+            }
+
+            Object.keys(obj).map(function (key,index) {
+                console.log("key:", key, "| value:", obj[key]);
+            })
+
+            delete obj["age"];
+            console.log("đã xoá age");
+            console.log(obj)
+            localStorage.setItem("data",JSON.stringify(obj));
+        }
+        else{
+            console.log("không tìm thấy data");
+        }
+    </script>
+</body>
+</html>

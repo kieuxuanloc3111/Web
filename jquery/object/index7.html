@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index7</title>
+</head>
+<body>
+    <h2>f12</h2>
+
+    <script>
+        let data = localStorage.getItem("data");
+
+        if (data) {
+
+            let obj = JSON.parse(data);
+            console.log("object cũ:", obj);
+
+            let newobj = {};
+            for (let i = 11; i <= 20; i++) {
+                newobj[i] = i;
+            }
+            console.log("object mới:", newobj);
+
+
+            let mergedobj = Object.assign({}, obj, newobj);
+            console.log("object sau khi merge:", mergedobj);
+
+            let total = 0;
+            for (let key in mergedobj) {
+                total += mergedobj[key];
+            }
+
+            console.log("Tổng các value trong mergedObj là:", total);
+            localStorage.setItem("mergedNumbers", JSON.stringify(mergedobj));
+            console.log("Đã lưu 'mergedNumbers' vào localStorage!");
+        } else {
+            console.log("ko tìm thấy data");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index4</title>
+</head>
+<body>
+    <h2>f12</h2>
+
+    <script>
+        let data = localStorage.getItem("data");
+        if (data){
+            let obj = JSON.parse(data);
+            console.log("tìm thấy data");
+            console.log(obj)
+        }
+        else{
+            console.log("không tìm thấy data");
+        }
+    </script>
+</body>
+</html>

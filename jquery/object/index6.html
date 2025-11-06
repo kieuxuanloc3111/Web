@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index6</title>
+</head>
+<body>
+    <h2>f12</h2>
+
+    <script>
+        let data = localStorage.getItem("data");
+        if (data) {
+            let obj = JSON.parse(data);
+            console.log("object gốc:", obj);
+
+            Object.keys(obj).map(function(key,index) {
+                if (obj[key] == 9) {
+                    console.log("số 9 :", obj[key]);
+                }
+            });
+
+            let newobj = {};
+
+            Object.keys(obj).map(function(key,index) {
+                if (obj[key] > 5) {
+                    newobj[key] = obj[key];
+                }
+            });
+
+
+            console.log("object mới):", newobj);
+
+            localStorage.setItem("data", JSON.stringify(newobj));
+
+        } else {
+            console.log("ko tìm thấy data");
+        }
+    </script>
+</body>
+</html>
