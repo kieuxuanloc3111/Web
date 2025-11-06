@@ -9,7 +9,7 @@
     <h2>f12</h2>
 
     <script>
-        let data = localStorage.getItem("data");
+        let data = localStorage.getItem("data");  // object tuwf index 5
 
         if (data) {
 
@@ -23,17 +23,16 @@
             console.log("object mới:", newobj);
 
 
-            let mergedobj = Object.assign({}, obj, newobj);
+            let mergedobj = Object.assign(obj, newobj);
             console.log("object sau khi merge:", mergedobj);
 
-            let total = 0;
+            let tong = 0;
             for (let key in mergedobj) {
-                total += mergedobj[key];
+                tong += mergedobj[key];
             }
 
-            console.log("Tổng các value trong mergedObj là:", total);
-            localStorage.setItem("mergedNumbers", JSON.stringify(mergedobj));
-            console.log("Đã lưu 'mergedNumbers' vào localStorage!");
+            console.log("tổng các value trong mergedObj là:", tong);
+
         } else {
             console.log("ko tìm thấy data");
         }
