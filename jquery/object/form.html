@@ -82,7 +82,6 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
-
     var globalusername= "";
     var globalemail = "";
     let objCha = {};
@@ -94,10 +93,7 @@
         var email = $("#emailInput").val().trim();
         var valid = true;
 
-        
-  
         $(".error").hide();
-
         if (username === "") {
           $(".err-user").show();
           valid = false;
@@ -119,12 +115,8 @@
           };
 
         let objCha = JSON.parse(localStorage.getItem('objCha'));
-
         objCha[globalusername] = objCon;
-
-
         localStorage.setItem('objCha', JSON.stringify(objCha));
-
         console.log("Dữ liệu objCha sau khi lưu:", objCha);
         }
 
