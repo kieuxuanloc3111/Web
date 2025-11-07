@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        table, th, td {
+            border:1px solid black;
+            border-collapse: collapse;
+        }
+        table {
+            width: 100%;
+            margin-top: 30px;
+        }
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+    </style>
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        let data = localStorage.getItem("objCha");
+
+        if (data) {
+            let objCha = JSON.parse(data);
+
+            let html = "";
+            Object.keys(objCha).map((key) => {
+                html += "<tr>" +
+                        "<td>" + objCha[key]['xx'] + "</td>" +
+                        "<td>" + objCha[key]['yy'] + "</td>" +
+                        "</tr>";
+                });
+                $("tbody").append(html);
+        } else {
+            console.log("ko co dataa");
+        }
+        });
+</script>
+<body>
+    <table style="width:100%">
+       <thead>
+          <tr>
+            <th>user</th>
+            <th>email</th>
+            
+          </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+</body>
+</html>
