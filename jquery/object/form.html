@@ -83,16 +83,14 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-    var globalusername= "";
-    var globalemail = "";
-    let objCha = {};
-    localStorage.setItem("objCha", JSON.stringify(objCha));
+    let globalusername= "";
+    let globalemail = "";
     $(document).ready(function() {
 
       $("#form1").submit(function() {
-        var username = $("#userInput").val().trim();
-        var email = $("#emailInput").val().trim();
-        var valid = true;
+        let username = $("#userInput").val().trim();
+        let email = $("#emailInput").val().trim();
+        let valid = true;
 
         $(".error").hide();
         if (username === "") {
@@ -113,10 +111,19 @@
             'yy': globalemail
           };
 
-        let objCha = JSON.parse(localStorage.getItem('objCha'));
-        objCha[globalusername] = objCon;
-        localStorage.setItem('objCha', JSON.stringify(objCha));
-        console.log("objCha sau khi lưu:", objCha);
+          let data = localStorage.getItem('objCha');
+          if (data) {
+            objCha = JSON.parse(data);
+            console.log("lấy objcha cũ:", objCha);
+          } else {
+            // néu chua co thì tạo mới
+            let objCha = {};
+            console.log("tạo mới objcha");
+          }
+
+          objCha[globalusername] = objCon;
+          localStorage.setItem('objCha', JSON.stringify(objCha));
+          console.log("objcha sau khi lưu:", objCha);
         }
 
         return false;
