@@ -489,24 +489,17 @@
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<!-- CART  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-
-    // Lấy object từ localStorage
     let objCha = localStorage.getItem("objCha");
-
     if (objCha) {
         objCha = JSON.parse(objCha);
-
         let html = "";
-
-        // Duyệt qua từng sản phẩm trong objCha
         Object.keys(objCha).forEach(function(key){
             let item = objCha[key];
-
-            // Loại bỏ dấu $ trong giá rồi chuyển thành số
             let priceNumber = parseFloat(item.price.replace("$", "").trim());
             let total = priceNumber * item.qty;
 

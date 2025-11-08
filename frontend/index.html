@@ -1066,6 +1066,7 @@
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
 </body>
+<!-- INDEX  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
@@ -1086,30 +1087,22 @@
 				qty: 1
 			};
 
-			// ✅ Kiểm tra xem trong localStorage đã có objCha chưa
 			let objCha = localStorage.getItem("objCha");
-
 			if (objCha) {
-				// Nếu có thì parse ra object thật
 				objCha = JSON.parse(objCha);
 			} else {
-				// Nếu chưa có thì khởi tạo rỗng
 				objCha = {};
 			}
 
-			// Nếu đã có product thì tăng qty, ngược lại thì thêm mới
 			if (objCha[id]) {
 				objCha[id].qty += 1;
 			} else {
 				objCha[id] = objCon;
 			}
 
-			console.log(">>> objCon:", objCon);
-			console.log(">>> objCha:", objCha);
-
-			// Lưu lại vào local
+			console.log("objCon:", objCon);
+			console.log("objCha:", objCha);
 			localStorage.setItem("objCha", JSON.stringify(objCha));
-
 			alert(name + " đã được thêm vào giỏ hàng!");
 		});
 	});
