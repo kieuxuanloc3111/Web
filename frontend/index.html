@@ -356,7 +356,7 @@
 						<h2 class="title text-center">Features Items</h2>
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
-								<div class="single-products">
+								<div class="single-products" id="product1">
 										<div class="productinfo text-center">
 											<img src="images/home/product1.jpg" alt="" />
 											<h2>$56</h2>
@@ -381,7 +381,7 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
-								<div class="single-products">
+								<div class="single-products" id="product2">
 									<div class="productinfo text-center">
 										<img src="images/home/product2.jpg" alt="" />
 										<h2>$56</h2>
@@ -406,7 +406,7 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
-								<div class="single-products">
+								<div class="single-products" id="product3">
 									<div class="productinfo text-center">
 										<img src="images/home/product3.jpg" alt="" />
 										<h2>$56</h2>
@@ -431,7 +431,7 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
-								<div class="single-products">
+								<div class="single-products" id="product4">
 									<div class="productinfo text-center">
 										<img src="images/home/product4.jpg" alt="" />
 										<h2>$56</h2>
@@ -457,7 +457,7 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
-								<div class="single-products">
+								<div class="single-products" id="product5">
 									<div class="productinfo text-center">
 										<img src="images/home/product5.jpg" alt="" />
 										<h2>$56</h2>
@@ -483,7 +483,7 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
-								<div class="single-products">
+								<div class="single-products" id="product6">
 									<div class="productinfo text-center">
 										<img src="images/home/product6.jpg" alt="" />
 										<h2>$56</h2>
@@ -1066,4 +1066,52 @@
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+
+		$(".add-to-cart").click(function(e){
+			e.preventDefault();
+			let productBox = $(this).closest(".single-products");
+
+			let id = productBox.attr("id");
+			let img = productBox.find("img").attr("src");
+			let name = productBox.find(".productinfo p").text().trim();
+			let price = productBox.find(".productinfo h2").text().trim();
+
+			let objCon = {
+				img: img,
+				price: price,
+				name: name,
+				qty: 1
+			};
+
+			// ✅ Kiểm tra xem trong localStorage đã có objCha chưa
+			let objCha = localStorage.getItem("objCha");
+
+			if (objCha) {
+				// Nếu có thì parse ra object thật
+				objCha = JSON.parse(objCha);
+			} else {
+				// Nếu chưa có thì khởi tạo rỗng
+				objCha = {};
+			}
+
+			// Nếu đã có product thì tăng qty, ngược lại thì thêm mới
+			if (objCha[id]) {
+				objCha[id].qty += 1;
+			} else {
+				objCha[id] = objCon;
+			}
+
+			console.log(">>> objCon:", objCon);
+			console.log(">>> objCha:", objCha);
+
+			// Lưu lại vào local
+			localStorage.setItem("objCha", JSON.stringify(objCha));
+
+			alert(name + " đã được thêm vào giỏ hàng!");
+		});
+	});
+</script>
 </html>
