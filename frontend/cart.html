@@ -310,10 +310,10 @@
 				<div class="col-sm-6">
 					<div class="total_area">
 						<ul>
-							<li>Cart Sub Total <span>$59</span></li>
-							<li>Eco Tax <span>$2</span></li>
+							<li class="sub-total-value">Cart Sub Total <span>$59</span></li>
+							<li class="eco-tax-value">Eco Tax <span>$2</span></li>
 							<li>Shipping Cost <span>Free</span></li>
-							<li>Total <span>$61</span></li>
+							<li class="total-value">Total <span>$61</span></li>
 						</ul>
 							<a class="btn btn-default update" href="">Update</a>
 							<a class="btn btn-default check_out" href="">Check Out</a>
@@ -540,6 +540,28 @@ $(document).ready(function(){
 </script>
 <script>
 	$(document).ready(function () {
+		const tax = 2;
+		// hàm để cập nhật total 
+		function updateTotal() {
+			let subTotal = 0;
+			let totalQty = 0;
+
+			$(".cart_total_price").each(function () {
+				let val = parseFloat($(this).text().replace("$", "").trim());
+				subTotal += val;
+			});
+			
+			$(".cart_quantity_input").each(function () {
+				totalQty += parseInt($(this).val());
+			});
+			let ecoTax = tax * totalQty;
+			let grandTotal = subTotal + ecoTax;
+
+			// cap nhat HTML 
+			$(".sub-total-value").text("$" + subTotal);
+			$(".eco-tax-value").text("$" + ecoTax);
+			$(".total-value").text("$" + grandTotal);
+		}
 		function update(name,newQuantity,remove = false) {
 			let objCha = JSON.parse(localStorage.getItem("objCha"));
 			for (let key in objCha) {
@@ -569,6 +591,7 @@ $(document).ready(function(){
 
 			let name = product.find(".cart_description h4 a").text().trim();
             update(name, quantity);
+			updateTotal();
 		})
 		$(".cart_quantity_down").click(function (e) {
 			e.preventDefault();
@@ -589,6 +612,7 @@ $(document).ready(function(){
 
 			let name = product.find(".cart_description h4 a").text().trim();
             update(name, quantity);
+			updateTotal();
 		})
 		$(".cart_quantity_delete").click(function (e) {
 			e.preventDefault();
@@ -597,7 +621,9 @@ $(document).ready(function(){
 
 			let name = product.find(".cart_description h4 a").text().trim();
 			update(name, 0, true);
-		})
+			updateTotal();
+		});
+		updateTotal();
 	});
 </script>
 
