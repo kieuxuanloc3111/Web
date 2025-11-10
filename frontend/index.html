@@ -89,7 +89,12 @@
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li>
+								<a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart 
+									<span class="cart-count" style="font-weight:bold; color:#FE980F;">(0)</span>
+								</a>
+								</li>
+
 								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
 							</ul>
 						</div>
@@ -118,7 +123,7 @@
                                         <li><a href="shop.html">Products</a></li>
 										<li><a href="product-details.html">Product Details</a></li> 
 										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
+										<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li> 
 										<li><a href="login.html">Login</a></li> 
                                     </ul>
                                 </li> 
@@ -1070,6 +1075,18 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
+		function updateCartCount() {
+			let objCha = localStorage.getItem("objCha");
+			let totalQty = 0;
+
+
+			objCha = JSON.parse(objCha);
+			for (let key in objCha) {
+				totalQty += objCha[key].qty;
+			}
+			
+			$(".cart-count").text("(" + totalQty + ")");
+		}
 
 		$(".add-to-cart").click(function(e){
 			e.preventDefault();
@@ -1104,7 +1121,9 @@
 			console.log("objCha:", objCha);
 			localStorage.setItem("objCha", JSON.stringify(objCha));
 			alert(name + " đã được thêm vào giỏ hàng!");
+			updateCartCount();
 		});
+		updateCartCount();
 	});
 </script>
 </html>
