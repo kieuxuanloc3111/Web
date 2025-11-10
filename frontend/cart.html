@@ -543,92 +543,112 @@ $(document).ready(function(){
 });
 </script>
 <script>
-	$(document).ready(function () {
-		const tax = 2;
-		// hàm để cập nhật total 
-		function updateTotal() {
-			let subTotal = 0;
-			let totalQty = 0;
-
-			$(".cart_total_price").each(function () {
-				let val = parseFloat($(this).text().replace("$", "").trim());
-				subTotal += val;
-			});
-			
-			$(".cart_quantity_input").each(function () {
-				totalQty += parseInt($(this).val());
-			});
-			let ecoTax = tax * totalQty;
-			let grandTotal = subTotal + ecoTax;
-
-			// cap nhat HTML 
-			$(".sub-total-value").text("$" + subTotal);
-			$(".eco-tax-value").text("$" + ecoTax);
-			$(".total-value").text("$" + grandTotal);
-		}
-		function update(name,newQuantity,remove = false) {
-			let objCha = JSON.parse(localStorage.getItem("objCha"));
+$(document).ready(function () {
+	const tax = 2;
+	function updateCartCount() {
+		let objCha = localStorage.getItem("objCha");
+		let totalQty = 0;
+		if (objCha) {
+			objCha = JSON.parse(objCha);
 			for (let key in objCha) {
-				if (objCha[key].name === name) {
-					if (remove) {
-						delete objCha[key];
-					} else {
-						objCha[key].qty = newQuantity;
-					}
+				totalQty += objCha[key].qty;
+			}
+		}
+		$(".cart-count").text("(" + totalQty + ")");
+	}
+
+	function updateTotal() {
+		let subTotal = 0;
+		let totalQty = 0;
+
+		$(".cart_total_price").each(function () {
+			let val = parseFloat($(this).text().replace("$", "").trim());
+			subTotal += val;
+		});
+		
+		$(".cart_quantity_input").each(function () {
+			totalQty += parseInt($(this).val());
+		});
+
+		let ecoTax = tax * totalQty;
+		let grandTotal = subTotal + ecoTax;
+
+		$(".sub-total-value").text("$" + subTotal);
+		$(".eco-tax-value").text("$" + ecoTax);
+		$(".total-value").text("$" + grandTotal);
+
+		updateCartCount();
+	}
+
+	function update(name, newQuantity, remove = false) {
+		let objCha = JSON.parse(localStorage.getItem("objCha"));
+		for (let key in objCha) {
+			if (objCha[key].name === name) {
+				if (remove) {
+					delete objCha[key];
+				} else {
+					objCha[key].qty = newQuantity;
 				}
 			}
-			localStorage.setItem("objCha", JSON.stringify(objCha));
-			console.log("done");
 		}
-		$(".cart_quantity_up").click(function (e) {
-			e.preventDefault();
-			let product = $(this).closest("tr");
+		localStorage.setItem("objCha", JSON.stringify(objCha));
+		console.log("done");
+	}
 
-			let price = parseFloat(product.find(".cart_price p").text().replace("$","").trim());
-			let quantityInput = product.find(".cart_quantity_input");
-			let quantity = parseInt(quantityInput.val());
-			quantity+=1;
-			quantityInput.val(quantity);
+	$(".cart_quantity_up").click(function (e) {
+		e.preventDefault();
+		let product = $(this).closest("tr");
 
-			let total = price *quantity;
-			product.find(".cart_total_price").text("$"+total);
+		let price = parseFloat(product.find(".cart_price p").text().replace("$","").trim());
+		let quantityInput = product.find(".cart_quantity_input");
+		let quantity = parseInt(quantityInput.val());
+		quantity += 1;
+		quantityInput.val(quantity);
 
-			let name = product.find(".cart_description h4 a").text().trim();
-            update(name, quantity);
-			updateTotal();
-		})
-		$(".cart_quantity_down").click(function (e) {
-			e.preventDefault();
-			let product = $(this).closest("tr");
+		let total = price * quantity;
+		product.find(".cart_total_price").text("$" + total);
 
-			let price = parseFloat(product.find(".cart_price p").text().replace("$","").trim());
-			let quantityInput = product.find(".cart_quantity_input");
-			let quantity = parseInt(quantityInput.val());
-			if (quantity <= 1) {
-				alert("Không thể xoá sản phẩm cuối cùng!");
-				return;
-            }
-			quantity -=1;
-			quantityInput.val(quantity);
-
-			let total = price *quantity;
-			product.find(".cart_total_price").text("$"+total);
-
-			let name = product.find(".cart_description h4 a").text().trim();
-            update(name, quantity);
-			updateTotal();
-		})
-		$(".cart_quantity_delete").click(function (e) {
-			e.preventDefault();
-			let product = $(this).closest("tr");
-			product.remove();
-
-			let name = product.find(".cart_description h4 a").text().trim();
-			update(name, 0, true);
-			updateTotal();
-		});
+		let name = product.find(".cart_description h4 a").text().trim();
+		update(name, quantity);
 		updateTotal();
 	});
+
+	$(".cart_quantity_down").click(function (e) {
+		e.preventDefault();
+		let product = $(this).closest("tr");
+
+		let price = parseFloat(product.find(".cart_price p").text().replace("$","").trim());
+		let quantityInput = product.find(".cart_quantity_input");
+		let quantity = parseInt(quantityInput.val());
+		if (quantity <= 1) {
+			alert("Không thể xoá sản phẩm cuối cùng!");
+			return;
+		}
+		quantity -= 1;
+		quantityInput.val(quantity);
+
+		let total = price * quantity;
+		product.find(".cart_total_price").text("$" + total);
+
+		let name = product.find(".cart_description h4 a").text().trim();
+		update(name, quantity);
+		updateTotal();
+	});
+
+	$(".cart_quantity_delete").click(function (e) {
+		e.preventDefault();
+		let product = $(this).closest("tr");
+		let name = product.find(".cart_description h4 a").text().trim();
+
+		product.remove();
+		update(name, 0, true);
+		updateTotal();
+	});
+
+	updateTotal();
+	updateCartCount();
+});
 </script>
+
 
 </html>
