@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Demo from './Demo';
 
 
-let name = " locloc";
+let name = " loclocloc";
 let num = 10;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App xx={name} yy={num}/>
+    {/* <Demo/> */}
   </React.StrictMode>
 );
 
