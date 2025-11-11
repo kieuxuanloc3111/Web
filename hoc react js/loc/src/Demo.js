@@ -1,10 +1,10 @@
 import React from 'react'
-
+import './Demo.css';
 const Demo = (props) => {
-    console.log("đây là bên phần demo : " , props.zz);
   return (
-    <div>Demo:{props.zz}</div>
-  )
-}
-
-export default Demo
+    <div className='aa'>
+      <p>Demo nhận props: {props.zz}</p>
+    </div>
+  );
+};
+export default Demo;

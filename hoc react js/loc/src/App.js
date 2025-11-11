@@ -40,13 +40,15 @@ import Demo from "./Demo";
 
 // export default App;
 
+let text ="Xin chào từ App cha!" ;
 
-export default function Profile(props) {
-  console.log(props);
+function App() {
   return (
-    <>
-      dsdsdsd:{props.yy}
-      <Demo zz={props.xx} />
-    </>
+    <div>
+      <h2>Ví dụ về Props</h2>
+      <Demo zz={text}/>
+    </div>
   );
 }
+
+export default App;
