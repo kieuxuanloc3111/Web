@@ -1,11 +1,9 @@
 // import logo from './logo.svg';
 // import './App.css';
-// function MyButton() {
-//   return (
-//     <button>I'm a button</button>
-//   );
-// }
 
+
+import Header from "./component/Header";
+import Phandau from "./component/Phandau";
 import Demo from "./Demo";
 
 // function App() {
@@ -40,13 +38,15 @@ import Demo from "./Demo";
 
 // export default App;
 
-let text ="Xin chào từ App cha!" ;
+
 
 function App() {
   return (
     <div>
-      <h2>Ví dụ về Props</h2>
-      <Demo zz={text}/>
+
+      {/* <Demo/> */}
+      <Header/>
+      <Phandau/>
     </div>
   );
 }
