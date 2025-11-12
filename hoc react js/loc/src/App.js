@@ -3,6 +3,9 @@
 
 
 import Header from "./component/Header";
+
+import Home from "./Home";
+import Login from "./component/Login";
 import Phandau from "./component/Phandau";
 import Demo from "./Demo";
 
@@ -40,13 +43,10 @@ import Demo from "./Demo";
 
 
 
-function App() {
+function App(props) {
   return (
     <div>
-
-      {/* <Demo/> */}
-      <Header/>
-      <Phandau/>
+      {props.children}
     </div>
   );
 }

@@ -4,7 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Demo from './Demo';
-import Aaaaa from './Aaaaa';
+import {Routes, BrowserRouter,Route, Router} from 'react-router-dom'
+import Home from './Home';
+import Login from './component/Login';
 
 let name = " loclocloc";
 let num = 10;
@@ -12,9 +14,16 @@ let num = 10;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App/>
-    {/* <Aaaaa/> */}
-    {/* <Demo/> */}
+    <BrowserRouter>
+      <App>
+        <Routes>
+
+          <Route index path='/' element={<Home/>} />
+          <Route path='/login' element={<Login/>} />
+   
+        </Routes>
+      </App>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
