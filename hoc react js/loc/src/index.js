@@ -7,6 +7,7 @@ import Demo from './Demo';
 import {Routes, BrowserRouter,Route, Router} from 'react-router-dom'
 import Home from './Home';
 import Login from './component/Login';
+import Account from './component/Account';
 
 let name = " loclocloc";
 let num = 10;
@@ -20,7 +21,7 @@ root.render(
 
           <Route index path='/' element={<Home/>} />
           <Route path='/login' element={<Login/>} />
-   
+          <Route path='/account' element={<Account/>} />
         </Routes>
       </App>
     </BrowserRouter>
