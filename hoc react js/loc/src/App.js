@@ -2,12 +2,13 @@
 // import './App.css';
 
 
-import Header from "./component/Header";
+import Header from "./component/Layout/Header";
 
 import Home from "./Home";
 import Login from "./component/Login";
-import Phandau from "./component/Phandau";
+
 import Demo from "./Demo";
+import Footer from "./component/Layout/Footer";
 
 // function App() {
 //   return (
@@ -26,16 +27,6 @@ import Demo from "./Demo";
 //           Learn React
 //         </a>
 //       </header>
-//     </div>
-//       // <div> 
-//       //   <h1>xu ly form</h1>
-//       //   <h1>xu ly form</h1>
-//       //       <div>
-//       //         <p class="err1">ggggg</p> 
-//       //         <MyButton />
-//       //       </div>
-//       // </div>
-      
 //   );
 // }
 
@@ -46,7 +37,9 @@ import Demo from "./Demo";
 function App(props) {
   return (
     <div>
+      <Header/>
       {props.children}
+      <Footer/>
     </div>
   );
 }
