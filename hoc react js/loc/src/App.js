@@ -67,8 +67,6 @@ function App(props) {
       {/* Gọi component Greeting và truyền prop xx */}
       <Greeting xx={isTrue} />
 
-      {/* Hiển thị nội dung các route con (Home, Login, Vdu1...) */}
-      {props.children}
     </div>
   );
 }
