@@ -49,12 +49,13 @@ import Footer from "./component/Layout/Footer";
 
 import React from 'react';
 import Vdu1 from './Bai11/Vdu1';
+import Vdu2 from './Bai11/Vdu2';
 
-function App() {
+function App(props) {
   return (
-    <div>
-      <Vdu1 />
-    </div>
+    <>
+      <Login/>
+    </>
   );
 }
 

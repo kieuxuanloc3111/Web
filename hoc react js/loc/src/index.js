@@ -11,6 +11,7 @@ import Account from './component/Account';
 import Cart from './component/Cart';
 import Checkout from './component/Checkout';
 import Vdu1 from './Bai11/Vdu1';
+import Vdu2 from './Bai11/Vdu2';
 
 let name = " loclocloc";
 let num = 10;
@@ -22,12 +23,13 @@ root.render(
       <App>
         <Routes>
 {/* 
-          <Route index path='/' element={<Home/>} />
+          // <Route index path='/' element={<Home/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/account' element={<Account/>} />
           <Route path='/cart' element={<Cart/>}/>
           <Route path='/checkout' element={<Checkout/>}/> */}
           <Route path='/bai11/vidu1' element={<Vdu1 />}/>
+          <Route path='/bai11/vidu2' element={<Vdu2 />}/>
         </Routes>
       </App>
     </BrowserRouter>
