@@ -21,13 +21,13 @@ root.render(
     <BrowserRouter>
       <App>
         <Routes>
-
+{/* 
           <Route index path='/' element={<Home/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/account' element={<Account/>} />
           <Route path='/cart' element={<Cart/>}/>
-          <Route path='/checkout' element={<Checkout/>}/>
-          <Route path='/bai11/vidu1' element={<Vdu1 xx={true}/>}/>
+          <Route path='/checkout' element={<Checkout/>}/> */}
+          <Route path='/bai11/vidu1' element={<Vdu1 />}/>
         </Routes>
       </App>
     </BrowserRouter>
