@@ -68,11 +68,21 @@ const Header = () => {
                         </Link>
                       </li>
                       <li><a href><i className="fa fa-star" /> Wishlist</a></li>
-                      <li><a href="checkout.html"><i className="fa fa-crosshairs" /> Checkout</a></li>
                       <li>
-                        <a href="cart.html"><i className="fa fa-shopping-cart" /> Cart 
-                          <span className="cart-count" style={{fontWeight: 'bold', color: '#FE980F'}}>(0)</span>
-                        </a>
+                      <Link to="/checkout">
+                        <i className="fa fa-crosshairs"></i> Checkout
+                      </Link>
+                    </li>
+                      <li>
+                        <Link to="/cart">
+                          <i className="fa fa-shopping-cart"></i> Cart{" "}
+                          <span
+                            className="cart-count"
+                            style={{ fontWeight: "bold", color: "#FE980F" }}
+                          >
+                            (0)
+                          </span>
+                        </Link>
                       </li>
                       <li>
                         <Link to="/login">

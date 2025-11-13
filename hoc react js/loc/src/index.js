@@ -8,6 +8,8 @@ import {Routes, BrowserRouter,Route, Router} from 'react-router-dom'
 import Home from './Home';
 import Login from './component/Login';
 import Account from './component/Account';
+import Cart from './component/Cart';
+import Checkout from './component/Checkout';
 
 let name = " loclocloc";
 let num = 10;
@@ -22,6 +24,8 @@ root.render(
           <Route index path='/' element={<Home/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/account' element={<Account/>} />
+          <Route path='/cart' element={<Cart/>}/>
+          <Route path='/checkout' element={<Checkout/>}/>
         </Routes>
       </App>
     </BrowserRouter>

@@ -36,11 +36,11 @@ import Footer from "./component/Layout/Footer";
 
 function App(props) {
   return (
-    <div>
+    <>
       <Header/>
       {props.children}
       <Footer/>
-    </div>
+    </>
   );
 }
 
