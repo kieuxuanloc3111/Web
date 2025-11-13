@@ -1,5 +1,5 @@
-// import logo from './logo.svg';
-// import './App.css';
+import logo from './logo.svg';
+import './App.css';
 
 
 import Header from "./component/Layout/Header";
@@ -34,14 +34,44 @@ import Footer from "./component/Layout/Footer";
 
 
 
+// function App(props) {
+//   return (
+//     <>
+//       <Header/>
+//       {props.children}
+//       <Footer/>
+//     </>
+//   );
+// }
+
+// export default App;
+
+
+import { useState } from 'react';
+import Greeting from './Bai11/Greeting';
+
 function App(props) {
+  const [isTrue, setIsTrue] = useState(true);
+
+  const toggleGreeting = () => {
+    setIsTrue(!isTrue);
+  };
+
   return (
-    <>
-      <Header/>
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      {/* Nút để đổi giá trị xx */}
+      <button onClick={toggleGreeting}>
+        Đổi trạng thái (hiện đang là {isTrue ? 'True' : 'False'})
+      </button>
+
+      {/* Gọi component Greeting và truyền prop xx */}
+      <Greeting xx={isTrue} />
+
+      {/* Hiển thị nội dung các route con (Home, Login, Vdu1...) */}
       {props.children}
-      <Footer/>
-    </>
+    </div>
   );
 }
 
 export default App;
+// mo bai 13 co bat loi 2 cai Selection, textarea

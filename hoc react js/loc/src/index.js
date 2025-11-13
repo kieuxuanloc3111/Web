@@ -10,6 +10,7 @@ import Login from './component/Login';
 import Account from './component/Account';
 import Cart from './component/Cart';
 import Checkout from './component/Checkout';
+import Vdu1 from './Bai11/Vdu1';
 
 let name = " loclocloc";
 let num = 10;
@@ -26,6 +27,7 @@ root.render(
           <Route path='/account' element={<Account/>} />
           <Route path='/cart' element={<Cart/>}/>
           <Route path='/checkout' element={<Checkout/>}/>
+          <Route path='/bai11_1' element={<Vdu1/>}/>
         </Routes>
       </App>
     </BrowserRouter>
