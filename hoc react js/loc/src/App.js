@@ -47,29 +47,17 @@ import Footer from "./component/Layout/Footer";
 // export default App;
 
 
-import { useState } from 'react';
-import Greeting from './Bai11/Greeting';
+import React from 'react';
+import Vdu1 from './Bai11/Vdu1';
 
-function App(props) {
-  const [isTrue, setIsTrue] = useState(true);
-
-  const toggleGreeting = () => {
-    setIsTrue(!isTrue);
-  };
-
+function App() {
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      {/* Nút để đổi giá trị xx */}
-      <button onClick={toggleGreeting}>
-        Đổi trạng thái (hiện đang là {isTrue ? 'True' : 'False'})
-      </button>
-
-      {/* Gọi component Greeting và truyền prop xx */}
-      <Greeting xx={isTrue} />
-
+    <div>
+      <Vdu1 />
     </div>
   );
 }
 
 export default App;
+
 // mo bai 13 co bat loi 2 cai Selection, textarea
