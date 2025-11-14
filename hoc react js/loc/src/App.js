@@ -54,6 +54,9 @@ import NumberList from './Bai12/ListComponent';
 import TodoList from './Bai12/Key';
 import { renderDataArr, renderDataObj } from "./Bai12/ArrayandObject";
 import A from './Bai12/A';
+import Test from './Bai13/Form';
+import TestTextarea from './Bai13/Textarea';
+import Select from './Bai13/Select';
 
 
 function App() {
@@ -67,7 +70,7 @@ function App() {
 
   return (
     <div>
-      <A/>
+      <Select/>
     </div>
   );
 }
