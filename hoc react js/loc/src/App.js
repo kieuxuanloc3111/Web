@@ -53,6 +53,7 @@ import Vdu2 from './Bai11/Vdu2';
 import NumberList from './Bai12/ListComponent';
 import TodoList from './Bai12/Key';
 import { renderDataArr, renderDataObj } from "./Bai12/ArrayandObject";
+import A from './Bai12/A';
 
 
 function App() {
@@ -66,11 +67,7 @@ function App() {
 
   return (
     <div>
-      <h2>Map theo Array:</h2>
-      <ul>{renderDataArr(arr)}</ul>
-
-      <h2>Map theo Object:</h2>
-      <ul>{renderDataObj(obj)}</ul>
+      <A/>
     </div>
   );
 }
