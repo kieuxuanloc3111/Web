@@ -50,15 +50,30 @@ import Footer from "./component/Layout/Footer";
 import React from 'react';
 import Vdu1 from './Bai11/Vdu1';
 import Vdu2 from './Bai11/Vdu2';
+import NumberList from './Bai12/ListComponent';
+import TodoList from './Bai12/Key';
+import { renderDataArr, renderDataObj } from "./Bai12/ArrayandObject";
 
-function App(props) {
+
+function App() {
+  const arr = ["Táo", "Cam", "Nho"];
+
+  const obj = {
+    a: "Laptop",
+    b: "Keyboard",
+    c: "Mouse"
+  };
+
   return (
-    <>
-      <Login/>
-    </>
+    <div>
+      <h2>Map theo Array:</h2>
+      <ul>{renderDataArr(arr)}</ul>
+
+      <h2>Map theo Object:</h2>
+      <ul>{renderDataObj(obj)}</ul>
+    </div>
   );
 }
 
 export default App;
 
-// mo bai 13 co bat loi 2 cai Selection, textarea

@@ -14,7 +14,7 @@ import Vdu1 from './Bai11/Vdu1';
 import Vdu2 from './Bai11/Vdu2';
 
 let name = " loclocloc";
-let num = 10;
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
