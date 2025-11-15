@@ -70,7 +70,7 @@ function App() {
 
   return (
     <div>
-      <Select/>
+      <A/>
     </div>
   );
 }

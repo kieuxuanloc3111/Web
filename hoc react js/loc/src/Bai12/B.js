@@ -1,30 +1,29 @@
 import React from 'react'
 
-function B ({data}) {
-  function renderUsers() {
-    return data.map((user)=>(
-      <li key={user.id}>
-        <p>ID: {user.id}</p>
-        <p>Name: {user.name}</p>
-        <p>Username: {user.username}</p>
-        <p>Email: {user.email}</p>
-        <p>Address:</p>
-        <ul>
-          <li>Street: {user.address.street}</li>
-          <li>Suite: {user.address.suite}</li>
-        </ul>
-        <p>Phone: {user.phone}</p>
-        <p>Website: {user.website}</p>
-        <p>Company:</p>
-        <ul>
-          <li>Name: {user.company.name}</li>
-          <li>CatchPhrase: {user.company.catchPhrase}</li>
-        </ul>
-      </li>
-    ));
+function B({ data }) {
 
-  }
-  return <ul>{renderUsers()}</ul>;
+
+
+  
+  return (
+    <div>
+      <p>ID: {data.id}</p>
+      <p>Name: {data.name}</p>
+      <p>Username: {data.username}</p>
+      <p>Email: {data.email}</p>
+
+      <p>Address:</p>
+      <p> + Street: {data.address.street}</p>
+      <p> + Suite: {data.address.suite}</p>
+
+      <p>Phone: {data.phone}</p>
+      <p>Website: {data.website}</p>
+
+      <p>Company:</p>
+      <p> +Name: {data.company.name}</p>
+      <p> + CatchPhrase: {data.company.catchPhrase}</p>
+    </div>
+  );
 }
 
-export default B
+export default B;
