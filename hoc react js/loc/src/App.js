@@ -57,6 +57,7 @@ import A from './Bai12/A';
 import Test from './Bai13/Form';
 import TestTextarea from './Bai13/Textarea';
 import Select from './Bai13/Select';
+import FormLogin from './Bai13/Form1';
 
 
 function App() {
@@ -70,7 +71,7 @@ function App() {
 
   return (
     <div>
-      <A/>
+      <FormLogin/>
     </div>
   );
 }
