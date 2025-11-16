@@ -1,78 +1,75 @@
 import React, { useState } from "react";
+import Error from "./Error";
 
-function Login(props) {
-  const [inputs, setInputs] = useState({
+function LoginForm() {
+  const [form, setForm] = useState({
     email: "",
-    pass: ""
+    password: ""
   });
 
+  // lưu lỗi dạng object
   const [errors, setErrors] = useState({});
 
-  const handleInput = (e) => {
-    const nameInput = e.target.name;
-    const valueInput = e.target.value;
-    setInputs((state) => ({ ...state, [nameInput]: valueInput }));
-  };
+  function handleChange(e) {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    let errorsSubmit = {};
-    let flag = true;
+    let newErrors = {};
 
-    if (inputs.email === "") {
-      errorsSubmit.email = "Vui long nhap email";
-      flag = false;
+    if (form.email === "") {
+      newErrors.email = "Email không được để trống";
     }
 
-    if (inputs.pass === "") {
-      errorsSubmit.pass = "Vui long nhap pass";
-      flag = false;
+    if (form.password === "") {
+      newErrors.password = "Password không được để trống";
     }
 
-    setErrors(errorsSubmit);   
+    setErrors(newErrors);
 
-
-    if (!flag) {
-        setErrors(errorsSubmit);
-    }
-  }
-
-  function renderError() {
-    if (Object.keys(errors).length > 0) {
-      return Object.keys(errors).map((key, index) => {
-        return <li key={index}>{errors[key]}</li>;
-      });
+    // Nếu hết lỗi
+    if (Object.keys(newErrors).length === 0) {
+      alert("Submit thành công!");
     }
   }
 
   return (
     <div>
-      {renderError()};
+      <h2>Login Form</h2>
+
+      {/* đưa errors xuống Error component */}
+      <Error errors={errors} />
 
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Email"
-          name="email"
-          value={inputs.email}
-          onChange={handleInput}
-        />
+        <div>
+          <label>Email:</label>
+          <input
+            type="text"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+          />
+        </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          name="pass"               
-          value={inputs.pass}
-          onChange={handleInput}
-        />
-     
-        <button type="submit" className="btn btn-default">
-          Login
-        </button>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button type="submit">Đăng nhập</button>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default LoginForm;

@@ -58,6 +58,9 @@ import Test from './Bai13/Form';
 import TestTextarea from './Bai13/Textarea';
 import Select from './Bai13/Select';
 import FormLogin from './Bai13/Form1';
+// import Login2 from './Bai16/Form2';
+import LoginForm from './Bai16/Form2';
+import Form3 from './Bai16/Form3';
 
 
 function App() {
@@ -71,7 +74,8 @@ function App() {
 
   return (
     <div>
-      <FormLogin/>
+      <Form3/>
+
     </div>
   );
 }
