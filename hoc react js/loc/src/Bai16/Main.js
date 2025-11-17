@@ -1,52 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function AuthPage() {
-  const [mode, setMode] = useState("login"); // "login" or "register"
+function HomeNavNavigate() {
+  const nav = useNavigate();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
-        {/* Toggle buttons */}
-        <div className="flex mb-6 border-b">
-          <button
-            className={`flex-1 p-3 text-center ${mode === "login" ? "border-b-4 border-blue-500 font-semibold" : "text-gray-500"}`}
-            onClick={() => setMode("login")}
-          >
-            Login
-          </button>
-          <button
-            className={`flex-1 p-3 text-center ${mode === "register" ? "border-b-4 border-blue-500 font-semibold" : "text-gray-500"}`}
-            onClick={() => setMode("register")}
-          >
-            Register
-          </button>
-        </div>
+    <div style={{height:"100vh", display:"flex", justifyContent:"center", alignItems:"center", background:"#f8fafc"}}>
+      <div style={{width:340, padding:24, background:"#fff", borderRadius:8, textAlign:"center"}}>
+        <h2 style={{marginBottom:16}}>Chọn đăng nhập hoặc đăng ký</h2>
 
-        {/* Render the matching form */}
-        {mode === "login" ? <LoginForm /> : <RegisterForm />}
+        <button style={btn} onClick={() => nav("/login")}>Go to Login</button>
+        <button style={{...btn, marginTop:12}} onClick={() => nav("/register")}>Go to Register</button>
       </div>
     </div>
   );
 }
 
-function LoginForm() {
-  return (
-    <div>
-      <h2 className="text-xl font-bold mb-4">Login</h2>
-      <input className="w-full border p-2 rounded mb-3" placeholder="Email" />
-      <input className="w-full border p-2 rounded mb-3" placeholder="Password" type="password" />
-      <button className="w-full bg-blue-600 text-white p-2 rounded-xl">Submit</button>
-    </div>
-  );
-}
-
-function RegisterForm() {
-  return (
-    <div>
-      <h2 className="text-xl font-bold mb-4">Register</h2>
-      <input className="w-full border p-2 rounded mb-3" placeholder="Email" />
-      <input className="w-full border p-2 rounded mb-3" placeholder="Password" type="password" />
-      <button className="w-full bg-blue-600 text-white p-2 rounded-xl">Submit</button>
-    </div>
-  );
-}
+const btn = {
+  width: "100%", padding: "10px 14px", borderRadius: 6, border: "none",
+  background: "#059669", color: "white", cursor: "pointer", fontSize: 16
+};
+export default HomeNavNavigate;

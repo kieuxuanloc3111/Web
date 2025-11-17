@@ -20,18 +20,18 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App>
+      {/* <App>
         <Routes>
-{/* 
-          // <Route index path='/' element={<Home/>} />
+
+          <Route index path='/' element={<Home/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/account' element={<Account/>} />
           <Route path='/cart' element={<Cart/>}/>
-          <Route path='/checkout' element={<Checkout/>}/> */}
-          <Route path='/bai11/vidu1' element={<Vdu1 />}/>
-          <Route path='/bai11/vidu2' element={<Vdu2 />}/>
+          <Route path='/checkout' element={<Checkout/>}/>
+
         </Routes>
-      </App>
+      </App> */}
+      <App/>
     </BrowserRouter>
   </React.StrictMode>
 );
