@@ -1,26 +1,20 @@
 import React, { useState } from "react";
-import Error from "./Error"; // dùng component lỗi của bạn
+import Error from "./Error"; 
 
 function Form3() {
-  // Dữ liệu cho select Sex
   const arrSex = [
     { id: "", name: "Vui lòng chọn" },
     { id: "1", name: "Male" },
     { id: "2", name: "Female" }
   ];
 
-  // State cho các field
-  const [inputs, setInputs] = useState({
-    email: "",
-    pass: "",
-    sex: ""
+  const [inputs, setInputs] = useState({email: "",pass: "",sex: ""
   });
 
-  const [avatar, setAvatar] = useState(null); // file
-  const [errors, setErrors] = useState({});   // object lỗi
+  const [avatar, setAvatar] = useState(null); 
+  const [errors, setErrors] = useState({});   
 
 
-  // handle input text/select
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -30,73 +24,62 @@ function Form3() {
       [name]: value
     }));
 
-    // Xóa lỗi khi user nhập lại
     setErrors((prev) => ({
       ...prev,
       [name]: ""
     }));
   };
 
-  // handle file
   const handleFile = (e) => {
-    console.log(e.target.files); // xem cấu trúc file
+    console.log(e.target.files); 
     let file = e.target.files[0];
 
     setAvatar(file);
 
-    // Xóa lỗi avatar khi chọn lại
     setErrors((prev) => ({
       ...prev,
       avatar: ""
     }));
   };
 
-  // Validate email bằng regex đơn giản
   const isEmail = (email) => {
     let pattern = /^\S+@\S+\.\S+$/;
     return pattern.test(email);
   };
 
-  // Submit form
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let newErrors = {};
     let flag = true;
 
-    // Validate email
     if (inputs.email.trim() === "") {
-      newErrors.email = "Vui lòng nhập email";
+      newErrors.email = "chưa nhập email";
       flag = false;
     } else if (!isEmail(inputs.email)) {
       newErrors.email = "Email không đúng định dạng";
       flag = false;
     }
 
-    // Validate pass
     if (inputs.pass.trim() === "") {
-      newErrors.pass = "Vui lòng nhập pass";
+      newErrors.pass = "chưa nhập pass";
       flag = false;
     }
 
-    // Validate sex
     if (inputs.sex === "") {
-      newErrors.sex = "Vui lòng chọn giới tính";
+      newErrors.sex = "chưa chọn giới tính";
       flag = false;
     }
 
-    // Validate avatar
     if (!avatar) {
-      newErrors.avatar = "Vui lòng chọn ảnh đại diện";
+      newErrors.avatar = "chưa chọn ảnh đại diện";
       flag = false;
     } else {
-      // Check type
       if (!avatar.type.startsWith("image/")) {
-        newErrors.avatar = "File phải là hình ảnh";
+        newErrors.avatar = "File không phải hình ảnh";
         flag = false;
       }
 
-      // Check size <= 1MB
       if (avatar.size > 1024 * 1024) {
         newErrors.avatar = "Dung lượng ảnh phải <= 1MB";
         flag = false;
@@ -105,11 +88,8 @@ function Form3() {
 
     setErrors(newErrors);
 
-    // Nếu hợp lệ hết
     if (flag) {
       alert("Đăng ký thành công!");
-
-      // Lưu vào localStorage
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -118,7 +98,6 @@ function Form3() {
         })
       );
 
-      // Xóa form
       setInputs({ email: "", pass: "", sex: "" });
       setAvatar(null);
     }
@@ -131,11 +110,7 @@ function Form3() {
         style={styles.form}
         encType="multipart/form-data"
       >
-
-        {/* HIỂN THỊ TẤT CẢ LỖI */}
         <Error errors={errors} />
-
-        {/* EMAIL */}
         <input
           type="text"
           placeholder="Email"
@@ -144,8 +119,6 @@ function Form3() {
           onChange={handleInput}
           style={styles.input}
         />
-
-        {/* PASS */}
         <input
           type="password"
           placeholder="Password"
@@ -155,7 +128,6 @@ function Form3() {
           style={styles.input}
         />
 
-        {/* SEX */}
         <select
           name="sex"
           value={inputs.sex}
@@ -169,7 +141,6 @@ function Form3() {
           ))}
         </select>
 
-        {/* AVATAR */}
         <input
           type="file"
           onChange={handleFile}
@@ -186,7 +157,6 @@ function Form3() {
 
 export default Form3;
 
-// CSS object
 const styles = {
   container: {
     height: "100vh",

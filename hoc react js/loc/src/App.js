@@ -61,7 +61,8 @@ import FormLogin from './Bai13/Form1';
 // import Login2 from './Bai16/Form2';
 import LoginForm from './Bai16/Form2';
 import Form3 from './Bai16/Form3';
-
+import Form4 from './Bai16/Form4';
+import AuthPage from './Bai16/Main';
 
 function App() {
   const arr = ["Táo", "Cam", "Nho"];
@@ -74,8 +75,7 @@ function App() {
 
   return (
     <div>
-      <Form3/>
-
+      <AuthPage/>
     </div>
   );
 }
