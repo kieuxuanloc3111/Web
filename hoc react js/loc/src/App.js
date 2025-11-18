@@ -66,6 +66,8 @@ import AuthPage from './Bai16/Main';
 import HomeNavNavigate from './Bai16/Main';
 import Example from './Bai18/Example';
 import Example2 from './Bai18/Example2';
+import A18 from './Bai18/A18';
+import A18random from './Bai18/A18random';
 
 function App(props) {
   const arr = ["Táo", "Cam", "Nho"];
@@ -77,7 +79,7 @@ function App(props) {
   };
 
   return (
-    <Example2/>
+    <A18random/>
   );
 }
 

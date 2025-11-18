@@ -12,7 +12,7 @@ function Example2() {
     e.preventDefault();
 
     const data = {
-      name: input
+      id: input
     };
 
     axios
@@ -27,7 +27,7 @@ function Example2() {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="username"
+          name="id"
           value={input}
           onChange={handleChange}
         />
