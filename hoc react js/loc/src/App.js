@@ -79,7 +79,7 @@ function App(props) {
   };
 
   return (
-    <A18random/>
+    <A18/>
   );
 }
 

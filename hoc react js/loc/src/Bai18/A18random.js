@@ -3,14 +3,14 @@ import axios from "axios";
 import B18random from "./B18random";
 
 function A18random() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     axios
-      .get("https://jsonplaceholder.typicode.com/users")
+      .get("https://jsonplaceholder.typicode.com/users?_limit=10")
       .then((res) => {
-        const randomIndex = Math.floor(Math.random() * res.data.length);
-        const oneUser = res.data[randomIndex];
+
+        const oneUser = res.data[5];
 
         setUser(oneUser);
       })
@@ -20,7 +20,7 @@ function A18random() {
   return (
     <div>
       <h2></h2>
-      {user && <B18random user={user} />}
+      {<B18random user={user} />}
     </div>
   );
 }
