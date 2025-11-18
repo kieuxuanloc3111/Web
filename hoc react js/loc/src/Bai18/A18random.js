@@ -9,8 +9,9 @@ function A18random() {
     axios
       .get("https://jsonplaceholder.typicode.com/users")
       .then((res) => {
-        // Lấy 1 object bất kỳ — ví dụ user thứ 3
-        const oneUser = res.data[2];
+        const randomIndex = Math.floor(Math.random() * res.data.length);
+        const oneUser = res.data[randomIndex];
+
         setUser(oneUser);
       })
       .catch((err) => console.log(err));
@@ -18,9 +19,7 @@ function A18random() {
 
   return (
     <div>
-      <h2>Chi tiết User</h2>
-
-      {/* Chỉ render B nếu user đã có */}
+      <h2></h2>
       {user && <B18random user={user} />}
     </div>
   );
