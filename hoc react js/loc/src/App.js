@@ -64,6 +64,8 @@ import Form3 from './Bai16/Form3';
 import Form4 from './Bai16/Form4';
 import AuthPage from './Bai16/Main';
 import HomeNavNavigate from './Bai16/Main';
+import Example from './Bai18/Example';
+import Example2 from './Bai18/Example2';
 
 function App(props) {
   const arr = ["Táo", "Cam", "Nho"];
@@ -75,12 +77,7 @@ function App(props) {
   };
 
   return (
-      <Routes>
-        <Route path="/" element={<HomeNavNavigate />} />
-        <Route path="/login" element={<Form4 />} />
-        <Route path="/register" element={<Form3 />} />
-        {/* thêm route khác nếu cần */}
-      </Routes>
+    <Example2/>
   );
 }
 
