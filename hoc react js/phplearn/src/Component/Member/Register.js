@@ -1,189 +1,116 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
-function Register() {
+const Register = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
     phone: "",
     address: "",
-    avatar: "",   
-    level: 0
+    avatar: "",
+    level: 0, 
   });
 
   const [file, setFile] = useState(null); 
   const [errors, setErrors] = useState({});
-  const [successMsg, setSuccessMsg] = useState("");
 
-  const handleChange = (e) => {
-    setForm({ 
-      ...form, 
-      [e.target.name]: e.target.value 
-    });
+  const handleInput = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleAvatar = (e) => {
-    const f = e.target.files[0];
+    let fileData = e.target.files[0];
+    let reader = new FileReader();
 
-    if (!f) return;
-
-    if (!f.type.startsWith("image/")) {
-      setErrors({ ...errors, avatar: "File phải là hình ảnh" });
-      return;
-    }
-
-    if (f.size > 1024 * 1024) {
-      setErrors({ ...errors, avatar: "Dung lượng phải nhỏ hơn 1MB" });
-      return;
-    }
-
-    setErrors({ ...errors, avatar: "" });
-    setFile(f);
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setForm({ 
-        ...form, 
-        avatar: e.target.result
-      });
+    reader.onload = (event) => {
+      setForm({ ...form, avatar: event.target.result }); 
+      setFile(fileData); 
     };
 
-    reader.readAsDataURL(f);
-  };
-
-  const validate = () => {
-    let temp = {};
-
-    if (!form.name.trim()) temp.name = "Tên bắt buộc";
-    if (!form.email.trim()) temp.email = "Email bắt buộc";
-    if (!form.password.trim()) temp.password = "Password bắt buộc";
-    if (!form.phone.trim()) temp.phone = "Phone bắt buộc";
-    if (!form.address.trim()) temp.address = "Địa chỉ bắt buộc";
-
-    if (!file) temp.avatar = "Vui lòng chọn hình ảnh";
-
-    setErrors(temp);
-
-    return Object.keys(temp).length === 0;
+    reader.readAsDataURL(fileData);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validate()) return;
+    let newErrors = {};
 
-    // ⭐⭐ LOG THÔNG TIN TRƯỚC KHI GỬI API ⭐⭐
-    console.log("===== FORM GỬI API =====");
-    console.log(form);
+    if (!form.name) newErrors.name = "Chưa nhập name";
+    if (!form.email) newErrors.email = "Chưa nhập Email";
+    if (!form.password) newErrors.password = "Chưa nhập pass";
+    if (!form.phone) newErrors.phone = "Chưa nhập phone";
+    if (!form.address) newErrors.address = "Chưa nhập address";
 
-    console.log("===== FILE THẬT (DÙNG ĐỂ CHECK) =====");
-    console.log(file);
+    if (!file) {
+      newErrors.avatar = "Chưa chọn avatar";
+    } else {
+      if (!file.type.includes("image")) newErrors.avatar = "File phải là hình ảnh";
+      if (file.size > 1024 * 1024) newErrors.avatar = "Ảnh phải dưới 1MB";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
+
+
+    const formData = new FormData();
+    formData.append("name", form.name);
+    formData.append("email", form.email);
+    formData.append("password", form.password);
+    formData.append("phone", form.phone);
+    formData.append("address", form.address);
+    formData.append("level", form.level);
+    formData.append("avatar", file);
 
     try {
       const res = await axios.post(
         "http://localhost/laravel8/laravel8/public/api/register",
-        form
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
       );
 
-      setSuccessMsg("Đăng ký thành công!");
+      console.log("API trả về:", res.data);
 
-      setForm({
-        name: "",
-        email: "",
-        password: "",
-        phone: "",
-        address: "",
-        avatar: "",
-        level: 0
-      });
-
-      setFile(null);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error("Lỗi API:", error);
+      alert("Đăng ký thất bại");
     }
   };
 
+
   return (
-    <div style={{ width: "400px", margin: "30px auto" }}>
+    <div style={{ width: "400px", margin: "auto" }}>
       <h2>Register</h2>
 
-      {successMsg && (
-        <p style={{ color: "green", marginBottom: "10px" }}>{successMsg}</p>
-      )}
-
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
-          <input 
-            type="text" 
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-          />
-          <p style={{ color: "red" }}>{errors.name}</p>
-        </div>
+        <input name="name" onChange={handleInput} placeholder="Name" />
+        <p style={{ color: "red" }}>{errors.name}</p>
 
-        <div>
-          <label>Email:</label>
-          <input 
-            type="email" 
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-          />
-          <p style={{ color: "red" }}>{errors.email}</p>
-        </div>
+        <input name="email" onChange={handleInput} placeholder="Email" />
+        <p style={{ color: "red" }}>{errors.email}</p>
 
-        <div>
-          <label>Password:</label>
-          <input 
-            type="password" 
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-          />
-          <p style={{ color: "red" }}>{errors.password}</p>
-        </div>
+        <input name="password" onChange={handleInput} placeholder="Password" />
+        <p style={{ color: "red" }}>{errors.password}</p>
 
-        <div>
-          <label>Phone:</label>
-          <input 
-            type="text" 
-            name="phone"
-            value={form.phone}
-            onChange={handleChange}
-          />
-          <p style={{ color: "red" }}>{errors.phone}</p>
-        </div>
+        <input name="phone" onChange={handleInput} placeholder="Phone" />
+        <p style={{ color: "red" }}>{errors.phone}</p>
 
-        <div>
-          <label>Address:</label>
-          <input 
-            type="text" 
-            name="address"
-            value={form.address}
-            onChange={handleChange}
-          />
-          <p style={{ color: "red" }}>{errors.address}</p>
-        </div>
+        <input name="address" onChange={handleInput} placeholder="Address" />
+        <p style={{ color: "red" }}>{errors.address}</p>
 
-        <div>
-          <label>Avatar:</label>
-          <input 
-            type="file"
-            accept="image/*"
-            onChange={handleAvatar}
-          />
-          <p style={{ color: "red" }}>{errors.avatar}</p>
-        </div>
+        <input type="file" onChange={handleAvatar} />
+        <p style={{ color: "red" }}>{errors.avatar}</p>
 
-        <button type="submit" style={{ marginTop: "10px" }}>
-          Register
-        </button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
-}
+};
 
 export default Register;
