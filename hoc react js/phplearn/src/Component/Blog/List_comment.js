@@ -26,9 +26,15 @@ const ListComment = ({ newComments = [] }) => {
               </ul>
 
               <p>{cmt.comment}</p>
+
+              {/* Nút reply giống comment tĩnh */}
+              <a className="btn btn-primary" href="">
+                <i className="fa fa-reply" /> Replay
+              </a>
             </div>
           </li>
         ))}
+
 
         {/* ========== 3 COMMENT TĨNH GỐC (GIỮ NGUYÊN) ========== */}
         
