@@ -20,6 +20,7 @@ root.render(
           <Route index path='/' element={<Home/>} />
           <Route index path='/blog' element={<Blog/>} />
           <Route path="/blog_detail/:id" element={<Blog_detail />} />
+          
           <Route path="/loginandregister" element={<Index/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />

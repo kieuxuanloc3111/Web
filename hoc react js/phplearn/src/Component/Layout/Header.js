@@ -6,15 +6,31 @@ const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLogin(!!token);
+    const checkLogin = () => {
+      const token = localStorage.getItem("token");
+      setIsLogin(!!token);
+    };
+
+    // chạy lúc load
+    checkLogin();
+
+    // chạy khi login hoặc logout
+    window.addEventListener("login", checkLogin);
+    window.addEventListener("logout", checkLogin);
+
+    return () => {
+      window.removeEventListener("login", checkLogin);
+      window.removeEventListener("logout", checkLogin);
+    };
   }, []);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    setIsLogin(false);
-    navigate("/login");
-  };
+
+    const handleLogout = () => {
+      localStorage.clear();
+      window.dispatchEvent(new Event("logout")); // ⚡ cập nhật header
+      navigate("/login");
+    };
+
 
   return (
     <>

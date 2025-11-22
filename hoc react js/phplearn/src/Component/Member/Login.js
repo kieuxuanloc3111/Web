@@ -4,7 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: "", password: "", level: 0 });
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    level: 0,
+  });
+
   const [errors, setErrors] = useState({});
 
   const handleInput = (e) => {
@@ -34,8 +40,13 @@ const Login = () => {
       console.log("API login trả về:", res.data);
 
       if (res.data.token) {
+        // Lưu token và thông tin user vào localStorage
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("auth", JSON.stringify(res.data.auth));
+        localStorage.setItem("auth", JSON.stringify(res.data.Auth));
+
+        // Gửi event để Header biết là login rồi
+        window.dispatchEvent(new Event("login"));
+
         alert("Đăng nhập thành công!");
         navigate("/");
       } else {
@@ -48,44 +59,27 @@ const Login = () => {
   };
 
   return (
-    <section id="form">
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-sm-4">
-            <div className="login-form">
-              <h2>Login to your account</h2>
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  value={form.email}
-                  onChange={handleInput}
-                />
-                <p style={{ color: "red" }}>{errors.email}</p>
+    <div style={{ width: "400px", margin: "auto" }}>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          name="email"
+          placeholder="Email"
+          onChange={handleInput}
+        />
+        <p style={{ color: "red" }}>{errors.email}</p>
 
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={form.password}
-                  onChange={handleInput}
-                />
-                <p style={{ color: "red" }}>{errors.password}</p>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          onChange={handleInput}
+        />
+        <p style={{ color: "red" }}>{errors.password}</p>
 
-                <span>
-                  <input type="checkbox" className="checkbox" /> Keep me signed in
-                </span>
-
-                <button type="submit" className="btn btn-default">
-                  Login
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 };
 
