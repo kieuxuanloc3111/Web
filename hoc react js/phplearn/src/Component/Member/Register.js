@@ -14,6 +14,7 @@ const Register = () => {
 
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
+  const [apiError, setApiError] = useState(""); 
 
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -33,6 +34,8 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setApiError(""); 
 
     let newErrors = {};
     if (!form.name) newErrors.name = "Chưa nhập name";
@@ -72,11 +75,25 @@ const Register = () => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
+
       console.log("API trả về:", res.data);
+      console.log("thong tin ảnh :",file);
+
+
+      if (res.data.errors) {
+        if (res.data.errors.email) {
+          setApiError(res.data.errors.email[0]); // ví dụ: "email da ton tai"
+          return; 
+        }
+      }
+
+      alert("Đăng ký thành công!");
+
     } catch (error) {
-      console.error("Lỗi API:", error);
-      alert("Đăng ký thất bại");
+      console.error("Lỗi thực sự:", error);
+      setApiError("Không thể kết nối server");
     }
+
   };
 
   return (
@@ -86,12 +103,16 @@ const Register = () => {
 
           <div className="col-sm-8 col-sm-offset-2">
             <div className="signup-form">
-        
+
               <h2>New User Signup!</h2>
+
+              {/* ❗ Hiện lỗi từ backend */}
+              {apiError && (
+                <p style={{ color: "red", fontWeight: "bold" }}>{apiError}</p>
+              )}
 
               <form onSubmit={handleSubmit}>
 
-        
                 <input
                   type="text"
                   name="name"
@@ -101,7 +122,6 @@ const Register = () => {
                 />
                 <p style={{ color: "red" }}>{errors.name}</p>
 
-     
                 <input
                   type="email"
                   name="email"
@@ -110,7 +130,6 @@ const Register = () => {
                   onChange={handleInput}
                 />
                 <p style={{ color: "red" }}>{errors.email}</p>
-
 
                 <input
                   type="password"
@@ -121,7 +140,6 @@ const Register = () => {
                 />
                 <p style={{ color: "red" }}>{errors.password}</p>
 
-          
                 <input
                   type="text"
                   name="phone"
@@ -140,7 +158,6 @@ const Register = () => {
                 />
                 <p style={{ color: "red" }}>{errors.address}</p>
 
-
                 <label style={{ marginTop: "10px" }}>Avatar:</label>
                 <input
                   type="file"
@@ -149,11 +166,12 @@ const Register = () => {
                 />
                 <p style={{ color: "red" }}>{errors.avatar}</p>
 
- 
                 <button type="submit" className="btn btn-default">
                   Signup
                 </button>
+
               </form>
+
             </div>
           </div>
 
