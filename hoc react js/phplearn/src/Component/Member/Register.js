@@ -8,13 +8,13 @@ const Register = () => {
     password: "",
     phone: "",
     address: "",
-    avatar: "",
+    avatar: "",  // base64 string
     level: 0,
   });
 
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
-  const [apiError, setApiError] = useState(""); 
+  const [apiError, setApiError] = useState("");
 
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -25,7 +25,7 @@ const Register = () => {
     let reader = new FileReader();
 
     reader.onload = (event) => {
-      setForm({ ...form, avatar: event.target.result });
+      setForm({ ...form, avatar: event.target.result }); 
       setFile(fileData);
     };
 
@@ -35,7 +35,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setApiError(""); 
+    setApiError("");
 
     let newErrors = {};
     if (!form.name) newErrors.name = "Chưa nhập name";
@@ -58,32 +58,32 @@ const Register = () => {
 
     setErrors({});
 
-    const formData = new FormData();
-    formData.append("name", form.name);
-    formData.append("email", form.email);
-    formData.append("password", form.password);
-    formData.append("phone", form.phone);
-    formData.append("address", form.address);
-    formData.append("level", form.level);
-    formData.append("avatar", file);
+    // JSON payload with base64
+    const payload = {
+      name: form.name,
+      email: form.email,
+      password: form.password,
+      phone: form.phone,
+      address: form.address,
+      level: form.level,
+      avatar: form.avatar, // base64 string
+    };
 
     try {
       const res = await axios.post(
         "http://localhost/laravel8/laravel8/public/api/register",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
+        payload,
+        { headers: { "Content-Type": "application/json" } }
       );
 
       console.log("API trả về:", res.data);
-      console.log("thong tin ảnh :",file);
+      console.log("thông tin ảnh : ",file);
 
-
+      // Kiểm tra lỗi BE trả về trong JSON
       if (res.data.errors) {
         if (res.data.errors.email) {
-          setApiError(res.data.errors.email[0]); // ví dụ: "email da ton tai"
-          return; 
+          setApiError(res.data.errors.email[0]); 
+          return;
         }
       }
 
@@ -93,7 +93,6 @@ const Register = () => {
       console.error("Lỗi thực sự:", error);
       setApiError("Không thể kết nối server");
     }
-
   };
 
   return (
@@ -106,7 +105,6 @@ const Register = () => {
 
               <h2>New User Signup!</h2>
 
-              {/* ❗ Hiện lỗi từ backend */}
               {apiError && (
                 <p style={{ color: "red", fontWeight: "bold" }}>{apiError}</p>
               )}
