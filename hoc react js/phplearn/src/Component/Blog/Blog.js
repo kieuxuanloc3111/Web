@@ -12,7 +12,7 @@ const Blog = () => {
         );
         setBlogs(res.data.blog.data); 
       } catch (error) {
-        console.log("errỏ:", error);
+        console.log("error:", error);
       }
     };
 

@@ -9,10 +9,10 @@ const Register = () => {
     phone: "",
     address: "",
     avatar: "",
-    level: 0, 
+    level: 0,
   });
 
-  const [file, setFile] = useState(null); 
+  const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
 
   const handleInput = (e) => {
@@ -24,8 +24,8 @@ const Register = () => {
     let reader = new FileReader();
 
     reader.onload = (event) => {
-      setForm({ ...form, avatar: event.target.result }); 
-      setFile(fileData); 
+      setForm({ ...form, avatar: event.target.result });
+      setFile(fileData);
     };
 
     reader.readAsDataURL(fileData);
@@ -35,7 +35,6 @@ const Register = () => {
     e.preventDefault();
 
     let newErrors = {};
-
     if (!form.name) newErrors.name = "Chưa nhập name";
     if (!form.email) newErrors.email = "Chưa nhập Email";
     if (!form.password) newErrors.password = "Chưa nhập pass";
@@ -56,7 +55,6 @@ const Register = () => {
 
     setErrors({});
 
-
     const formData = new FormData();
     formData.append("name", form.name);
     formData.append("email", form.email);
@@ -74,42 +72,94 @@ const Register = () => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-
       console.log("API trả về:", res.data);
-
     } catch (error) {
       console.error("Lỗi API:", error);
       alert("Đăng ký thất bại");
     }
   };
 
-
   return (
-    <div style={{ width: "400px", margin: "auto" }}>
-      <h2>Register</h2>
+    <section id="form" style={{ marginTop: "50px" }}>
+      <div className="container">
+        <div className="row">
 
-      <form onSubmit={handleSubmit}>
-        <input name="name" onChange={handleInput} placeholder="Name" />
-        <p style={{ color: "red" }}>{errors.name}</p>
+          <div className="col-sm-8 col-sm-offset-2">
+            <div className="signup-form">
+        
+              <h2>New User Signup!</h2>
 
-        <input name="email" onChange={handleInput} placeholder="Email" />
-        <p style={{ color: "red" }}>{errors.email}</p>
+              <form onSubmit={handleSubmit}>
 
-        <input name="password" onChange={handleInput} placeholder="Password" />
-        <p style={{ color: "red" }}>{errors.password}</p>
+        
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  className="form-control"
+                  onChange={handleInput}
+                />
+                <p style={{ color: "red" }}>{errors.name}</p>
 
-        <input name="phone" onChange={handleInput} placeholder="Phone" />
-        <p style={{ color: "red" }}>{errors.phone}</p>
+     
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  className="form-control"
+                  onChange={handleInput}
+                />
+                <p style={{ color: "red" }}>{errors.email}</p>
 
-        <input name="address" onChange={handleInput} placeholder="Address" />
-        <p style={{ color: "red" }}>{errors.address}</p>
 
-        <input type="file" onChange={handleAvatar} />
-        <p style={{ color: "red" }}>{errors.avatar}</p>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  className="form-control"
+                  onChange={handleInput}
+                />
+                <p style={{ color: "red" }}>{errors.password}</p>
 
-        <button type="submit">Register</button>
-      </form>
-    </div>
+          
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="Phone"
+                  className="form-control"
+                  onChange={handleInput}
+                />
+                <p style={{ color: "red" }}>{errors.phone}</p>
+
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="Address"
+                  className="form-control"
+                  onChange={handleInput}
+                />
+                <p style={{ color: "red" }}>{errors.address}</p>
+
+
+                <label style={{ marginTop: "10px" }}>Avatar:</label>
+                <input
+                  type="file"
+                  className="form-control"
+                  onChange={handleAvatar}
+                />
+                <p style={{ color: "red" }}>{errors.avatar}</p>
+
+ 
+                <button type="submit" className="btn btn-default">
+                  Signup
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
   );
 };
 

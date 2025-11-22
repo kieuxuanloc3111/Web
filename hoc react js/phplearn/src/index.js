@@ -5,8 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Routes, BrowserRouter,Route, Router} from 'react-router-dom'
 import Home from './Component/Home';
-import Blog from './Component/Blog';
-import Blog_detail from './Component/Blog_detail';
+import Blog from './Component/Blog/Blog';
+import Blog_detail from './Component/Blog/Blog_detail';
 import Index from './Component/Member/Index';
 import Login from './Component/Member/Login';
 import Register from './Component/Member/Register';
