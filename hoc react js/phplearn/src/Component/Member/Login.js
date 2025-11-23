@@ -40,11 +40,9 @@ const Login = () => {
       console.log("API login trả về:", res.data);
 
       if (res.data.token) {
-        // Lưu token và thông tin user vào localStorage
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("auth", JSON.stringify(res.data.Auth));
 
-        // Gửi event để Header biết là login rồi
         window.dispatchEvent(new Event("login"));
 
         alert("Đăng nhập thành công!");
@@ -59,27 +57,47 @@ const Login = () => {
   };
 
   return (
-    <div style={{ width: "400px", margin: "auto" }}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          name="email"
-          placeholder="Email"
-          onChange={handleInput}
-        />
-        <p style={{ color: "red" }}>{errors.email}</p>
+    <section id="form">
+      <div className="container">
+        <div className="row">
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleInput}
-        />
-        <p style={{ color: "red" }}>{errors.password}</p>
+          <div className="col-sm-4 col-sm-offset-4">
+            <div className="login-form">
 
-        <button type="submit">Login</button>
-      </form>
-    </div>
+              <h2>Login to your account</h2>
+
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  onChange={handleInput}
+                />
+                <p style={{ color: "red" }}>{errors.email}</p>
+
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleInput}
+                />
+                <p style={{ color: "red" }}>{errors.password}</p>
+
+                <span>
+                  <input type="checkbox" /> Keep me signed in
+                </span>
+
+                <button type="submit" className="btn btn-default" style={{ marginTop: "10px" }}>
+                  Login
+                </button>
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
   );
 };
 

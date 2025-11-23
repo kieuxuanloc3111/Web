@@ -1,19 +1,20 @@
+// Comment.js
 import React, { useState } from "react";
 import axios from "axios";
 
-const Comment = ({ idBlog, onAddComment }) => {
+const Comment = ({ idBlog, parentId = 0, onAddComment }) => {
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
 
-  let token = localStorage.getItem("token");
-  let auth = localStorage.getItem("auth");
-  let user = auth ? JSON.parse(auth) : null;
+  const token = localStorage.getItem("token");
+  const auth = localStorage.getItem("auth");
+  const user = auth ? JSON.parse(auth) : null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!token || !user) {
-      alert("Vui lòng đăng nhập trước khi bình luận!");
+    if (!user || !token) {
+      alert("Vui lòng đăng nhập trước!");
       return;
     }
 
@@ -24,12 +25,7 @@ const Comment = ({ idBlog, onAddComment }) => {
 
     setError("");
 
-    console.log("idBlog:", idBlog);
-    console.log("user:", user);
-
-    const url =
-      "http://localhost/laravel8/laravel8/public/api/blog/comment/" + idBlog;
-
+    const url = `http://localhost/laravel8/laravel8/public/api/blog/comment/${idBlog}`;
     const config = {
       headers: {
         Authorization: "Bearer " + token,
@@ -44,32 +40,39 @@ const Comment = ({ idBlog, onAddComment }) => {
     formData.append("comment", comment);
     formData.append("name_user", user.name);
     formData.append("image_user", user.avatar);
-    formData.append("id_comment", 0);
-
-    // debug
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ": " + pair[1]);
-    }
+    formData.append("id_comment", parentId); // parent id (0 for root)
 
     try {
       const res = await axios.post(url, formData, config);
 
-      console.log("Comment API Response:", res.data);
+      // If backend returns the inserted comment (id + data), use it;
+      // otherwise create a fallback object (we expect res.data.data ideally)
+      const returned = res.data && res.data.data ? res.data.data : null;
 
-      if (res.data.data) {
-        onAddComment({
-          id_user: user.id,
-          name_user: user.name,
-          image_user: user.avatar,
-          comment: comment,
-        });
+      const newCmt = returned
+        ? {
+            id: returned.id,
+            id_user: returned.id_user ?? user.id,
+            name_user: returned.name_user ?? user.name,
+            image_user: returned.image_user ?? user.avatar,
+            comment,
+            id_comment: returned.id_comment ?? parentId,
+            created_at: returned.created_at ?? "Vừa xong",
+          }
+        : {
+            id: Date.now(), // fallback temporary id
+            id_user: user.id,
+            name_user: user.name,
+            image_user: user.avatar,
+            comment,
+            id_comment: parentId,
+            created_at: "Vừa xong",
+          };
 
-        setComment("");
-      } else {
-        alert("Comment thất bại!");
-      }
-    } catch (error) {
-      console.log(error);
+      onAddComment(newCmt);
+      setComment("");
+    } catch (err) {
+      console.error(err);
       alert("Lỗi khi gửi bình luận!");
     }
   };
@@ -78,16 +81,15 @@ const Comment = ({ idBlog, onAddComment }) => {
     <div className="replay-box">
       <form onSubmit={handleSubmit}>
         <textarea
-          rows="5"
+          rows="4"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Nhập bình luận..."
-        ></textarea>
-
+          placeholder={parentId === 0 ? "Nhập bình luận..." : "Nhập trả lời..."}
+        />
         {error && <p style={{ color: "red" }}>{error}</p>}
 
         <button className="btn btn-primary" type="submit">
-          Post Comment
+          {parentId === 0 ? "Gửi bình luận" : "Gửi trả lời"}
         </button>
       </form>
     </div>

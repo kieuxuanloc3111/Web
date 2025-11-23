@@ -1,89 +1,146 @@
+// List_comment.js
 import React from "react";
 
-const ListComment = ({ newComments = [] }) => {
+/**
+ * comments: flat array of comment objects
+ * onReply: function(comment) when clicking reply
+ * replyTargetId: id of comment currently being replied to (for highlight)
+ *
+ * Each comment object expected:
+ *  { id, id_blog, id_user, name_user, id_comment, comment, image_user, created_at, ... }
+ */
+
+const buildTree = (comments) => {
+  // map id -> node
+  const map = {};
+  const roots = [];
+
+  comments.forEach((c) => {
+    // ensure shallow copy
+    map[c.id] = { ...c, children: [] };
+  });
+
+  Object.values(map).forEach((node) => {
+    const parentId = node.id_comment;
+    if (parentId && map[parentId]) {
+      map[parentId].children.push(node);
+    } else {
+      roots.push(node);
+    }
+  });
+
+  // optionally sort by created_at descending so newest first
+  const sortFn = (a, b) => {
+    // if created_at missing, treat as newest
+    const ta = a.created_at ? new Date(a.created_at).getTime() : Date.now();
+    const tb = b.created_at ? new Date(b.created_at).getTime() : Date.now();
+    return tb - ta;
+  };
+
+  const sortRecursive = (arr) => {
+    arr.sort(sortFn);
+    arr.forEach((n) => {
+      if (n.children && n.children.length) sortRecursive(n.children);
+    });
+  };
+
+  sortRecursive(roots);
+  return roots;
+};
+
+const CommentNode = ({ node, depth = 0, onReply, replyTargetId }) => {
+  const indent = depth * 40;
+
+  const highlightStyle = node.id === replyTargetId
+    ? { boxShadow: "0 0 0 3px rgba(0,123,255,0.08)", borderLeft: "4px solid #007bff", background: "#f8fbff" }
+    : {};
+
+  return (
+    <div style={{ marginLeft: indent, marginBottom: 16, ...highlightStyle }}>
+      <div style={{ display: "flex", gap: 12 }}>
+        <div>
+          <img
+            src={
+              node.image_user
+                ? `http://localhost/laravel8/laravel8/public/upload/user/avatar/${node.image_user}`
+                : "/mnt/data/221ae488-3ff1-4844-9299-2ed1af1a81f5.png"
+            }
+            alt={node.name_user}
+            style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 4 }}
+          />
+        </div>
+
+        <div style={{ flex: 1 }}>
+          <div style={{ marginBottom: 6 }}>
+            <strong>{node.name_user}</strong>{" "}
+            <span style={{ color: "#666", marginLeft: 8 }}>{node.created_at ?? "Vừa xong"}</span>
+          </div>
+
+          <div style={{ marginBottom: 8 }}>{node.comment}</div>
+
+          <div>
+            <button
+              className="btn btn-sm btn-outline-primary"
+              onClick={() => onReply(node)}
+              style={{ padding: "6px 10px" }}
+              type="button"
+            >
+              <i className="fa fa-reply" /> Reply
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* children */}
+      {node.children && node.children.length > 0 && (
+        <div style={{ marginTop: 12 }}>
+          {node.children.map((child) => (
+            <CommentNode
+              key={child.id}
+              node={child}
+              depth={depth + 1}
+              onReply={onReply}
+              replyTargetId={replyTargetId}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const ListComment = ({ comments = [], onReply, replyTargetId = null }) => {
+  const safeComments = Array.isArray(comments) ? comments : [];
+
+  if (safeComments.length === 0) {
+    return (
+      <div className="response-area">
+        <h2>0 Comments</h2>
+        <p>Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>
+      </div>
+    );
+  }
+
+  const tree = buildTree(safeComments);
+
+  // total count
+  const count = safeComments.length;
+
   return (
     <div className="response-area">
-      <h2>{3 + newComments.length} RESPONSES</h2>
+      <h2>{count} Comments</h2>
 
-      <ul className="media-list">
-
-        {/* ========== COMMENT MỚI (NẾU CÓ) ========== */}
-        {newComments.map((cmt, index) => (
-          <li className="media" key={index}>
-            <a className="pull-left" href="#">
-              <img
-                className="media-object"
-                src={`http://localhost/laravel8/laravel8/public/upload/user/avatar/${cmt.image_user}`}
-                alt=""
-                style={{ width: 60 }}
-              />
-            </a>
-
-            <div className="media-body">
-              <ul className="sinlge-post-meta">
-                <li><i className="fa fa-user" /> {cmt.name_user}</li>
-                <li><i className="fa fa-clock-o" /> Vừa xong</li>
-              </ul>
-
-              <p>{cmt.comment}</p>
-
-              {/* Nút reply giống comment tĩnh */}
-              <a className="btn btn-primary" href="">
-                <i className="fa fa-reply" /> Replay
-              </a>
-            </div>
-          </li>
+      <div className="media-list">
+        {tree.map((root) => (
+          <CommentNode
+            key={root.id}
+            node={root}
+            depth={0}
+            onReply={onReply}
+            replyTargetId={replyTargetId}
+          />
         ))}
-
-
-        {/* ========== 3 COMMENT TĨNH GỐC (GIỮ NGUYÊN) ========== */}
-        
-        <li className="media">
-          <a className="pull-left" href="#">
-            <img className="media-object" src="/frontend/images/blog/man-two.jpg" alt="" />
-          </a>
-          <div className="media-body">
-            <ul className="sinlge-post-meta">
-              <li><i className="fa fa-user" />Janis Gallagher</li>
-              <li><i className="fa fa-clock-o" /> 1:33 pm</li>
-              <li><i className="fa fa-calendar" /> DEC 5, 2013</li>
-            </ul>
-            <p>Lorem ipsum dolor sit amet...</p>
-            <a className="btn btn-primary" href=""><i className="fa fa-reply" />Replay</a>
-          </div>
-        </li>
-
-        <li className="media second-media">
-          <a className="pull-left" href="#">
-            <img className="media-object" src="/frontend/images/blog/man-three.jpg" alt="" />
-          </a>
-          <div className="media-body">
-            <ul className="sinlge-post-meta">
-              <li><i className="fa fa-user" />Janis Gallagher</li>
-              <li><i className="fa fa-clock-o" /> 1:33 pm</li>
-              <li><i className="fa fa-calendar" /> DEC 5, 2013</li>
-            </ul>
-            <p>Lorem ipsum dolor sit amet...</p>
-            <a className="btn btn-primary" href=""><i className="fa fa-reply" />Replay</a>
-          </div>
-        </li>
-
-        <li className="media">
-          <a className="pull-left" href="#">
-            <img className="media-object" src="/frontend/images/blog/man-four.jpg" alt="" />
-          </a>
-          <div className="media-body">
-            <ul className="sinlge-post-meta">
-              <li><i className="fa fa-user" />Janis Gallagher</li>
-              <li><i className="fa fa-clock-o" /> 1:33 pm</li>
-              <li><i className="fa fa-calendar" /> DEC 5, 2013</li>
-            </ul>
-            <p>Lorem ipsum dolor sit amet...</p>
-            <a className="btn btn-primary" href=""><i className="fa fa-reply" />Replay</a>
-          </div>
-        </li>
-
-      </ul>
+      </div>
     </div>
   );
 };

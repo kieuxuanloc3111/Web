@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+// Blog_detail.js
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -10,27 +11,59 @@ const Blog_detail = () => {
   const params = useParams();
   const [data, setData] = useState(null);
 
-  // danh sách comment mới
-  const [newComments, setNewComments] = useState([]);
+  // flat list of comments (from API + newly added)
+  const [comments, setComments] = useState([]);
 
-  const handleAddComment = (cmt) => {
-    setNewComments((prev) => [cmt, ...prev]);
-  };
+  // reply target: object { id, name_user } or null
+  const [replyTarget, setReplyTarget] = useState(null);
+
+  // ref to the comment form for scrolling
+  const commentBoxRef = useRef(null);
 
   useEffect(() => {
     const fetchDetail = async () => {
       try {
         const res = await axios.get(
-          "http://localhost/laravel8/laravel8/public/api/blog/detail/" + params.id
+          `http://localhost/laravel8/laravel8/public/api/blog/detail/${params.id}`
         );
         setData(res.data.data);
+
+        const apiComments = res.data.data.comment;
+        setComments(Array.isArray(apiComments) ? apiComments : []);
       } catch (error) {
         console.log("Lỗi API:", error);
+        setComments([]);
       }
     };
 
     fetchDetail();
   }, [params.id]);
+
+  // add new comment (from Comment component)
+  const handleAddComment = (cmt) => {
+    // cmt expected to be an object with at least: id, id_comment (parent), name_user, image_user, comment, created_at
+    setComments((prev) => [cmt, ...prev]);
+    // reset reply target
+    setReplyTarget(null);
+  };
+
+  // when user clicks Reply on a particular comment
+  const handleReply = (comment) => {
+    // comment: the comment object user clicked reply on
+    setReplyTarget(comment);
+
+    // scroll to form
+    setTimeout(() => {
+      commentBoxRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      // focus textarea via DOM (Comment will not automatically focus, but user can)
+      const textarea = commentBoxRef.current?.querySelector("textarea");
+      if (textarea) textarea.focus();
+    }, 120);
+  };
+
+  const handleCancelReply = () => {
+    setReplyTarget(null);
+  };
 
   if (!data) return <p>Đang tải...</p>;
 
@@ -62,29 +95,48 @@ const Blog_detail = () => {
                 <p>{data.description}</p>
 
                 <div dangerouslySetInnerHTML={{ __html: data.content }}></div>
-
-                <div className="pager-area">
-                  <ul className="pager pull-right">
-                    <li><a href="#">Pre</a></li>
-                    <li><a href="#">Next</a></li>
-                  </ul>
-                </div>
               </div>
             </div>
 
-            {/* RATE */}
             <Rate />
 
-            {/* SHARE */}
-            <div className="socials-share">
-              <a href=""><img src="/frontend/images/blog/socials.png" alt="" /></a>
+            {/* LIST COMMENT */}
+            <ListComment
+              comments={comments}
+              idBlog={params.id}
+              onReply={handleReply}
+              replyTargetId={replyTarget ? replyTarget.id : null}
+            />
+
+            {/* COMMENT FORM (cha hoặc con tùy replyTarget) */}
+            <div ref={commentBoxRef} style={{ marginTop: 20 }}>
+              {replyTarget && (
+                <div style={{
+                  marginBottom: 8,
+                  padding: 8,
+                  borderLeft: "4px solid #007bff",
+                  background: "#f8fbff",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center"
+                }}>
+                  <div>
+                    Đang trả lời: <b>{replyTarget.name_user}</b>
+                  </div>
+                  <div>
+                    <button className="btn btn-sm btn-secondary" onClick={handleCancelReply}>
+                      Hủy
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <Comment
+                idBlog={params.id}
+                parentId={replyTarget ? replyTarget.id : 0}
+                onAddComment={handleAddComment}
+              />
             </div>
-
-            {/* LIST COMMENT (NHẬN COMMENT MỚI) */}
-            <ListComment newComments={newComments} />
-
-            {/* FORM COMMENT */}
-            <Comment idBlog={params.id} onAddComment={handleAddComment} />
 
           </div>
         </div>
