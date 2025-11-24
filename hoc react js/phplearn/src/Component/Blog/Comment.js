@@ -45,36 +45,28 @@ const Comment = ({ idBlog, parentId = 0, onAddComment }) => {
     try {
       const res = await axios.post(url, formData, config);
 
-      // If backend returns the inserted comment (id + data), use it;
-      // otherwise create a fallback object (we expect res.data.data ideally)
-      const returned = res.data && res.data.data ? res.data.data : null;
+      if (res.data && res.data.data) {
+        const returned = res.data.data;
 
-      const newCmt = returned
-        ? {
-            id: returned.id,
-            id_user: returned.id_user ?? user.id,
-            name_user: returned.name_user ?? user.name,
-            image_user: returned.image_user ?? user.avatar,
-            comment,
-            id_comment: returned.id_comment ?? parentId,
-            created_at: returned.created_at ?? "Vừa xong",
-          }
-        : {
-            id: Date.now(), // fallback temporary id
-            id_user: user.id,
-            name_user: user.name,
-            image_user: user.avatar,
-            comment,
-            id_comment: parentId,
-            created_at: "Vừa xong",
-          };
+        const newCmt = {
+          id: returned.id,
+          id_user: returned.id_user,
+          name_user: returned.name_user,
+          image_user: returned.image_user,
+          comment: returned.comment,
+          id_comment: returned.id_comment,
+          created_at: returned.created_at
+        };
 
-      onAddComment(newCmt);
-      setComment("");
+        onAddComment(newCmt);
+        setComment("");
+      }
+
     } catch (err) {
-      console.error(err);
+      console.log(err);
       alert("Lỗi khi gửi bình luận!");
     }
+
   };
 
   return (
