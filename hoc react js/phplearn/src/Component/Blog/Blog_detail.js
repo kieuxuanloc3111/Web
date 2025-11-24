@@ -98,7 +98,8 @@ const Blog_detail = () => {
               </div>
             </div>
 
-            <Rate />
+            <Rate idBlog={params.id} />
+
 
             {/* LIST COMMENT */}
             <ListComment
