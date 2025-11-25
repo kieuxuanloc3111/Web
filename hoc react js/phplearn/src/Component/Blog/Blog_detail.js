@@ -91,7 +91,6 @@ const Blog_detail = () => {
             <ListComment2
               comments={comments}
               onReply={handleReplyClick}
-              replyTargetId={replyTarget ? replyTarget.id : null}
             />
 
             {/* comment*/}

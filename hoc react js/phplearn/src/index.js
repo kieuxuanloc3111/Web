@@ -10,6 +10,7 @@ import Blog_detail from './Component/Blog/Blog_detail';
 import Index from './Component/Member/Index';
 import Login from './Component/Member/Login';
 import Register from './Component/Member/Register';
+import UpdateUser from './Component/Member/UpdateUser';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -24,6 +25,7 @@ root.render(
           <Route path="/loginandregister" element={<Index/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
+          <Route path="/account" element={<UpdateUser/>} />
         </Routes>
       </App>
     </BrowserRouter>
