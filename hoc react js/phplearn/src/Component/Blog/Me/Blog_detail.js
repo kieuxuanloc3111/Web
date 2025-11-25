@@ -6,7 +6,7 @@ import axios from "axios";
 import Rate from "../Rate";
 import ListComment from "./List_comment";
 import Comment from "./Comment";
-import List_comment2 from "../List_comment2";
+
 
 const Blog_detail = () => {
   const params = useParams();
