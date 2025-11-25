@@ -6,6 +6,7 @@ import axios from "axios";
 import Rate from "./Rate";
 import ListComment from "./List_comment";
 import Comment from "./Comment";
+import List_comment2 from "./List_comment2";
 
 const Blog_detail = () => {
   const params = useParams();
@@ -100,8 +101,8 @@ const Blog_detail = () => {
 
             <Rate idBlog={params.id} />
 
-
             {/* LIST COMMENT */}
+          
             <ListComment
               comments={comments}
               idBlog={params.id}
@@ -131,6 +132,8 @@ const Blog_detail = () => {
                   </div>
                 </div>
               )}
+
+           
 
               <Comment
                 idBlog={params.id}
