@@ -12,9 +12,7 @@ const Rate = ({ idBlog }) => {
   let auth = localStorage.getItem("auth");
   let user = auth ? JSON.parse(auth) : null;
 
-  // ==========================
-  // 1. GET RATE KHI LOAD TRANG
-  // ==========================
+// get rate
   const fetchRate = async () => {
     try {
       const res = await axios.get(
@@ -51,9 +49,9 @@ const Rate = ({ idBlog }) => {
     fetchRate();
   }, [idBlog]);
 
-  // ==========================
+
   // 2. POST RATE KHI CLICK SAO
-  // ==========================
+
   const changeRating = async (newRating) => {
     if (!user || !token) {
       alert("Bạn phải đăng nhập trước khi đánh giá!");
@@ -94,13 +92,13 @@ const Rate = ({ idBlog }) => {
     <div style={{ marginBottom: 30 }}>
       <h3>Rating</h3>
 
-      {/* Hiển thị sao trung bình */}
+
       <p>
         Trung bình: <strong>{avgRating.toFixed(1)}</strong> ⭐ 
         ({totalRate} lượt đánh giá)
       </p>
 
-      {/* Component star rating */}
+ 
       <StarRatings
         rating={rating}
         starRatedColor="orange"

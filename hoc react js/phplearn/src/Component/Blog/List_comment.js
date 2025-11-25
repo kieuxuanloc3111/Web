@@ -1,14 +1,5 @@
-// List_comment.js
-import React from "react";
 
-/**
- * comments: flat array of comment objects
- * onReply: function(comment) when clicking reply
- * replyTargetId: id of comment currently being replied to (for highlight)
- *
- * Each comment object expected:
- *  { id, id_blog, id_user, name_user, id_comment, comment, image_user, created_at, ... }
- */
+import React from "react";
 
 const buildTree = (comments) => {
   // map id -> node
