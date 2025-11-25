@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Comment = ({ idBlog, parentId = 0, onAddComment }) => {
+const Comment = ({ idBlog, parentId = 0, onAddComment, onCancelReply }) => {
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
 
@@ -12,8 +12,8 @@ const Comment = ({ idBlog, parentId = 0, onAddComment }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!user || !token) {
-      alert("Vui lòng đăng nhập trước!");
+    if (!token || !user) {
+      alert("Vui lòng đăng nhập trước khi bình luận!");
       return;
     }
 
@@ -24,14 +24,8 @@ const Comment = ({ idBlog, parentId = 0, onAddComment }) => {
 
     setError("");
 
-    const url = `http://localhost/laravel8/laravel8/public/api/blog/comment/${idBlog}`;
-    const config = {
-      headers: {
-        Authorization: "Bearer " + token,
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
-      },
-    };
+    const url =
+      "http://localhost/laravel8/laravel8/public/api/blog/comment/" + idBlog;
 
     const formData = new FormData();
     formData.append("id_blog", idBlog);
@@ -39,44 +33,54 @@ const Comment = ({ idBlog, parentId = 0, onAddComment }) => {
     formData.append("comment", comment);
     formData.append("name_user", user.name);
     formData.append("image_user", user.avatar);
-    formData.append("id_comment", parentId); // parent id (0 for root)
+    formData.append("id_comment", parentId);
 
     try {
-      const res = await axios.post(url, formData, config);
+      const res = await axios.post(url, formData, {
+        headers: {
+          Authorization: "Bearer " + token,
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (res.data && res.data.data) {
-        const returned = res.data.data;
-
-        const newCmt = {
-          id: returned.id,
-          id_user: returned.id_user,
-          name_user: returned.name_user,
-          image_user: returned.image_user,
-          comment: returned.comment,
-          id_comment: returned.id_comment,
-          created_at: returned.created_at
-        };
-
-        onAddComment(newCmt);
+        onAddComment(res.data.data); //  trả comment mới lên Detail
+        console.log(res.data.data)
         setComment("");
-      }
 
+        if (onCancelReply) {onCancelReply();} // thoát rep
+      }
     } catch (err) {
       console.log(err);
       alert("Lỗi khi gửi bình luận!");
     }
-
   };
 
   return (
-    <div className="replay-box">
+    <div className="replay-box" style={{ marginTop: 20 }}>
+      {parentId !== 0 && (
+        <p style={{ color: "blue" }}>
+          Đang trả lời bình luận 
+          <span
+            style={{ color: "red", cursor: "pointer" }}
+            onClick={onCancelReply}
+          >
+             Hủy
+          </span>
+        </p>
+      )}
+
       <form onSubmit={handleSubmit}>
         <textarea
           rows="4"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder={parentId === 0 ? "Nhập bình luận..." : "Nhập trả lời..."}
-        />
+          placeholder={
+            parentId === 0 ? "Nhập bình luận..." : "Nhập trả lời bình luận..."
+          }
+        ></textarea>
+
         {error && <p style={{ color: "red" }}>{error}</p>}
 
         <button className="btn btn-primary" type="submit">

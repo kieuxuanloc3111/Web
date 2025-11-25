@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {Routes, BrowserRouter,Route, Router} from 'react-router-dom'
 import Home from './Component/Home';
 import Blog from './Component/Blog/Blog';
-import Blog_detail from './Component/Blog/Me/Blog_detail';
+import Blog_detail from './Component/Blog/Blog_detail';
 import Index from './Component/Member/Index';
 import Login from './Component/Member/Login';
 import Register from './Component/Member/Register';
@@ -19,7 +19,7 @@ root.render(
         <Routes>
           <Route index path='/' element={<Home/>} />
           <Route index path='/blog' element={<Blog/>} />
-          <Route path="/blog_detail/:id" element={<Blog_detail />} />
+          <Route path="/blog_detail/:id" element={<Blog_detail/>} />
           
           <Route path="/loginandregister" element={<Index/>} />
           <Route path="/login" element={<Login/>} />
