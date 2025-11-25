@@ -3,10 +3,10 @@ import StarRatings from "react-star-ratings";
 import axios from "axios";
 
 const Rate = ({ idBlog }) => {
-  const [rating, setRating] = useState(0); // sao user đã chọn
-  const [avgRating, setAvgRating] = useState(0); // trung bình cộng
-  const [userRate, setUserRate] = useState(0); // nếu user đã từng rate
-  const [totalRate, setTotalRate] = useState(0); // tổng số lượt rate
+  const [rating, setRating] = useState(0); 
+  const [avgRating, setAvgRating] = useState(0); 
+  const [userRate, setUserRate] = useState(0); 
+  const [totalRate, setTotalRate] = useState(0); 
 
   let token = localStorage.getItem("token");
   let auth = localStorage.getItem("auth");
