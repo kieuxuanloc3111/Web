@@ -30,7 +30,7 @@ const Rate = ({ idBlog }) => {
           // Check user đã từng rate chưa
           if (user && item.user_id == user.id) {
             setUserRate(item.rate);
-            setRating(item.rate); // hiển thị lại số sao user đã chấm
+            setRating(item.rate); // hiển thị lại số sao user đã rate
           }
         });
 
@@ -58,7 +58,7 @@ const Rate = ({ idBlog }) => {
       return;
     }
 
-    setRating(newRating); // update UI ngay
+    setRating(newRating); // update giao diện
 
     const url = `http://localhost/laravel8/laravel8/public/api/blog/rate/${idBlog}`;
 
@@ -78,7 +78,7 @@ const Rate = ({ idBlog }) => {
     try {
       const res = await axios.post(url, formData, config);
 
-      console.log("POST rate response:", res.data);
+      console.log( res.data);
 
       // Sau khi POST → gọi lại GET để cập nhật trung bình
       fetchRate();
