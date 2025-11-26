@@ -13,13 +13,11 @@ const UpdateUser = () => {
 
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
-  const [apiError, setApiError] = useState("");
-
   const [userId, setUserId] = useState(null);
 
-  // ==========================
-  // Load user từ localStorage
-  // ==========================
+  // =========================================
+  // LẤY USER TỪ LOCAL STORAGE
+  // =========================================
   useEffect(() => {
     const auth = localStorage.getItem("auth");
 
@@ -34,7 +32,7 @@ const UpdateUser = () => {
         password: "",
         phone: user.phone,
         address: user.address,
-        avatar: "", // avatar mới sẽ là base64
+        avatar: "",
       });
 
       setFile(null);
@@ -42,38 +40,36 @@ const UpdateUser = () => {
     }
   }, []);
 
-  // ==========================
-  // Handle input text
-  // ==========================
+  // =========================================
+  // INPUT TEXT
+  // =========================================
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ==========================
-  // Handle avatar upload
-  // ==========================
+  // =========================================
+  // HANDLE AVATAR
+  // =========================================
   const handleAvatar = (e) => {
     let fileData = e.target.files[0];
-
     if (!fileData) return;
 
     let reader = new FileReader();
-
     reader.onload = (event) => {
-      setForm({ ...form, avatar: event.target.result }); // base64
+      setForm({ ...form, avatar: event.target.result });
       setFile(fileData);
     };
 
     reader.readAsDataURL(fileData);
   };
 
-  // ==========================
-  // Submit Update
-  // ==========================
+  // =========================================
+  // SUBMIT UPDATE
+  // =========================================
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setApiError("");
+    console.log("Submit updating user...");
 
     let newErrors = {};
 
@@ -81,11 +77,9 @@ const UpdateUser = () => {
     if (!form.phone) newErrors.phone = "Chưa nhập phone";
     if (!form.address) newErrors.address = "Chưa nhập address";
 
-    // Avatar validation (nếu chọn file)
     if (file) {
       if (!file.type.includes("image"))
         newErrors.avatar = "File phải là hình ảnh";
-
       if (file.size > 1024 * 1024)
         newErrors.avatar = "Ảnh phải dưới 1MB";
     }
@@ -97,13 +91,13 @@ const UpdateUser = () => {
 
     setErrors({});
 
-    const payload = {
+    const newdata = {
       name: form.name,
       email: form.email,
       password: form.password ? form.password : "",
       phone: form.phone,
       address: form.address,
-      avatar: form.avatar, // base64
+      avatar: form.avatar,
     };
 
     const token = localStorage.getItem("token");
@@ -111,7 +105,7 @@ const UpdateUser = () => {
     try {
       const res = await axios.post(
         `http://localhost/laravel8/laravel8/public/api/user/update/${userId}`,
-        payload,
+        newdata,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -120,7 +114,7 @@ const UpdateUser = () => {
         }
       );
 
-      console.log("API Update trả về:", res.data);
+      console.log("API update trả về:", res.data);
 
       if (res.data.Auth && res.data.token) {
         localStorage.setItem("auth", JSON.stringify(res.data.Auth));
@@ -128,13 +122,11 @@ const UpdateUser = () => {
 
         alert("Cập nhật thành công!");
 
-        window.location.reload();
-      } else {
-        setApiError("Cập nhật thất bại!");
+        // window.location.reload();
       }
+
     } catch (err) {
-      console.log("Lỗi:", err);
-      setApiError("Không thể kết nối server");
+      console.log("Lỗi API update:", err);
     }
   };
 
@@ -144,12 +136,10 @@ const UpdateUser = () => {
         <h2 className="title text-center">Update User</h2>
 
         <div className="signup-form">
-          {apiError && (
-            <p style={{ color: "red", fontWeight: "bold" }}>{apiError}</p>
-          )}
 
           <form onSubmit={handleSubmit}>
-            
+
+            {/* NAME */}
             <input
               type="text"
               name="name"
@@ -169,6 +159,7 @@ const UpdateUser = () => {
               style={{ background: "#e9e9e9" }}
             />
 
+            {/* PASSWORD */}
             <input
               type="password"
               name="password"
@@ -177,6 +168,7 @@ const UpdateUser = () => {
               onChange={handleInput}
             />
 
+            {/* PHONE */}
             <input
               type="text"
               name="phone"
@@ -186,6 +178,7 @@ const UpdateUser = () => {
             />
             <p style={{ color: "red" }}>{errors.phone}</p>
 
+            {/* ADDRESS */}
             <input
               type="text"
               name="address"
@@ -195,6 +188,7 @@ const UpdateUser = () => {
             />
             <p style={{ color: "red" }}>{errors.address}</p>
 
+            {/* AVATAR */}
             <label style={{ marginTop: "10px" }}>Avatar:</label>
             <input type="file" onChange={handleAvatar} />
             <p style={{ color: "red" }}>{errors.avatar}</p>
@@ -217,6 +211,7 @@ const UpdateUser = () => {
             <button type="submit" className="btn btn-default">
               Update
             </button>
+
           </form>
         </div>
       </div>
