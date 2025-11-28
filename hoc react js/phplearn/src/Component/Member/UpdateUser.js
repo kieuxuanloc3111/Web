@@ -8,16 +8,15 @@ const UpdateUser = () => {
     password: "",
     phone: "",
     address: "",
-    avatar: "", // base64 string
+    avatar: "", 
   });
 
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [userId, setUserId] = useState(null);
 
-  // =========================================
-  // LẤY USER TỪ LOCAL STORAGE
-  // =========================================
+  // lay user tu local
+
   useEffect(() => {
     const auth = localStorage.getItem("auth");
 
@@ -40,16 +39,11 @@ const UpdateUser = () => {
     }
   }, []);
 
-  // =========================================
-  // INPUT TEXT
-  // =========================================
+  // nhap du lieu moi
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // =========================================
-  // HANDLE AVATAR
-  // =========================================
   const handleAvatar = (e) => {
     let fileData = e.target.files[0];
     if (!fileData) return;
@@ -63,9 +57,7 @@ const UpdateUser = () => {
     reader.readAsDataURL(fileData);
   };
 
-  // =========================================
-  // SUBMIT UPDATE
-  // =========================================
+  // submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -114,7 +106,7 @@ const UpdateUser = () => {
         }
       );
 
-      console.log("API update trả về:", res.data);
+      console.log("API trả về:", res.data);
 
       if (res.data.Auth && res.data.token) {
         localStorage.setItem("auth", JSON.stringify(res.data.Auth));
@@ -122,11 +114,10 @@ const UpdateUser = () => {
 
         alert("Cập nhật thành công!");
 
-        // window.location.reload();
       }
 
     } catch (err) {
-      console.log("Lỗi API update:", err);
+      console.log("error:", err);
     }
   };
 
@@ -138,8 +129,6 @@ const UpdateUser = () => {
         <div className="signup-form">
 
           <form onSubmit={handleSubmit}>
-
-            {/* NAME */}
             <input
               type="text"
               name="name"
@@ -149,7 +138,7 @@ const UpdateUser = () => {
             />
             <p style={{ color: "red" }}>{errors.name}</p>
 
-            {/* EMAIL (readonly) */}
+
             <input
               type="email"
               name="email"
@@ -159,7 +148,7 @@ const UpdateUser = () => {
               style={{ background: "#e9e9e9" }}
             />
 
-            {/* PASSWORD */}
+
             <input
               type="password"
               name="password"
@@ -168,7 +157,7 @@ const UpdateUser = () => {
               onChange={handleInput}
             />
 
-            {/* PHONE */}
+
             <input
               type="text"
               name="phone"
@@ -178,7 +167,7 @@ const UpdateUser = () => {
             />
             <p style={{ color: "red" }}>{errors.phone}</p>
 
-            {/* ADDRESS */}
+
             <input
               type="text"
               name="address"
@@ -188,12 +177,10 @@ const UpdateUser = () => {
             />
             <p style={{ color: "red" }}>{errors.address}</p>
 
-            {/* AVATAR */}
             <label style={{ marginTop: "10px" }}>Avatar:</label>
             <input type="file" onChange={handleAvatar} />
             <p style={{ color: "red" }}>{errors.avatar}</p>
 
-            {/* PREVIEW */}
             {form.avatar && (
               <img
                 src={form.avatar}

@@ -97,7 +97,7 @@ const Header = () => {
                     {isLogin && (
                       <>
                         <li>
-                          <Link to="/account">
+                          <Link to="/account/update">
                             <i className="fa fa-user"></i> Account
                           </Link>
                         </li>
