@@ -39,8 +39,8 @@ const AddProduct = () => {
 
   const handleStatusChange = (e) => {
     const value = Number(e.target.value);
-
-    setForm({
+ 
+    setForm({  
       ...form,
       status: value,
       sale: value === 1 ? "" : form.sale,
@@ -237,7 +237,7 @@ const AddProduct = () => {
             />
             <p style={{ color: "red" }}>{errors.company}</p>
 
-            {/* MULTI IMAGES */}
+            {/* image */}
             <label style={{ marginTop: 10 }}>Images (max 3):</label>
             <input
               type="file"
