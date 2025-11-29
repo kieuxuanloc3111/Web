@@ -13,30 +13,26 @@ const AddProduct = () => {
     detail: "",
   });
 
-  const [avatar, setAvatar] = useState([]); // chứa tối đa 3 file
+  const [avatar, setAvatar] = useState([]); 
   const [errors, setErrors] = useState({});
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
 
-  // ===========================
-  // LẤY CATEGORY & BRAND API
-  // ===========================
+ 
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(
         "http://localhost/laravel8/laravel8/public/api/category-brand"
       );
 
-      setCategories(res.data.category || []);
-      setBrands(res.data.brand || []);
+      setCategories(res.data.category );
+      setBrands(res.data.brand );
     };
 
     fetchData();
   }, []);
 
-  // ===========================
-  // INPUT CHANGE
-  // ===========================
+  //  input
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -51,28 +47,24 @@ const AddProduct = () => {
     });
   };
 
-  // ===========================
-  // UPLOAD ĐA ẢNH (MAX 3)
-  // ===========================
+  // upload anh
   const handleFiles = (e) => {
     const files = Array.from(e.target.files);
 
     let newErrors = {};
 
-    // Check tổng ảnh upload
-    if (avatar.length + files.length > 3) {
+    if (avatar.length + 1 > 3) {
       newErrors.images = "Chỉ được upload tối đa 3 ảnh!";
       setErrors(newErrors);
       return;
     }
 
-    // Validate từng ảnh
     files.forEach((file) => {
       if (!file.type.includes("image")) {
-        newErrors.images = "File phải là hình ảnh!";
+        newErrors.images = "File phải là hình ảnh";
       }
       if (file.size > 1024 * 1024) {
-        newErrors.images = "Mỗi ảnh phải dưới 1MB!";
+        newErrors.images = "Mỗi ảnh phải dưới 1MB";
       }
     });
 
@@ -87,9 +79,7 @@ const AddProduct = () => {
     setAvatar((prev) => [...prev, ...files]);
   };
 
-  // ===========================
-  // SUBMIT PRODUCT
-  // ===========================
+  // submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -99,7 +89,7 @@ const AddProduct = () => {
     if (!form.price) newErrors.price = "Chưa nhập giá";
     if (!form.category) newErrors.category = "Chưa chọn category";
     if (!form.brand) newErrors.brand = "Chưa chọn brand";
-    if (avatar.length === 0) newErrors.images = "Phải upload ít nhất 1 ảnh";
+    if (avatar.length === 0) newErrors.images = "Phải upload ảnh";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -120,9 +110,9 @@ const AddProduct = () => {
     formData.append("company", form.company);
     formData.append("detail", form.detail);
 
-    // Gửi nhiều ảnh dạng file[]
-    avatar.forEach((file) => {
-      formData.append("file[]", file);
+
+    Object.keys(avatar).map((key) => {
+      formData.append("file[]", avatar[key]);
     });
 
     try {
@@ -137,14 +127,15 @@ const AddProduct = () => {
         }
       );
 
-      console.log("API Response:", res.data);
-      alert("Thêm sản phẩm thành công!");
+      console.log("api trả về", res.data);
+      alert("Thêm sản phẩm thành công");
 
     } catch (err) {
-      console.log("Lỗi API:", err);
-      alert("Thêm sản phẩm thất bại!");
+      console.log("api err:", err);
+      alert("Thêm sản phẩm thất bại");
     }
   };
+
 
   return (
     <div className="col-sm-9">
@@ -154,7 +145,7 @@ const AddProduct = () => {
         <div className="signup-form">
           <form onSubmit={handleSubmit}>
 
-            {/* NAME */}
+            {/* name */}
             <input
               type="text"
               name="name"
@@ -164,7 +155,7 @@ const AddProduct = () => {
             />
             <p style={{ color: "red" }}>{errors.name}</p>
 
-            {/* PRICE */}
+            {/* price */}
             <input
               type="text"
               name="price"
@@ -174,7 +165,7 @@ const AddProduct = () => {
             />
             <p style={{ color: "red" }}>{errors.price}</p>
 
-            {/* CATEGORY */}
+            {/* categỏy */}
             <select
               name="category"
               value={form.category}
@@ -191,7 +182,7 @@ const AddProduct = () => {
             </select>
             <p style={{ color: "red" }}>{errors.category}</p>
 
-            {/* BRAND */}
+            {/* brand */}
             <select
               name="brand"
               value={form.brand}
@@ -208,7 +199,7 @@ const AddProduct = () => {
             </select>
             <p style={{ color: "red" }}>{errors.brand}</p>
 
-            {/* STATUS */}
+            {/* status */}
             <select
               name="status"
               value={form.status}
@@ -220,7 +211,7 @@ const AddProduct = () => {
               <option value={0}>Sale</option>
             </select>
 
-            {/* SALE FIELD */}
+            {/* sale */}
             {form.status === 0 && (
               <div style={{ display: "flex", alignItems: "center", marginBottom: 15 }}>
                 <input
@@ -235,7 +226,7 @@ const AddProduct = () => {
               </div>
             )}
 
-            {/* COMPANY */}
+            {/* xompany */}
             <input
               type="text"
               name="company"
@@ -257,7 +248,7 @@ const AddProduct = () => {
             />
             <p style={{ color: "red" }}>{errors.images}</p>
 
-            {/* PREVIEW IMAGES */}
+            {/* preview */}
             {avatar.length > 0 && (
               <div style={{ display: "flex", gap: 10, marginBottom: 15 }}>
                 {avatar.map((img, index) => (
@@ -276,7 +267,7 @@ const AddProduct = () => {
               </div>
             )}
 
-            {/* DETAIL */}
+            {/* detail */}
             <textarea
               name="detail"
               rows="5"

@@ -4,7 +4,6 @@ import axios from "axios";
 const MyProduct = () => {
   const [products, setProducts] = useState([]);
 
-  // Lấy id user từ localStorage
   const auth = JSON.parse(localStorage.getItem("auth"));
   const userId = auth?.id;
 
@@ -15,7 +14,6 @@ const MyProduct = () => {
           "http://localhost/laravel8/laravel8/public/api/product"
         );
 
-        // Lọc ra sản phẩm thuộc user đang login
         const myProducts = res.data.data.filter(
           (item) => Number(item.id_user) === Number(userId)
         );
@@ -45,21 +43,10 @@ const MyProduct = () => {
 
           <tbody>
             {products.map((item) => {
-              // Parse mảng ảnh
               let imgArray = [];
-              try {
-                imgArray = JSON.parse(item.image);
-              } catch {
-                imgArray = [];
-              }
-
-              // Ảnh đầu tiên
-              const firstImage = imgArray.length > 0 ? imgArray[0] : null;
-
-              // Link ảnh đầy đủ
-              const imageUrl = firstImage
-                ? `http://localhost/laravel8/laravel8/public/upload/product/${item.id_user}/${firstImage}`
-                : "/frontend/images/cart/one.png";
+              imgArray = JSON.parse(item.image);
+              const firstImage = imgArray[0];
+              const imageUrl = `http://localhost/laravel8/laravel8/public/upload/product/${item.id_user}/${firstImage}`;
 
               return (
                 <tr key={item.id}>
@@ -93,7 +80,6 @@ const MyProduct = () => {
           </tbody>
         </table>
 
-        {/* Nếu không có sản phẩm */}
         {products.length === 0 && (
           <p style={{ padding: 20, color: "gray" }}>
             Bạn chưa có sản phẩm nào.
