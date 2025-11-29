@@ -110,7 +110,6 @@ const AddProduct = () => {
     formData.append("company", form.company);
     formData.append("detail", form.detail);
 
-
     Object.keys(avatar).map((key) => {
       formData.append("file[]", avatar[key]);
     });
