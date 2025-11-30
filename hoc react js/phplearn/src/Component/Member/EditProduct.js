@@ -5,7 +5,6 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const EditProduct = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const auth = JSON.parse(localStorage.getItem("auth") || "{}");
 
@@ -20,13 +19,10 @@ const EditProduct = () => {
     detail: "",
   });
 
-  // existing images names (from API) e.g. ["a.jpg","b.jpg"]
+
   const [existingImages, setExistingImages] = useState([]);
-  // names marked for deletion (avatarCheckBox[])
   const [toDelete, setToDelete] = useState([]);
-  // new File objects selected by user
   const [avatar, setAvatar] = useState([]);
-  // local preview URLs for new files
   const [newPreviews, setNewPreviews] = useState([]);
   const [errors, setErrors] = useState({});
   const [categories, setCategories] = useState([]);
@@ -34,7 +30,6 @@ const EditProduct = () => {
 
   const inputFileRef = useRef(null);
 
-  // load category & brand
   useEffect(() => {
     axios
       .get("http://localhost/laravel8/laravel8/public/api/category-brand")
@@ -61,7 +56,6 @@ const EditProduct = () => {
           return;
         }
 
-        // set basic fields
         setForm({
           name: data.name || "",
           price: data.price || "",
@@ -73,7 +67,6 @@ const EditProduct = () => {
           detail: data.detail || "",
         });
 
-        // parse image JSON string -> array
         let imgs = [];
         try {
           imgs = Array.isArray(data.image) ? data.image : JSON.parse(data.image || "[]");
@@ -87,14 +80,12 @@ const EditProduct = () => {
       });
   }, [id, token]);
 
-  // cleanup created object URLs when avatar or component unmount changes
+
   useEffect(() => {
-    // create previews for new avatar files
     const urls = avatar.map((file) => URL.createObjectURL(file));
     setNewPreviews(urls);
 
     return () => {
-      // revoke previous urls
       urls.forEach((u) => URL.revokeObjectURL(u));
     };
   }, [avatar]);
@@ -124,12 +115,12 @@ const EditProduct = () => {
     });
   };
 
-  // handle selecting new files (max 3 total)
+
   const handleFiles = (e) => {
     const files = Array.from(e.target.files);
     if (files.length === 0) return;
 
-    // calculate current kept existing images (not marked delete)
+
     const keptExisting = existingImages.length - toDelete.length;
     const totalAfter = keptExisting + avatar.length + files.length;
 
@@ -147,15 +138,11 @@ const EditProduct = () => {
     if (inputFileRef.current) inputFileRef.current.value = "";
   };
 
-  // remove one new selected file before submit
   const handleRemoveNewFile = (index) => {
     setAvatar((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // helper to build image URL for existing images
   const getExistingImageUrl = (filename) => {
-    // Use product owner's id if available from auth or existingImages owner unknown.
-    // If API response included id_user earlier you can use that; for now try auth.id
     const userId = auth?.id || "0";
     return `http://localhost/laravel8/laravel8/public/upload/product/${userId}/${filename}`;
   };
@@ -198,12 +185,10 @@ const EditProduct = () => {
     formData.append("company", form.company);
     formData.append("detail", form.detail);
 
-    // append new files
     avatar.forEach((file) => {
       formData.append("file[]", file);
     });
 
-    // append avatarCheckBox[] for each filename the user marked to delete
     toDelete.forEach((filename) => {
       formData.append("avatarCheckBox[]", filename);
     });
