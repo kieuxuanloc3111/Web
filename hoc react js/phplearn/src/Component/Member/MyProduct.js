@@ -119,7 +119,12 @@ const MyProduct = () => {
                   </td>
 
                   <td className="cart_total">
-                    <a style={{ marginRight: 10, cursor: "pointer" }}>edit</a>
+                    <a
+                      style={{ marginRight: 10, cursor: "pointer" }}
+                      href={`/account/product/edit/${item.id}`}
+                    >
+                      edit
+                    </a>
 
                     <a
                       style={{ cursor: "pointer", color: "red" }}
@@ -128,6 +133,7 @@ const MyProduct = () => {
                       delete
                     </a>
                   </td>
+
                 </tr>
               );
             })}

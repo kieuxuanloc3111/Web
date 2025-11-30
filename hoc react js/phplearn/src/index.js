@@ -13,6 +13,7 @@ import Register from './Component/Member/Register';
 import UpdateUser from './Component/Member/UpdateUser';
 import AddProduct from './Component/Member/AddProduct';
 import MyProduct from './Component/Member/MyProduct';
+import EditProduct from './Component/Member/EditProduct';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -29,6 +30,7 @@ root.render(
           <Route path="/account/update" element={<UpdateUser/>} />
           <Route path="/account/product/add" element={<AddProduct/>} />
           <Route path="/account/product/list" element={<MyProduct/>} />
+          <Route path="/account/product/edit:id" element={<EditProduct/>} />
         </Routes>
       </App>
     </BrowserRouter>
