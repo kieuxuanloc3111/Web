@@ -30,7 +30,8 @@ root.render(
           <Route path="/account/update" element={<UpdateUser/>} />
           <Route path="/account/product/add" element={<AddProduct/>} />
           <Route path="/account/product/list" element={<MyProduct/>} />
-          <Route path="/account/product/edit:id" element={<EditProduct/>} />
+          <Route path="/account/product/edit/:id" element={<EditProduct />} />
+
         </Routes>
       </App>
     </BrowserRouter>
