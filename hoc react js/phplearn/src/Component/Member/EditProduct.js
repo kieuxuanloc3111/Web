@@ -99,11 +99,9 @@ const EditProduct = () => {
 
   const handleFiles = (e) => {
     const files = Array.from(e.target.files);
-    if (files.length === 0) return;
-
 
     const keptExisting = existingImages.length - toDelete.length;
-    const totalAfter = keptExisting + avatar.length + files.length;
+    const totalAfter = keptExisting + avatar.length + 1;
 
     if (totalAfter > 3) {
       setErrors({ images: 'không được vượt quá 3 ảnh' });
