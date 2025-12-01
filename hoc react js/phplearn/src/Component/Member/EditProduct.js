@@ -6,7 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 const EditProduct = () => {
   const { id } = useParams();
   const token = localStorage.getItem("token");
-  const auth = JSON.parse(localStorage.getItem("auth") || "{}");
+  const auth = JSON.parse(localStorage.getItem("auth"));
 
   const [form, setForm] = useState({
     name: "",
@@ -18,7 +18,6 @@ const EditProduct = () => {
     company: "",
     detail: "",
   });
-
 
   const [existingImages, setExistingImages] = useState([]);
   const [toDelete, setToDelete] = useState([]);
@@ -34,51 +33,49 @@ const EditProduct = () => {
     axios
       .get("http://localhost/laravel8/laravel8/public/api/category-brand")
       .then((res) => {
-        setCategories(res.data.category || []);
-        setBrands(res.data.brand || []);
+        setCategories(res.data.category);
+        setBrands(res.data.brand );
       })
-      .catch((err) => {
-        console.log("ERROR LOAD CATEGORY-BRAND:", err);
-      });
   }, []);
 
-  // load product
   useEffect(() => {
     if (!token) return;
+
     axios
       .get(`http://localhost/laravel8/laravel8/public/api/user/product/${id}`, {
         headers: { Authorization: "Bearer " + token },
       })
       .then((res) => {
         const data = res.data.data;
-        if (!data) {
-          console.log("No product data");
-          return;
-        }
 
         setForm({
-          name: data.name || "",
-          price: data.price || "",
-          category: data.id_category || "",
-          brand: data.id_brand || "",
-          status: typeof data.status !== "undefined" ? data.status : 1,
-          sale: data.sale || "",
-          company: data.company_profile || "",
-          detail: data.detail || "",
+          name: data.name,
+          price: data.price,
+          category: data.id_category,
+          brand: data.id_brand,
+          status: data.status,
+          sale: data.sale,
+          company: data.company_profile,
+          detail: data.detail,
         });
 
         let imgs = [];
+
         try {
-          imgs = Array.isArray(data.image) ? data.image : JSON.parse(data.image || "[]");
+          imgs = Array.isArray(data.image)
+            ? data.image
+            : JSON.parse(data.image || "[]");
         } catch (e) {
           imgs = [];
         }
+
         setExistingImages(imgs);
       })
       .catch((err) => {
         console.log("ERROR LOAD PRODUCT:", err);
       });
   }, [id, token]);
+
 
 
   useEffect(() => {
@@ -90,7 +87,7 @@ const EditProduct = () => {
     };
   }, [avatar]);
 
-  // handle input changes
+
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -104,7 +101,6 @@ const EditProduct = () => {
     }));
   };
 
-  // toggle checkbox to mark existing image for deletion
   const toggleDelete = (filename) => {
     setToDelete((prev) => {
       if (prev.includes(filename)) {
@@ -114,7 +110,6 @@ const EditProduct = () => {
       }
     });
   };
-
 
   const handleFiles = (e) => {
     const files = Array.from(e.target.files);

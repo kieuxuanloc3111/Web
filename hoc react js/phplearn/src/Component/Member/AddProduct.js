@@ -74,10 +74,13 @@ const AddProduct = () => {
     }
 
     setErrors({});
-
-    // Gộp ảnh cũ + ảnh mới
     setAvatar((prev) => [...prev, ...files]);
   };
+
+  const handleRemoveImage = (index) => {
+    setAvatar((prev) => prev.filter((_, i) => i !== index));
+  };
+
 
   // submit
   const handleSubmit = async (e) => {
@@ -251,20 +254,44 @@ const AddProduct = () => {
             {avatar.length > 0 && (
               <div style={{ display: "flex", gap: 10, marginBottom: 15 }}>
                 {avatar.map((img, index) => (
-                  <img
+                  <div
                     key={index}
-                    src={URL.createObjectURL(img)}
-                    alt=""
-                    style={{
-                      width: 80,
-                      height: 80,
-                      objectFit: "cover",
-                      borderRadius: 5,
-                    }}
-                  />
+                    style={{ position: "relative", width: 80, height: 80 }}
+                  >
+                    <img
+                      src={URL.createObjectURL(img)}
+                      alt=""
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: 5,
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveImage(index)}
+                      style={{
+                        position: "absolute",
+                        top: -8,
+                        right: -8,
+                        background: "red",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "50%",
+                        width: 22,
+                        height: 22,
+                        cursor: "pointer",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ×
+                    </button>
+                  </div>
                 ))}
               </div>
             )}
+
 
             {/* detail */}
             <textarea

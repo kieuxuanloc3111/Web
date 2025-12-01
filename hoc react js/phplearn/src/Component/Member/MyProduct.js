@@ -4,7 +4,6 @@ import axios from "axios";
 const MyProduct = () => {
   const [products, setProducts] = useState([]);
 
-  // Lấy id user từ localStorage
   const auth = JSON.parse(localStorage.getItem("auth"));
   const userId = auth?.id;
 
@@ -15,7 +14,6 @@ const MyProduct = () => {
           "http://localhost/laravel8/laravel8/public/api/product"
         );
 
-        // Lọc ra sản phẩm thuộc user đang login
         const myProducts = res.data.data.filter(
           (item) => Number(item.id_user) === Number(userId)
         );
@@ -23,7 +21,7 @@ const MyProduct = () => {
         setProducts(myProducts);
 
       } catch (error) {
-        console.log("Lỗi khi gọi API:", error);
+        console.log("api error:", error);
       }
     };
 
@@ -32,7 +30,7 @@ const MyProduct = () => {
 
 
   const handleDelete = async (idProduct) => {
-    if (!window.confirm("Bạn có chắc muốn xóa sản phẩm này?")) return;
+    if (!window.confirm("Bạn có muốn xóa sản phẩm này?")) return;
 
     const token = localStorage.getItem("token");
 
@@ -46,23 +44,16 @@ const MyProduct = () => {
         }
       );
 
-      console.log("Delete API Response:", res.data);
+      console.log("delete return:", res.data);
 
-      // ❌ KHÔNG dùng res.data.data nữa vì không phải mảng
-      // const newList = res.data.data;
-      // setProducts(newList);
-
-      // ✅ Filter mảng hiện tại
       setProducts((prev) => prev.filter((item) => item.id !== idProduct));
 
       alert("Xóa thành công!");
     } catch (error) {
-      console.log("Lỗi khi xóa:", error);
-      alert("Xóa thất bại!");
+      console.log("lỗi khi xóa:", error);
+      alert("xóa thất bại!");
     }
   };
-
-
 
 
   return (
@@ -88,13 +79,8 @@ const MyProduct = () => {
                 imgArray = [];
               }
 
-              // Ảnh đầu tiên
-              const firstImage = imgArray.length > 0 ? imgArray[0] : null;
-
-              // Link ảnh đầy đủ
-              const imageUrl = firstImage
-                ? `http://localhost/laravel8/laravel8/public/upload/product/${item.id_user}/${firstImage}`
-                : "/frontend/images/cart/one.png";
+              const firstImage = imgArray[0] ;
+              const imageUrl ="http://localhost/laravel8/laravel8/public/upload/product/" +item.id_user +"/" +firstImage;
 
               return (
                 <tr key={item.id}>
@@ -140,7 +126,7 @@ const MyProduct = () => {
           </tbody>
         </table>
 
-        {/* Nếu không có sản phẩm */}
+
         {products.length === 0 && (
           <p style={{ padding: 20, color: "gray" }}>
             Bạn chưa có sản phẩm nào.
