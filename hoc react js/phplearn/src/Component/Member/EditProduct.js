@@ -1,4 +1,3 @@
-// EditProduct.jsx
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
@@ -27,7 +26,6 @@ const EditProduct = () => {
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
 
-  const inputFileRef = useRef(null);
 
   useEffect(() => {
     axios
@@ -39,8 +37,6 @@ const EditProduct = () => {
   }, []);
 
   useEffect(() => {
-    if (!token) return;
-
     axios
       .get(`http://localhost/laravel8/laravel8/public/api/user/product/${id}`, {
         headers: { Authorization: "Bearer " + token },
@@ -59,23 +55,13 @@ const EditProduct = () => {
           detail: data.detail,
         });
 
-        let imgs = [];
-
-        try {
-          imgs = Array.isArray(data.image)
-            ? data.image
-            : JSON.parse(data.image || "[]");
-        } catch (e) {
-          imgs = [];
-        }
-
+        let imgs = data.image;
         setExistingImages(imgs);
       })
       .catch((err) => {
-        console.log("ERROR LOAD PRODUCT:", err);
+        console.log("lỗi khi load : ", err);
       });
   }, [id, token]);
-
 
 
   useEffect(() => {
@@ -120,17 +106,13 @@ const EditProduct = () => {
     const totalAfter = keptExisting + avatar.length + files.length;
 
     if (totalAfter > 3) {
-      setErrors({ images: `Tổng ảnh cuối cùng không được vượt quá 3. (hiện tại giữ: ${keptExisting}, đã chọn mới: ${avatar.length})` });
-      // reset input value so user can reselect
-      if (inputFileRef.current) inputFileRef.current.value = "";
+      setErrors({ images: 'không được vượt quá 3 ảnh' });
       return;
     }
 
-    // append new files
     setAvatar((prev) => [...prev, ...files]);
     setErrors({});
-    // reset input value to allow selecting same file again if needed
-    if (inputFileRef.current) inputFileRef.current.value = "";
+
   };
 
   const handleRemoveNewFile = (index) => {
@@ -142,7 +124,6 @@ const EditProduct = () => {
     return `http://localhost/laravel8/laravel8/public/upload/product/${userId}/${filename}`;
   };
 
-  // submit update
   const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = {};
@@ -152,14 +133,13 @@ const EditProduct = () => {
     if (!form.category) newErrors.category = "Chưa chọn category";
     if (!form.brand) newErrors.brand = "Chưa chọn brand";
 
-    // compute final images count after deletions and adding new ones
     const keptExisting = existingImages.length - toDelete.length;
     const finalCount = keptExisting + avatar.length;
 
     if (finalCount === 0) {
-      newErrors.images = "Phải có ít nhất 1 ảnh (upload mới hoặc giữ ảnh cũ).";
+      newErrors.images = "Phải có ít nhất 1 ảnh ";
     } else if (finalCount > 3) {
-      newErrors.images = "Tổng ảnh cuối cùng không được lớn hơn 3.";
+      newErrors.images = "không được vượt quá 3 ảnh";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -167,10 +147,9 @@ const EditProduct = () => {
       return;
     }
 
-    // build formdata
     const formData = new FormData();
     formData.append("id", id);
-    formData.append("user_id", auth?.id || "");
+    formData.append("user_id", auth?.id);
     formData.append("name", form.name);
     formData.append("price", form.price);
     formData.append("category", form.category);
@@ -202,11 +181,8 @@ const EditProduct = () => {
 
       console.log("Update Response:", res.data);
       alert("Cập nhật thành công!");
-      // optionally navigate back to product list
-      // navigate("/account/product/list");
     } catch (err) {
       console.log("Lỗi API:", err);
-      // if backend returns validation errors, you can map them to setErrors here
       alert("Cập nhật thất bại!");
     }
   };
@@ -335,7 +311,6 @@ const EditProduct = () => {
 
             <label>Upload New Images (max total 3):</label>
             <input
-              ref={inputFileRef}
               type="file"
               multiple
               onChange={handleFiles}
@@ -344,7 +319,7 @@ const EditProduct = () => {
             />
             <p style={{ color: "red" }}>{errors.images}</p>
 
-            {/* Preview new images with remove button */}
+            {/* Preview */}
             {newPreviews.length > 0 && (
               <div style={{ display: "flex", gap: 10, marginBottom: 15 }}>
                 {newPreviews.map((src, index) => (
