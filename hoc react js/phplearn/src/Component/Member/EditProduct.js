@@ -26,7 +26,7 @@ const EditProduct = () => {
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
 
-  // const inputFileRef = useRef(null);
+
 
 
   useEffect(() => {
@@ -107,14 +107,12 @@ const EditProduct = () => {
 
     if (totalAfter > 3) {
       setErrors({ images: 'không được vượt quá 3 ảnh' });
-      // if (inputFileRef.current) inputFileRef.current.value = "";
+
       return;
     }
 
     setAvatar((prev) => [...prev, ...files]);
-    // inputFileRef.current.value = "";
     setErrors({});
-    // if (inputFileRef.current) inputFileRef.current.value = "";
   };
 
   const handleRemoveNewFile = (index) => {
@@ -314,7 +312,6 @@ const EditProduct = () => {
             <label>Upload New Images (max total 3):</label>
             
             <input
-              // ref={inputFileRef}
               type="file"
               multiple
               onChange={handleFiles}
