@@ -11,7 +11,7 @@ const Home = () => {
             "http://localhost/laravel8/laravel8/public/api/product"
         );
 
-        console.log("API RETURN:", res.data);
+        console.log("api return:", res.data);
         setProducts(res.data.data);
 
         } catch (error) {
@@ -36,7 +36,6 @@ const Home = () => {
                 <h2 className="title text-center">Features Items</h2>
 
                 {products.map((item) => {
-                  // Parse array image
                   let imgArray = [];
                   try {
                     imgArray = JSON.parse(item.image);
