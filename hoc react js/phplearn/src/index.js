@@ -14,6 +14,11 @@ import UpdateUser from './Component/Member/UpdateUser';
 import AddProduct from './Component/Member/AddProduct';
 import MyProduct from './Component/Member/MyProduct';
 import EditProduct from './Component/Member/EditProduct';
+import ProductDetail from './Component/ProductDetail';
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -31,7 +36,7 @@ root.render(
           <Route path="/account/product/add" element={<AddProduct/>} />
           <Route path="/account/product/list" element={<MyProduct/>} />
           <Route path="/account/product/edit/:id" element={<EditProduct />} />
-
+          <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>
       </App>
     </BrowserRouter>

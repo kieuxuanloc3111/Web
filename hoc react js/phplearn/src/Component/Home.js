@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 const Home = () => {
     const [products, setProducts] = useState([]);
 
@@ -84,11 +84,11 @@ const Home = () => {
                               </a>
                             </li>
                             <li>
-                              <a href="#">
-                                <i className="fa fa-plus-square"></i>
-                                Add to compare
-                              </a>
+                              <Link to={`/product/${item.id}`}>
+                                <i className="fa fa-plus-square" /> Detail
+                              </Link>
                             </li>
+
                           </ul>
                         </div>
                       </div>

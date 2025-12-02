@@ -5,6 +5,7 @@ import Footer from "./Component/Layout/Footer";
 import MenuLeft from "./Component/Layout/MenuLeft";
 import { useLocation } from 'react-router-dom';
 import MenuAcc from './Component/Layout/MenuAcc';
+
 function App(props) {
   let params1= useLocation();
   return (
