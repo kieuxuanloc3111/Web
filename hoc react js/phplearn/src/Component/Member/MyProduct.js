@@ -4,21 +4,25 @@ import axios from "axios";
 const MyProduct = () => {
   const [products, setProducts] = useState([]);
 
-  const auth = JSON.parse(localStorage.getItem("auth"));
-  const userId = auth?.id;
-
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        const token = localStorage.getItem("token");
+
         const res = await axios.get(
-          "http://localhost/laravel8/laravel8/public/api/product"
+          "http://localhost/laravel8/laravel8/public/api/user/my-product",
+          {
+            headers: { Authorization: "Bearer " + token }
+          }
         );
 
-        const myProducts = res.data.data.filter(
-          (item) => Number(item.id_user) === Number(userId)
-        );
-
-        setProducts(myProducts);
+        console.log("API RETURN:", res.data);
+        if (res.data?.data && typeof res.data.data === "object") {
+          const arr = Object.values(res.data.data); // Chuyển object → array
+          setProducts(arr);
+        } else {
+          setProducts([]);
+        }
 
       } catch (error) {
         console.log("api error:", error);
@@ -26,7 +30,7 @@ const MyProduct = () => {
     };
 
     fetchProduct();
-  }, [userId]);
+  }, []);
 
 
   const handleDelete = async (idProduct) => {
@@ -46,6 +50,7 @@ const MyProduct = () => {
 
       console.log("delete return:", res.data);
 
+      // filter bỏ sản phẩm vừa delete
       setProducts((prev) => prev.filter((item) => item.id !== idProduct));
 
       alert("Xóa thành công!");
@@ -71,7 +76,6 @@ const MyProduct = () => {
 
           <tbody>
             {products.map((item) => {
-              // Parse mảng ảnh
               let imgArray = [];
               try {
                 imgArray = JSON.parse(item.image);
@@ -79,8 +83,12 @@ const MyProduct = () => {
                 imgArray = [];
               }
 
-              const firstImage = imgArray[0] ;
-              const imageUrl ="http://localhost/laravel8/laravel8/public/upload/product/" +item.id_user +"/" +firstImage;
+              const firstImage = imgArray[0];
+              const imageUrl =
+                "http://localhost/laravel8/laravel8/public/upload/product/" +
+                item.id_user +
+                "/" +
+                firstImage;
 
               return (
                 <tr key={item.id}>
@@ -119,13 +127,11 @@ const MyProduct = () => {
                       delete
                     </a>
                   </td>
-
                 </tr>
               );
             })}
           </tbody>
         </table>
-
 
         {products.length === 0 && (
           <p style={{ padding: 20, color: "gray" }}>
