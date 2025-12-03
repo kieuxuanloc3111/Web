@@ -11,15 +11,12 @@ function App(props) {
   let params1 = useLocation();
 
   return (
-    // ✔ Bọc toàn bộ trong CartProvider nhưng vẫn giữ nguyên UI
     <CartProvider>
       <Header />
 
       <section>
         <div className="container">
           <div className="row">
-
-            {/* Giữ nguyên logic cũ */}
             {params1["pathname"].includes("account") ? (
               <MenuAcc />
             ) : (
