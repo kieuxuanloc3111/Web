@@ -159,7 +159,7 @@ const Header = () => {
                 </div>
                 <div className="mainmenu pull-left">
                   <ul className="nav navbar-nav collapse navbar-collapse">
-                    <li><a href="index.html" className="active">Home</a></li>
+                    <li> <Link to="/home">Home</Link> </li>
                     <li className="dropdown"><a href="#">Shop<i className="fa fa-angle-down" /></a>
                       <ul role="menu" className="sub-menu">
                         <li><a href="shop.html">Products</a></li>

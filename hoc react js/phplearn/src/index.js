@@ -15,6 +15,7 @@ import AddProduct from './Component/Member/AddProduct';
 import MyProduct from './Component/Member/MyProduct';
 import EditProduct from './Component/Member/EditProduct';
 import ProductDetail from './Component/ProductDetail';
+import Cart from './Component/Cart';
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -26,7 +27,7 @@ root.render(
 
       <App>
         <Routes>
-          <Route index path='/' element={<Home/>} />
+          <Route index path='/home' element={<Home/>} />
           <Route index path='/blog' element={<Blog/>} />
           <Route path="/blog_detail/:id" element={<Blog_detail/>} />
           <Route path="/loginandregister" element={<Index/>} />
@@ -37,6 +38,7 @@ root.render(
           <Route path="/account/product/list" element={<MyProduct/>} />
           <Route path="/account/product/edit/:id" element={<EditProduct />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart/>} />
         </Routes>
       </App>
     </BrowserRouter>
