@@ -5,24 +5,34 @@ import Footer from "./Component/Layout/Footer";
 import MenuLeft from "./Component/Layout/MenuLeft";
 import { useLocation } from 'react-router-dom';
 import MenuAcc from './Component/Layout/MenuAcc';
+import { CartProvider } from "./Context/CartContext";
 
 function App(props) {
-  let params1= useLocation();
+  let params1 = useLocation();
+
   return (
-    <>
-      <Header/>
-        <section>
-          <div className="container">
-            <div className="row">
-          
-              {params1['pathname'].includes("account") ? <MenuAcc/> : <MenuLeft/>};
-              {props.children};
-            </div>
+    // ✔ Bọc toàn bộ trong CartProvider nhưng vẫn giữ nguyên UI
+    <CartProvider>
+      <Header />
+
+      <section>
+        <div className="container">
+          <div className="row">
+
+            {/* Giữ nguyên logic cũ */}
+            {params1["pathname"].includes("account") ? (
+              <MenuAcc />
+            ) : (
+              <MenuLeft />
+            )}
+
+            {props.children}
           </div>
-        </section>
-      
-      <Footer/>
-    </>
+        </div>
+      </section>
+
+      <Footer />
+    </CartProvider>
   );
 }
 

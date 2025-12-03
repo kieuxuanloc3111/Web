@@ -1,27 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-const Home = () => {
-    const [products, setProducts] = useState([]);
+import { CartContext } from "../Context/CartContext";
 
-    useEffect(() => {
+const Home = () => {
+  const [products, setProducts] = useState([]);
+  const { addToCart } = useContext(CartContext);
+
+  useEffect(() => {
     const fetchProduct = async () => {
-        try {
+      try {
         const res = await axios.get(
-            "http://localhost/laravel8/laravel8/public/api/product"
+          "http://localhost/laravel8/laravel8/public/api/product"
         );
 
-        console.log("api return:", res.data);
+        console.log("API RETURN:", res.data);
         setProducts(res.data.data);
 
-        } catch (error) {
-        console.log("api error:", error);
-        }
+      } catch (error) {
+        console.log("API ERROR:", error);
+      }
     };
 
     fetchProduct();
-    }, []);
-
+  }, []);
 
   return (
     <div>
@@ -31,7 +33,6 @@ const Home = () => {
 
             <div className="col-sm-9 padding-right">
 
-              {/* ================= FEATURES ITEMS ================= */}
               <div className="features_items">
                 <h2 className="title text-center">Features Items</h2>
 
@@ -44,37 +45,56 @@ const Home = () => {
                   }
 
                   const firstImage = imgArray[0];
-                  const imageUrl = 'http://localhost/laravel8/laravel8/public/upload/product/' + item.id_user + '/' + firstImage;
-
+                  const imageUrl =
+                    "http://localhost/laravel8/laravel8/public/upload/product/" +
+                    item.id_user +
+                    "/" +
+                    firstImage;
 
                   return (
                     <div className="col-sm-4" key={item.id}>
                       <div className="product-image-wrapper">
                         <div className="single-products">
+
                           <div className="productinfo text-center">
                             <img
                               src={imageUrl}
                               alt=""
-                              style={{ width: "100%", height: 250, objectFit: "cover" }}
+                              style={{
+                                width: "100%",
+                                height: 250,
+                                objectFit: "cover"
+                              }}
                             />
                             <h2>${item.price}</h2>
                             <p>{item.name}</p>
-                            <a href="#" className="btn btn-default add-to-cart">
+
+                            <button
+                              className="btn btn-default add-to-cart"
+                              onClick={() => addToCart(item.id)}
+                            >
                               <i className="fa fa-shopping-cart"></i>
                               Add to cart
-                            </a>
+                            </button>
                           </div>
+
                           <div className="product-overlay">
                             <div className="overlay-content">
                               <h2>${item.price}</h2>
                               <p>{item.name}</p>
-                              <a href="#" className="btn btn-default add-to-cart">
+
+                              <button
+                                className="btn btn-default add-to-cart"
+                                onClick={() => addToCart(item.id)}
+                              >
                                 <i className="fa fa-shopping-cart"></i>
                                 Add to cart
-                              </a>
+                              </button>
                             </div>
                           </div>
+
                         </div>
+
                         <div className="choose">
                           <ul className="nav nav-pills nav-justified">
                             <li>
@@ -83,118 +103,58 @@ const Home = () => {
                                 Add to wishlist
                               </a>
                             </li>
+
                             <li>
                               <Link to={`/product/${item.id}`}>
-                                <i className="fa fa-plus-square" /> Detail
+                                <i className="fa fa-plus-square"></i>
+                                Detail
                               </Link>
                             </li>
-
                           </ul>
                         </div>
+
                       </div>
                     </div>
                   );
                 })}
               </div>
-              {/* ================= END FEATURES ITEMS ================= */}
 
-
-
-              {/* ================= CATEGORY TABS (KEEP ORIGINAL) ================= */}
+              {/* ======================= CATEGORY TAB (KEEP) ======================= */}
               <div className="category-tab">
                 <div className="col-sm-12">
                   <ul className="nav nav-tabs">
                     <li className="active">
-                      <a href="#tshirt" data-toggle="tab">
-                        T-Shirt
-                      </a>
+                      <a href="#tshirt" data-toggle="tab">T-Shirt</a>
                     </li>
-                    <li>
-                      <a href="#blazers" data-toggle="tab">
-                        Blazers
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#sunglass" data-toggle="tab">
-                        Sunglass
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#kids" data-toggle="tab">
-                        Kids
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#poloshirt" data-toggle="tab">
-                        Polo shirt
-                      </a>
-                    </li>
+                    <li><a href="#blazers" data-toggle="tab">Blazers</a></li>
+                    <li><a href="#sunglass" data-toggle="tab">Sunglass</a></li>
+                    <li><a href="#kids" data-toggle="tab">Kids</a></li>
+                    <li><a href="#poloshirt" data-toggle="tab">Polo shirt</a></li>
                   </ul>
                 </div>
+
                 <div className="tab-content">
                   <div className="tab-pane fade active in" id="tshirt">
                     <div className="col-sm-3">
-                      <div className="product-image-wrapper">
-                        <div className="single-products">
-                          <div className="productinfo text-center">
-                            <img
-                              src="/frontend/images/home/gallery1.jpg"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      </div>
+                      <img src="/frontend/images/home/gallery1.jpg" alt="" />
                     </div>
-
                     <div className="col-sm-3">
-                      <div className="product-image-wrapper">
-                        <div className="single-products">
-                          <div className="productinfo text-center">
-                            <img
-                              src="/frontend/images/home/gallery2.jpg"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      </div>
+                      <img src="/frontend/images/home/gallery2.jpg" alt="" />
                     </div>
-
                     <div className="col-sm-3">
-                      <div className="product-image-wrapper">
-                        <div className="single-products">
-                          <div className="productinfo text-center">
-                            <img
-                              src="/frontend/images/home/gallery3.jpg"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      </div>
+                      <img src="/frontend/images/home/gallery3.jpg" alt="" />
                     </div>
-
                     <div className="col-sm-3">
-                      <div className="product-image-wrapper">
-                        <div className="single-products">
-                          <div className="productinfo text-center">
-                            <img
-                              src="/frontend/images/home/gallery4.jpg"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      </div>
+                      <img src="/frontend/images/home/gallery4.jpg" alt="" />
                     </div>
                   </div>
-
-                  {/* Các tab khác mình giữ nguyên */}
                 </div>
               </div>
 
-
-
-              {/* ================= RECOMMENDED ITEMS (KEEP ORIGINAL) ================= */}
+              {/* ======================= RECOMMENDED (KEEP) ======================= */}
               <div className="recommended_items">
                 <h2 className="title text-center">recommended items</h2>
+
                 <div
                   id="recommended-item-carousel"
                   className="carousel slide"
@@ -203,66 +163,25 @@ const Home = () => {
                   <div className="carousel-inner">
                     <div className="item active">
                       <div className="col-sm-4">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="/frontend/images/home/recommend1.jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
+                        <img src="/frontend/images/home/recommend1.jpg" alt="" />
                       </div>
-
                       <div className="col-sm-4">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="/frontend/images/home/recommend2.jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
+                        <img src="/frontend/images/home/recommend2.jpg" alt="" />
                       </div>
-
                       <div className="col-sm-4">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="/frontend/images/home/recommend3.jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
+                        <img src="/frontend/images/home/recommend3.jpg" alt="" />
                       </div>
                     </div>
 
-                    {/* slide 2 giữ nguyên */}
                     <div className="item">
                       <div className="col-sm-4">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="/frontend/images/home/recommend1.jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
+                        <img src="/frontend/images/home/recommend1.jpg" alt="" />
                       </div>
-
                       <div className="col-sm-4">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="/frontend/images/home/recommend2.jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
+                        <img src="/frontend/images/home/recommend2.jpg" alt="" />
                       </div>
-
                       <div className="col-sm-4">
-                        <div className="product-image-wrapper">
-                          <div className="single-products">
-                            <div className="productinfo text-center">
-                              <img src="/frontend/images/home/recommend3.jpg" alt="" />
-                            </div>
-                          </div>
-                        </div>
+                        <img src="/frontend/images/home/recommend3.jpg" alt="" />
                       </div>
                     </div>
                   </div>
@@ -285,6 +204,7 @@ const Home = () => {
               </div>
 
             </div>
+
           </div>
         </div>
       </section>
