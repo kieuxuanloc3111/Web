@@ -9,6 +9,10 @@ import { CartProvider } from "./Context/CartContext";
 
 function App(props) {
   let params1 = useLocation();
+  const path = params1.pathname; // cho gọn
+
+  const showMenu =
+    !path.includes("cart"); // nếu có "cart" thì false → không hiện menu
 
   return (
     <CartProvider>
@@ -17,10 +21,9 @@ function App(props) {
       <section>
         <div className="container">
           <div className="row">
-            {params1["pathname"].includes("account") ? (
-              <MenuAcc />
-            ) : (
-              <MenuLeft />
+
+            {showMenu && (
+              path.includes("account") ? <MenuAcc /> : <MenuLeft />
             )}
 
             {props.children}
