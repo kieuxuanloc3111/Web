@@ -6,7 +6,6 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState({});
   const [cartCount, setCartCount] = useState(0);
 
-  // Load cart từ localStorage
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("cart")) || {};
     setCart(data);
@@ -15,7 +14,7 @@ export const CartProvider = ({ children }) => {
     setCartCount(total);
   }, []);
 
-  // Hàm thêm vào giỏ
+  //  thêm vào giỏ
   const addToCart = (id) => {
     setCart((prev) => {
       const updated = { ...prev };
