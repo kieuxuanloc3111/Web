@@ -15,7 +15,7 @@ const Cart = () => {
     });
     setSubTotal(sum);
   };
-
+// ggggg
   // Load cart từ local + API
   useEffect(() => {
     const fetchCart = async () => {
