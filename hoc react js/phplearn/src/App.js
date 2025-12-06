@@ -9,10 +9,10 @@ import { CartProvider } from "./Context/CartContext";
 
 function App(props) {
   let params1 = useLocation();
-  const path = params1.pathname; // cho gọn
+  const path = params1.pathname; 
 
   const showMenu =
-    !path.includes("cart"); // nếu có "cart" thì false → không hiện menu
+    !path.includes("cart"); 
 
   return (
     <CartProvider>

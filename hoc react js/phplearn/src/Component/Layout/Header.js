@@ -4,7 +4,7 @@ import { CartContext } from "../../Context/CartContext";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { cartCount } = useContext(CartContext); // ⭐ lấy tổng số sản phẩm
+  const { cartCount } = useContext(CartContext); 
 
   const [isLogin, setIsLogin] = useState(false);
 
@@ -141,7 +141,7 @@ const Header = () => {
                       </Link>
                     </li>
 
-                    {/* ⭐ HIỂN THỊ CART COUNT */}
+                    {/* CART COUNT */}
                     <li>
                       <Link to="/cart">
                         <i className="fa fa-shopping-cart"></i> Cart{" "}
