@@ -14,7 +14,7 @@ export const CartProvider = ({ children }) => {
     setCartCount(total);
   }, []);
 
-  //  thêm vào giỏ
+
   const addToCart = (id) => {
     setCart((prev) => {
       const updated = { ...prev };

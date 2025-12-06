@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]); // sản phẩm từ API
+  const [cartItems, setCartItems] = useState([]); 
   const [subTotal, setSubTotal] = useState(0);
-  const ecoTax = 2; // mỗi sản phẩm * qty
+  const ecoTax = 2; 
   const shippingCost = 0;
 
   // Tính tổng tiền
@@ -33,7 +33,7 @@ const Cart = () => {
         setCartItems(items);
         updateTotal(items);
       } catch (err) {
-        console.log("❌ CART API ERROR:", err);
+        console.log("CART API ERROR:", err);
       }
     };
 
@@ -51,7 +51,7 @@ const Cart = () => {
 
     setCartItems(updated);
 
-    // update vào local
+ 
     const local = JSON.parse(localStorage.getItem("cart")) || {};
     local[id] = (local[id] || 1) + 1;
     localStorage.setItem("cart", JSON.stringify(local));
@@ -59,7 +59,7 @@ const Cart = () => {
     updateTotal(updated);
   };
 
-  // Giảm số lượng
+
   const decreaseQty = (id) => {
     const updated = cartItems
       .map((item) => {
@@ -79,7 +79,7 @@ const Cart = () => {
     updateTotal(updated);
   };
 
-  // Xoá sản phẩm
+
   const removeItem = (id) => {
     const updated = cartItems.filter((item) => item.id !== id);
     setCartItems(updated);
@@ -127,7 +127,7 @@ const Cart = () => {
               </thead>
 
               <tbody>
-                {/* ========== MAP SẢN PHẨM TỪ API ========== */}
+                {/*MAP SẢN PHẨM  */}
                 {cartItems.map((item) => (
                   <tr key={item.id}>
                     <td className="cart_product">
@@ -186,7 +186,7 @@ const Cart = () => {
         </div>
       </section>
 
-      {/* KEEP NGUYÊN GIAO DIỆN BÊN DƯỚI */}
+      {/*  */}
       <section id="do_action">
         <div className="container">
           <div className="heading">
