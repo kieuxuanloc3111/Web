@@ -11,7 +11,7 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
 
-  const ecoTax = 2; // mỗi item +2
+  const ecoTax = 2; 
 
   // tính tổng tiền
   const updateTotal = (items) => {
@@ -63,7 +63,7 @@ const Cart = () => {
 
   return (
     <div>
-      {/* ================== CART ITEMS ================== */}
+      {/*CART ITEMS */}
       <section id="cart_items">
         <div className="container">
           <div className="breadcrumbs">
@@ -169,7 +169,7 @@ const Cart = () => {
         </div>
       </section>
 
-      {/* ================== DO ACTION (PHẦN TĨNH + TOTAL) ================== */}
+      {/* DO ACTION */}
       <section id="do_action">
         <div className="container">
           <div className="heading">
@@ -181,7 +181,6 @@ const Cart = () => {
           </div>
 
           <div className="row">
-            {/* Cột trái: form tĩnh giữ nguyên */}
             <div className="col-sm-6">
               <div className="chose_area">
                 <ul className="user_option">
@@ -231,7 +230,7 @@ const Cart = () => {
               </div>
             </div>
 
-            {/* Cột phải: tổng tiền sử dụng subTotal + ecoTax */}
+            {/* subTotal + ecoTax */}
             <div className="col-sm-6">
               <div className="total_area">
                 <ul>
