@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../Redux/cartRedux";
+import { addToCart } from "../Redux/cartSlice";
 
 const Home = () => {
   const [products, setProducts] = React.useState([]);

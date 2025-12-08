@@ -6,7 +6,7 @@ const getTotal = (cart) => {
   return Object.values(cart).reduce((sum, qty) => sum + qty, 0);
 };
 
-export const cartRedux = createSlice({
+export const cartSlice = createSlice({
   name: "cart",
   initialState: {
     cart: initialCart,
@@ -53,6 +53,6 @@ export const cartRedux = createSlice({
 });
 
 export const { addToCart, increaseQty, decreaseQty, removeItem } =
-  cartRedux.actions;
+  cartSlice.actions;
 
-export default cartRedux.reducer;
+export default cartSlice.reducer;

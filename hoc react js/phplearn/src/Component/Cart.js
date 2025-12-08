@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { increaseQty, decreaseQty, removeItem } from "../Redux/cartRedux";
+import { increaseQty, decreaseQty, removeItem } from "../Redux/cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
