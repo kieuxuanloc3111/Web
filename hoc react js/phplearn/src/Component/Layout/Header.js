@@ -1,21 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { CartContext } from "../../Context/CartContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { cartCount } = useContext(CartContext); 
+  const { cartCount } = useSelector((state) => state.cart);
 
   const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
     const checkLogin = () => {
-      const token = localStorage.getItem("token");
-      setIsLogin(!!token);
+      setIsLogin(!!localStorage.getItem("token"));
     };
 
     checkLogin();
-
     window.addEventListener("login", checkLogin);
     window.addEventListener("logout", checkLogin);
 
@@ -34,22 +32,19 @@ const Header = () => {
   return (
     <>
       <header id="header">
-        {/* ===== TOP ===== */}
+        {/* TOP*/}
         <div className="header_top">
           <div className="container">
             <div className="row">
+
               <div className="col-sm-6">
                 <div className="contactinfo">
                   <ul className="nav nav-pills">
                     <li>
-                      <a href="#">
-                        <i className="fa fa-phone" /> +2 95 01 88 821
-                      </a>
+                      <a href="#"><i className="fa fa-phone" /> +2 95 01 88 821</a>
                     </li>
                     <li>
-                      <a href="#">
-                        <i className="fa fa-envelope" /> info@domain.com
-                      </a>
+                      <a href="#"><i className="fa fa-envelope" /> info@domain.com</a>
                     </li>
                   </ul>
                 </div>
@@ -58,21 +53,11 @@ const Header = () => {
               <div className="col-sm-6">
                 <div className="social-icons pull-right">
                   <ul className="nav navbar-nav">
-                    <li>
-                      <a href="#"><i className="fa fa-facebook" /></a>
-                    </li>
-                    <li>
-                      <a href="#"><i className="fa fa-twitter" /></a>
-                    </li>
-                    <li>
-                      <a href="#"><i className="fa fa-linkedin" /></a>
-                    </li>
-                    <li>
-                      <a href="#"><i className="fa fa-dribbble" /></a>
-                    </li>
-                    <li>
-                      <a href="#"><i className="fa fa-google-plus" /></a>
-                    </li>
+                    <li><a href="#"><i className="fa fa-facebook" /></a></li>
+                    <li><a href="#"><i className="fa fa-twitter" /></a></li>
+                    <li><a href="#"><i className="fa fa-linkedin" /></a></li>
+                    <li><a href="#"><i className="fa fa-dribbble" /></a></li>
+                    <li><a href="#"><i className="fa fa-google-plus" /></a></li>
                   </ul>
                 </div>
               </div>
@@ -81,7 +66,7 @@ const Header = () => {
           </div>
         </div>
 
-        {/* ===== MIDDLE ===== */}
+        {/* MIDDLE*/}
         <div className="header-middle">
           <div className="container">
             <div className="row">
@@ -95,10 +80,10 @@ const Header = () => {
               </div>
 
               <div className="col-md-8 clearfix">
-                <div className="shop-menu clearfix pull-right">
+                <div className="shop-menu pull-right">
                   <ul className="nav navbar-nav">
 
-                    {isLogin && (
+                    {isLogin ? (
                       <>
                         <li>
                           <Link to="/account/update">
@@ -109,21 +94,13 @@ const Header = () => {
                         <li>
                           <button
                             onClick={handleLogout}
-                            style={{
-                              background: "none",
-                              border: "none",
-                              padding: 0,
-                              color: "#337ab7",
-                              cursor: "pointer"
-                            }}
+                            style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
                           >
                             <i className="fa fa-lock"></i> Logout
                           </button>
                         </li>
                       </>
-                    )}
-
-                    {!isLogin && (
+                    ) : (
                       <li>
                         <Link to="/login">
                           <i className="fa fa-lock"></i> Login
@@ -131,9 +108,7 @@ const Header = () => {
                       </li>
                     )}
 
-                    <li>
-                      <a href="#"><i className="fa fa-star" /> Wishlist</a>
-                    </li>
+                    <li><a href="#"><i className="fa fa-star"></i> Wishlist</a></li>
 
                     <li>
                       <Link to="/checkout">
@@ -141,14 +116,10 @@ const Header = () => {
                       </Link>
                     </li>
 
-                    {/* CART COUNT */}
                     <li>
                       <Link to="/cart">
                         <i className="fa fa-shopping-cart"></i> Cart{" "}
-                        <span
-                          className="cart-count"
-                          style={{ fontWeight: "bold", color: "#FE980F" }}
-                        >
+                        <span style={{ fontWeight: "bold", color: "#FE980F" }}>
                           ({cartCount})
                         </span>
                       </Link>
@@ -162,7 +133,7 @@ const Header = () => {
           </div>
         </div>
 
-        {/* ===== BOTTOM ===== */}
+        {/*  BOTTOM */}
         <div className="header-bottom">
           <div className="container">
             <div className="row">
@@ -170,14 +141,9 @@ const Header = () => {
               <div className="col-sm-9">
                 <div className="mainmenu pull-left">
                   <ul className="nav navbar-nav collapse navbar-collapse">
-                    <li>
-                      <Link to="/home">Home</Link>
-                    </li>
-
+                    <li><Link to="/home">Home</Link></li>
                     <li className="dropdown">
-                      <a href="#">
-                        Shop<i className="fa fa-angle-down" />
-                      </a>
+                      <a href="#">Shop <i className="fa fa-angle-down" /></a>
                       <ul className="sub-menu">
                         <li><a href="#">Products</a></li>
                         <li><a href="#">Product Details</a></li>
@@ -186,17 +152,13 @@ const Header = () => {
                         <li><Link to="/login">Login</Link></li>
                       </ul>
                     </li>
-
                     <li className="dropdown">
-                      <a href="#">
-                        Blog<i className="fa fa-angle-down" />
-                      </a>
+                      <a href="#">Blog <i className="fa fa-angle-down" /></a>
                       <ul className="sub-menu">
                         <li><Link to="/blog">Blog List</Link></li>
                         <li><Link to="/blog_detail">Blog Single</Link></li>
                       </ul>
                     </li>
-
                     <li><a href="#">404</a></li>
                     <li><a href="#">Contact</a></li>
                   </ul>
@@ -219,4 +181,3 @@ const Header = () => {
 };
 
 export default Header;
-// b

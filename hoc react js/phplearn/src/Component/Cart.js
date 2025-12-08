@@ -1,26 +1,35 @@
+// src/Component/Cart.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { increaseQty, decreaseQty, removeItem } from "../Redux/cartRedux";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]); 
-  const [subTotal, setSubTotal] = useState(0);
-  const ecoTax = 2; 
-  const shippingCost = 0;
+  const dispatch = useDispatch();
+  const { cart } = useSelector((state) => state.cart); // { id: qty, ... }
 
-  // Tính tổng tiền
+  const [cartItems, setCartItems] = useState([]);
+  const [subTotal, setSubTotal] = useState(0);
+
+  const ecoTax = 2; // mỗi item +2
+
+  // tính tổng tiền
   const updateTotal = (items) => {
-    let sum = 0;
-    items.forEach((p) => {
-      sum += p.price * p.qty;
+    let total = 0;
+    items.forEach((i) => {
+      total += i.price * i.qty;
     });
-    setSubTotal(sum);
+    setSubTotal(total);
   };
-// ggggg
-  // Load cart từ local + API
+
+  // gọi API theo cart trong redux
   useEffect(() => {
     const fetchCart = async () => {
-      const cart = JSON.parse(localStorage.getItem("cart")) || {};
-      if (!cart || Object.keys(cart).length === 0) return;
+      if (!cart || Object.keys(cart).length === 0) {
+        setCartItems([]);
+        setSubTotal(0);
+        return;
+      }
 
       try {
         const res = await axios.post(
@@ -29,69 +38,18 @@ const Cart = () => {
           { headers: { "Content-Type": "application/json" } }
         );
 
-        const items = res.data.data;
+        const items = res.data.data || [];
         setCartItems(items);
         updateTotal(items);
       } catch (err) {
-        console.log("CART API ERROR:", err);
+        console.log("CART ERROR:", err);
       }
     };
 
     fetchCart();
-  }, []);
+  }, [cart]);
 
-  // Tăng số lượng
-  const increaseQty = (id) => {
-    const updated = cartItems.map((item) => {
-      if (item.id === id) {
-        item.qty += 1;
-      }
-      return item;
-    });
-
-    setCartItems(updated);
-
- 
-    const local = JSON.parse(localStorage.getItem("cart")) || {};
-    local[id] = (local[id] || 1) + 1;
-    localStorage.setItem("cart", JSON.stringify(local));
-
-    updateTotal(updated);
-  };
-
-
-  const decreaseQty = (id) => {
-    const updated = cartItems
-      .map((item) => {
-        if (item.id === id && item.qty > 1) {
-          item.qty -= 1;
-        }
-        return item;
-      })
-      .filter((item) => item.qty > 0);
-
-    setCartItems(updated);
-
-    const local = JSON.parse(localStorage.getItem("cart")) || {};
-    if (local[id] > 1) local[id] -= 1;
-    localStorage.setItem("cart", JSON.stringify(local));
-
-    updateTotal(updated);
-  };
-
-
-  const removeItem = (id) => {
-    const updated = cartItems.filter((item) => item.id !== id);
-    setCartItems(updated);
-
-    const local = JSON.parse(localStorage.getItem("cart")) || {};
-    delete local[id];
-    localStorage.setItem("cart", JSON.stringify(local));
-
-    updateTotal(updated);
-  };
-
-  // Lấy hình đầu tiên
+  // lấy hình đầu tiên
   const getImg = (item) => {
     let arr = [];
     try {
@@ -99,11 +57,13 @@ const Cart = () => {
     } catch {
       arr = [];
     }
-    return `http://localhost/laravel8/laravel8/public/upload/product/${item.id_user}/${arr[0]}`;
+    const first = arr[0];
+    return `http://localhost/laravel8/laravel8/public/upload/product/${item.id_user}/${first}`;
   };
 
   return (
     <div>
+      {/* ================== CART ITEMS ================== */}
       <section id="cart_items">
         <div className="container">
           <div className="breadcrumbs">
@@ -127,7 +87,14 @@ const Cart = () => {
               </thead>
 
               <tbody>
-                {/*MAP SẢN PHẨM  */}
+                {cartItems.length === 0 && (
+                  <tr>
+                    <td colSpan="6" style={{ textAlign: "center", padding: 20 }}>
+                      Giỏ hàng đang trống.
+                    </td>
+                  </tr>
+                )}
+
                 {cartItems.map((item) => (
                   <tr key={item.id}>
                     <td className="cart_product">
@@ -151,7 +118,14 @@ const Cart = () => {
 
                     <td className="cart_quantity">
                       <div className="cart_quantity_button">
-                        <a className="cart_quantity_up" onClick={() => increaseQty(item.id)} style={{ cursor: "pointer" }}> + </a>
+                        <a
+                          className="cart_quantity_up"
+                          style={{ cursor: "pointer" }}
+                          onClick={() => dispatch(increaseQty(item.id))}
+                        >
+                          {" "}
+                          +{" "}
+                        </a>
 
                         <input
                           className="cart_quantity_input"
@@ -160,33 +134,42 @@ const Cart = () => {
                           readOnly
                         />
 
-                        <a className="cart_quantity_down" onClick={() => decreaseQty(item.id)} style={{ cursor: "pointer" }}> - </a>
+                        <a
+                          className="cart_quantity_down"
+                          style={{ cursor: "pointer" }}
+                          onClick={() => dispatch(decreaseQty(item.id))}
+                        >
+                          {" "}
+                          -{" "}
+                        </a>
                       </div>
                     </td>
 
                     <td className="cart_total">
-                      <p className="cart_total_price">${item.price * item.qty}</p>
+                      <p className="cart_total_price">
+                        ${item.price * item.qty}
+                      </p>
                     </td>
 
                     <td className="cart_delete">
                       <a
                         className="cart_quantity_delete"
-                        onClick={() => removeItem(item.id)}
                         style={{ cursor: "pointer" }}
+                        onClick={() => dispatch(removeItem(item.id))}
                       >
-                        <i className="fa fa-times"></i>
+                        <i className="fa fa-times" />
                       </a>
                     </td>
                   </tr>
                 ))}
-
               </tbody>
+
             </table>
           </div>
         </div>
       </section>
 
-      {/*  */}
+      {/* ================== DO ACTION (PHẦN TĨNH + TOTAL) ================== */}
       <section id="do_action">
         <div className="container">
           <div className="heading">
@@ -198,6 +181,7 @@ const Cart = () => {
           </div>
 
           <div className="row">
+            {/* Cột trái: form tĩnh giữ nguyên */}
             <div className="col-sm-6">
               <div className="chose_area">
                 <ul className="user_option">
@@ -211,7 +195,7 @@ const Cart = () => {
                   </li>
                   <li>
                     <input type="checkbox" />
-                    <label>Estimate Shipping & Taxes</label>
+                    <label>Estimate Shipping &amp; Taxes</label>
                   </li>
                 </ul>
 
@@ -247,13 +231,25 @@ const Cart = () => {
               </div>
             </div>
 
+            {/* Cột phải: tổng tiền sử dụng subTotal + ecoTax */}
             <div className="col-sm-6">
               <div className="total_area">
                 <ul>
-                  <li>Cart Sub Total <span>${subTotal}</span></li>
-                  <li>Eco Tax <span>${cartItems.length * ecoTax}</span></li>
-                  <li>Shipping Cost <span>Free</span></li>
-                  <li>Total <span>${subTotal + cartItems.length * ecoTax}</span></li>
+                  <li>
+                    Cart Sub Total <span>${subTotal}</span>
+                  </li>
+                  <li>
+                    Eco Tax <span>${cartItems.length * ecoTax}</span>
+                  </li>
+                  <li>
+                    Shipping Cost <span>Free</span>
+                  </li>
+                  <li>
+                    Total{" "}
+                    <span>
+                      ${subTotal + cartItems.length * ecoTax}
+                    </span>
+                  </li>
                 </ul>
 
                 <a className="btn btn-default update" href="#">
@@ -273,6 +269,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-
-// b
