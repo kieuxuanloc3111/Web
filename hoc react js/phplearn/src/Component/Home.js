@@ -242,7 +242,7 @@ const Home = () => {
                   <div className="carousel-inner">
 
                     {wishlistProducts.length > 0 ? (
-                      // Nếu có wishlist → map sản phẩm yêu thích
+                      //Nmap 
                       <div className="item active">
                         {wishlistProducts.slice(0, 3).map((prod) => {
                           const imgUrl = buildImageUrl(prod);
