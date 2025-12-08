@@ -1,10 +1,14 @@
+// src/Component/Layout/Header.js
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
+
   const { cartCount } = useSelector((state) => state.cart);
+  const wishlistItems = useSelector((state) => state.wishlist.items);
+  const wishlistCount = wishlistItems.length;
 
   const [isLogin, setIsLogin] = useState(false);
 
@@ -32,7 +36,7 @@ const Header = () => {
   return (
     <>
       <header id="header">
-        {/* TOP*/}
+        {/* TOP */}
         <div className="header_top">
           <div className="container">
             <div className="row">
@@ -41,10 +45,14 @@ const Header = () => {
                 <div className="contactinfo">
                   <ul className="nav nav-pills">
                     <li>
-                      <a href="#"><i className="fa fa-phone" /> +2 95 01 88 821</a>
+                      <a href="#">
+                        <i className="fa fa-phone" /> +2 95 01 88 821
+                      </a>
                     </li>
                     <li>
-                      <a href="#"><i className="fa fa-envelope" /> info@domain.com</a>
+                      <a href="#">
+                        <i className="fa fa-envelope" /> info@domain.com
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -66,7 +74,7 @@ const Header = () => {
           </div>
         </div>
 
-        {/* MIDDLE*/}
+        {/* MIDDLE */}
         <div className="header-middle">
           <div className="container">
             <div className="row">
@@ -94,7 +102,12 @@ const Header = () => {
                         <li>
                           <button
                             onClick={handleLogout}
-                            style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+                            style={{
+                              background: "none",
+                              border: "none",
+                              padding: 0,
+                              cursor: "pointer",
+                            }}
                           >
                             <i className="fa fa-lock"></i> Logout
                           </button>
@@ -108,7 +121,17 @@ const Header = () => {
                       </li>
                     )}
 
-                    <li><a href="#"><i className="fa fa-star"></i> Wishlist</a></li>
+                    {/* WISHLIST: chỉ hiện số, không Link riêng */}
+                    <li>
+                      <a href="#">
+                        <i className="fa fa-star"></i> Wishlist{" "}
+                        <span
+                          style={{ fontWeight: "bold", color: "#FE980F" }}
+                        >
+                          ({wishlistCount})
+                        </span>
+                      </a>
+                    </li>
 
                     <li>
                       <Link to="/checkout">
@@ -119,7 +142,9 @@ const Header = () => {
                     <li>
                       <Link to="/cart">
                         <i className="fa fa-shopping-cart"></i> Cart{" "}
-                        <span style={{ fontWeight: "bold", color: "#FE980F" }}>
+                        <span
+                          style={{ fontWeight: "bold", color: "#FE980F" }}
+                        >
                           ({cartCount})
                         </span>
                       </Link>
@@ -133,7 +158,7 @@ const Header = () => {
           </div>
         </div>
 
-        {/*  BOTTOM */}
+        {/* BOTTOM */}
         <div className="header-bottom">
           <div className="container">
             <div className="row">
@@ -142,8 +167,11 @@ const Header = () => {
                 <div className="mainmenu pull-left">
                   <ul className="nav navbar-nav collapse navbar-collapse">
                     <li><Link to="/home">Home</Link></li>
+
                     <li className="dropdown">
-                      <a href="#">Shop <i className="fa fa-angle-down" /></a>
+                      <a href="#">
+                        Shop <i className="fa fa-angle-down" />
+                      </a>
                       <ul className="sub-menu">
                         <li><a href="#">Products</a></li>
                         <li><a href="#">Product Details</a></li>
@@ -152,13 +180,17 @@ const Header = () => {
                         <li><Link to="/login">Login</Link></li>
                       </ul>
                     </li>
+
                     <li className="dropdown">
-                      <a href="#">Blog <i className="fa fa-angle-down" /></a>
+                      <a href="#">
+                        Blog <i className="fa fa-angle-down" />
+                      </a>
                       <ul className="sub-menu">
                         <li><Link to="/blog">Blog List</Link></li>
                         <li><Link to="/blog_detail">Blog Single</Link></li>
                       </ul>
                     </li>
+
                     <li><a href="#">404</a></li>
                     <li><a href="#">Contact</a></li>
                   </ul>
