@@ -15,7 +15,7 @@ const initialItems = loadWishlistFromStorage();
 const wishlistSlice = createSlice({
   name: "wishlist",
   initialState: {
-    items: initialItems, // [id, id, ...]
+    items: initialItems, // [id]
   },
   reducers: {
     toggleWishlist: (state, action) => {
