@@ -1,4 +1,3 @@
-// src/Component/Layout/Header.js
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -121,7 +120,6 @@ const Header = () => {
                       </li>
                     )}
 
-                    {/* WISHLIST: chỉ hiện số, không Link riêng */}
                     <li>
                       <a href="#">
                         <i className="fa fa-star"></i> Wishlist{" "}

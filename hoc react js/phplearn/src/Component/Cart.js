@@ -1,4 +1,3 @@
-// src/Component/Cart.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,7 +12,7 @@ const Cart = () => {
 
   const ecoTax = 2; 
 
-  // tính tổng tiền
+  //  tổng tiền
   const updateTotal = (items) => {
     let total = 0;
     items.forEach((i) => {
@@ -22,7 +21,7 @@ const Cart = () => {
     setSubTotal(total);
   };
 
-  // gọi API theo cart trong redux
+  // gọi API 
   useEffect(() => {
     const fetchCart = async () => {
       if (!cart || Object.keys(cart).length === 0) {
@@ -49,7 +48,7 @@ const Cart = () => {
     fetchCart();
   }, [cart]);
 
-  // lấy hình đầu tiên
+
   const getImg = (item) => {
     let arr = [];
     try {

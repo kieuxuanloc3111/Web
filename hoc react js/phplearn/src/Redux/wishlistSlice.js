@@ -1,4 +1,3 @@
-// src/Redux/wishlistSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const loadWishlistFromStorage = () => {

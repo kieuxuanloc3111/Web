@@ -1,4 +1,3 @@
-// src/Component/Home.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -13,7 +12,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const wishlistIds = useSelector((state) => state.wishlist.items);
 
-  // Lấy danh sách sản phẩm (features)
+  // Lấy danh sách sản phẩm 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -29,7 +28,7 @@ const Home = () => {
     fetchProduct();
   }, []);
 
-  // Lấy data cho recommend (API wishlist trả về ALL product)
+  // Lấy data cho recommend 
   useEffect(() => {
     const fetchRecommend = async () => {
       try {
@@ -45,7 +44,7 @@ const Home = () => {
     fetchRecommend();
   }, []);
 
-  // Lọc sản phẩm wishlist từ nguồn recommend
+  // Lọc 
   const wishlistProducts = recommendSource.filter((p) =>
     wishlistIds.includes(p.id)
   );
@@ -58,8 +57,6 @@ const Home = () => {
       imgArray = [];
     }
     const firstImage = imgArray[0];
-    if (!firstImage) return "/frontend/images/home/product1.jpg";
-
     return (
       "http://localhost/laravel8/laravel8/public/upload/product/" +
       item.id_user +
@@ -76,7 +73,7 @@ const Home = () => {
 
             <div className="col-sm-9 padding-right">
 
-              {/* =============== FEATURES ITEMS =============== */}
+              {/* FEATURES ITEMS  */}
               <div className="features_items">
                 <h2 className="title text-center">Features Items</h2>
 
@@ -130,7 +127,7 @@ const Home = () => {
 
                         </div>
 
-                        {/* Choose (wishlist + detail) */}
+                        {/* Choose */}
                         <div className="choose">
                           <ul className="nav nav-pills nav-justified">
                             <li>
@@ -162,10 +159,10 @@ const Home = () => {
                   );
                 })}
               </div>
-              {/* =============== END FEATURES ITEMS =============== */}
+              {/*   FEATURES ITEMS  */}
 
 
-              {/* =============== CATEGORY TAB (GIỮ NGUYÊN) =============== */}
+              {/*  CATEGORY TAB*/}
               <div className="category-tab">
                 <div className="col-sm-12">
                   <ul className="nav nav-tabs">
@@ -224,13 +221,12 @@ const Home = () => {
                     </div>
                   </div>
 
-                  {/*  */}
                 </div>
               </div>
-              {/*  END CATEGORY TAB*/}
+              {/*   CATEGORY TAB*/}
 
 
-              {/* =============== RECOMMENDED ITEMS =============== */}
+              {/* RECOMMENDED ITEMS  */}
               <div className="recommended_items">
                 <h2 className="title text-center">recommended items</h2>
 
