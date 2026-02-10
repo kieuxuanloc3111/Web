@@ -1,5 +1,6 @@
 {
     "java.project.sourcePaths": [
-        "java"
-    ]
+        "java/src/java_database"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
