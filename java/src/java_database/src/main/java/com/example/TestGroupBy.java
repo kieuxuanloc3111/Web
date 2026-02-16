@@ -1,24 +1,21 @@
 package com.example;
 import com.example.dao.OrderDAO;
+import com.example.dto.OrderDTO;
+import com.example.model.User;
 public class TestGroupBy {
     public static void main(String[] args) {
 
         OrderDAO dao = new OrderDAO();
 
-        System.out.println("=== Count order by user ===");
-        dao.countOrderByUser().forEach(System.out::println);
+        System.out.println("=== Orders + User ===");
+        for (OrderDTO dto : dao.getOrdersWithUserName()) {
+            System.out.println(dto);
+        }
 
-        System.out.println("\n=== Sum order by user ===");
-        dao.sumOrderByUser().forEach(System.out::println);
-
-        System.out.println("\n=== Full stat by user ===");
-        dao.orderStatByUser().forEach(System.out::println);
-
-        System.out.println("\n=== User total > 1000 ===");
-        dao.userTotalGreaterThan(1000).forEach(System.out::println);
-
-        System.out.println("\n=== Total revenue ===");
-        System.out.println(dao.totalRevenue());
+        System.out.println("\n=== User total > 500 ===");
+        for (User u : dao.getUserTotalGreaterThan(500)) {
+            System.out.println(u.getId() + " | " + u.getName());
+        }
     }
 }
 

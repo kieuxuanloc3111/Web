@@ -18,10 +18,13 @@ public class OrderDAO {
         List<OrderDTO> list = new ArrayList<>();
 
         String sql = """
-            SELECT o.id AS order_id, u.name, o.total
-            FROM orders o
-            JOIN users u ON o.user_id = u.id
+            SELECT orders.id AS order_id,
+                users.name,
+                orders.total
+            FROM orders
+            JOIN users ON orders.user_id = users.id
         """;
+
 
         try (
             Connection conn = DBConnection.getConnection();
@@ -48,14 +51,14 @@ public class OrderDAO {
     public List<User> getUserTotalGreaterThan(double amount) {
         List<User> list = new ArrayList<>();
 
-        String sql = """
-            SELECT u.id, u.name, u.email, u.age, SUM(o.total) AS total_order
-            FROM users u
-            JOIN orders o ON u.id = o.user_id
-            GROUP BY u.id, u.name, u.email, u.age
-            HAVING SUM(o.total) > ?
-        """;
 
+        String sql = """
+            SELECT users.id, users.name, users.email, users.age, SUM(orders.total) AS total_order
+            FROM users 
+            JOIN orders ON users.id = orders.user_id
+            GROUP BY users.id, users.name, users.email, users.age
+            HAVING SUM(orders.total) > ?
+        """;
         try (
             Connection conn = DBConnection.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
