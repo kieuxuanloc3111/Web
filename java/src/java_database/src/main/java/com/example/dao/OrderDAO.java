@@ -9,8 +9,38 @@ import com.example.DBConnection;
 import java.sql.*;
 import java.util.*;
 
-public class OrderDAO {
 
+public class OrderDAO {
+    /* ===============================
+        all USER NAME
+       =============================== */
+    public List<User> getAllUsers() {
+        List<User> list = new ArrayList<>();
+
+        String sql = "SELECT id, name, email, age FROM users";
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+        ) {
+
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setName(rs.getString("name"));
+                u.setEmail(rs.getString("email"));
+                u.setAge(rs.getInt("age"));
+
+                list.add(u);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
     /* ===============================
        1️⃣ LẤY ORDER + USER NAME
        =============================== */
