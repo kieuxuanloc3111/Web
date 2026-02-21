@@ -3,6 +3,7 @@ import java.util.List;
 
 import com.example.dao.OrderDAO;
 import com.example.dto.OrderDTO;
+import com.example.dto.UserOrderStatDTO;
 import com.example.model.User;
 public class Test {
     public static void main(String[] args) {
@@ -41,6 +42,21 @@ public class Test {
             System.out.println(u.getId() + " | " +u.getName() + " | " + u.getEmail());
         }
 
+        System.out.println("=== count order by user  ===");
+        List<UserOrderStatDTO> user5= dao.countOrderByUser();
+        for(int i=0;i<user5.size(); i++){
+            UserOrderStatDTO u= user5.get(i);
+            System.out.println(u);
+        }
+
+        System.out.println("=== new order ===");
+        boolean result = dao.createOrderWithPayment(1, 500);
+
+        if (result) {
+            System.out.println("🎉 Transaction thành công");
+        } else {
+            System.out.println("💥 Transaction thất bại");
+        }
     }
 }
 

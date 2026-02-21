@@ -150,10 +150,13 @@ public class OrderDAO {
         List<UserOrderStatDTO> list = new ArrayList<>();
 
         String sql = """
-            SELECT user_id, COUNT(*) AS order_count
+            SELECT user_id,
+                COUNT(*) AS order_count,
+                SUM(total) AS totalAmount
             FROM orders
             GROUP BY user_id
         """;
+
 
         try (
             Connection conn = DBConnection.getConnection();
@@ -164,7 +167,7 @@ public class OrderDAO {
                 list.add(new UserOrderStatDTO(
                         rs.getInt("user_id"),
                         rs.getLong("order_count"),
-                        0
+                        rs.getDouble("totalAmount")
                 ));
             }
         } catch (Exception e) {
@@ -277,6 +280,66 @@ public class OrderDAO {
         }
 
         return 0;
+    }
+    public boolean createOrderWithPayment(int userId, double amount) {
+
+        String updateBalanceSql = """
+            UPDATE users
+            SET balance = balance - ?
+            WHERE id = ? AND balance >= ?
+        """;
+
+        String insertOrderSql = """
+            INSERT INTO orders (user_id, total)
+            VALUES (?, ?)
+        """;
+
+        try (Connection conn = DBConnection.getConnection()) {
+
+            // 🔥 TẮT AUTO COMMIT
+            conn.setAutoCommit(false);
+
+            try (
+                PreparedStatement updatePs = conn.prepareStatement(updateBalanceSql);
+                PreparedStatement insertPs = conn.prepareStatement(insertOrderSql);
+            ) {
+
+                /* ===== 1️⃣ Trừ tiền ===== */
+                updatePs.setDouble(1, amount);
+                updatePs.setInt(2, userId);
+                updatePs.setDouble(3, amount);
+
+                int updatedRows = updatePs.executeUpdate();
+
+                if (updatedRows == 0) {
+                    // Không đủ tiền hoặc user không tồn tại
+                    conn.rollback();
+                    System.out.println("❌ Không đủ tiền hoặc user không tồn tại");
+                    return false;
+                }
+
+                /* ===== 2️⃣ Tạo order ===== */
+                insertPs.setInt(1, userId);
+                insertPs.setDouble(2, amount);
+
+                insertPs.executeUpdate();
+
+                /* ===== 3️⃣ Commit ===== */
+                conn.commit();
+                System.out.println("✅ Tạo order thành công");
+                return true;
+
+            } catch (Exception e) {
+                conn.rollback();
+                System.out.println("❌ Lỗi xảy ra → rollback");
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 }
