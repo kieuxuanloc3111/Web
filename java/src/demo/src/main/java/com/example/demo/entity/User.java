@@ -1,4 +1,6 @@
 package com.example.demo.entity;
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 @Entity
 @Table(name = "users")
@@ -9,7 +11,8 @@ public class User {
 
     private String name;
     private String email;
-    private Double balance;
+    @Column(columnDefinition = "DECIMAL(10,2)")
+    private BigDecimal balance;
 
 
     public Integer getId() {
@@ -36,11 +39,11 @@ public class User {
         this.email = email;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 }

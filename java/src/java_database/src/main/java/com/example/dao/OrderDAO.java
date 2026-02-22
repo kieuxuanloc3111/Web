@@ -342,4 +342,200 @@ public class OrderDAO {
         return false;
     }
 
+    public List<Order> getOrdersOrderByTotalDesc() {
+        List<Order> list = new ArrayList<>();
+
+        String sql = """
+            SELECT id, user_id, total
+            FROM orders
+            ORDER BY total DESC
+        """;
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+        ) {
+            while (rs.next()) {
+                Order o = new Order();
+                o.setId(rs.getInt("id"));
+                o.setUserId(rs.getInt("user_id"));
+                o.setTotal(rs.getDouble("total"));
+
+                list.add(o);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    public List<User> getUsersOrderByAgeAsc() {
+        List<User> list = new ArrayList<>();
+
+        String sql = """
+            SELECT id, name, email, age
+            FROM users
+            ORDER BY age ASC
+        """;
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+        ) {
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setName(rs.getString("name"));
+                u.setEmail(rs.getString("email"));
+                u.setAge(rs.getInt("age"));
+
+                list.add(u);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    public List<Order> getTopOrders(int limit) {
+        List<Order> list = new ArrayList<>();
+
+        String sql = """
+            SELECT id, user_id, total
+            FROM orders
+            ORDER BY total DESC
+            LIMIT ?
+        """;
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+        ) {
+            ps.setInt(1, limit);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Order o = new Order();
+                o.setId(rs.getInt("id"));
+                o.setUserId(rs.getInt("user_id"));
+                o.setTotal(rs.getDouble("total"));
+
+                list.add(o);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public List<Order> getOrdersByTotalBetween(double min, double max) {
+        List<Order> list = new ArrayList<>();
+
+        String sql = """
+            SELECT id, user_id, total
+            FROM orders
+            WHERE total BETWEEN ? AND ?
+            ORDER BY total
+        """;
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+        ) {
+            ps.setDouble(1, min);
+            ps.setDouble(2, max);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Order o = new Order();
+                o.setId(rs.getInt("id"));
+                o.setUserId(rs.getInt("user_id"));
+                o.setTotal(rs.getDouble("total"));
+
+                list.add(o);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    public List<User> getUsersByAgeBetween(int minAge, int maxAge) {
+        List<User> list = new ArrayList<>();
+
+        String sql = """
+            SELECT id, name, email, age
+            FROM users
+            WHERE age BETWEEN ? AND ?
+            ORDER BY age
+        """;
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+        ) {
+            ps.setInt(1, minAge);
+            ps.setInt(2, maxAge);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setName(rs.getString("name"));
+                u.setEmail(rs.getString("email"));
+                u.setAge(rs.getInt("age"));
+
+                list.add(u);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public List<UserOrderStatDTO> getTopUsersBySpending(int limit) {
+        List<UserOrderStatDTO> list = new ArrayList<>();
+
+        String sql = """
+            SELECT user_id,
+                COUNT(*) AS order_count,
+                SUM(total) AS total_amount
+            FROM orders
+            GROUP BY user_id
+            ORDER BY total_amount DESC
+            LIMIT ?
+        """;
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+        ) {
+            ps.setInt(1, limit);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new UserOrderStatDTO(
+                        rs.getInt("user_id"),
+                        rs.getLong("order_count"),
+                        rs.getDouble("total_amount")
+                ));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 }
