@@ -11,6 +11,7 @@ public class User {
 
     private String name;
     private String email;
+     private Integer age; 
     @Column(columnDefinition = "DECIMAL(10,2)")
     private BigDecimal balance;
 
@@ -33,6 +34,12 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+    public Integer getAge() {
+        return age;
+    }
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public void setEmail(String email) {

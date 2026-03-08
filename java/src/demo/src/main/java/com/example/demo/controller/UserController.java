@@ -9,11 +9,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
     // GET /users
     @GetMapping
     public List<User> getUsers() {
@@ -24,5 +25,9 @@ public class UserController {
     @PostMapping
     public User create(@RequestBody User user) {
         return userService.createUser(user);
+    }
+    @GetMapping("/sort-by-age")
+    public List<User> sortByAge() {
+        return userService.getUsersOrderByAgeAsc();
     }
 }
