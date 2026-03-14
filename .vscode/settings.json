@@ -1,6 +1,7 @@
 {
     "java.project.sourcePaths": [
-        "java/src/java_database"
+        "java/src/java_database",
+        "java/product-management/src"
     ],
     "java.configuration.updateBuildConfiguration": "interactive"
 }
