@@ -1,8 +1,9 @@
 {
     "java.project.sourcePaths": [
+        "java/user-management/src",
         "java/src/java_database",
         "java/product-management/src",
-        "java/user-management/src"
+        "java/maven-project/src/main/java/com/example/maven/project"
     ],
     "java.configuration.updateBuildConfiguration": "interactive"
 }
