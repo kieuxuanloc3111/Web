@@ -1,4 +1,6 @@
 package com.example.maven.project.service;
+import com.example.maven.project.dto.UserRequest;
+import com.example.maven.project.dto.UserResponse;
 import com.example.maven.project.exception.DuplicateEmailException;
 import com.example.maven.project.exception.UserNotFoundException;
 import com.example.maven.project.model.User;
@@ -16,30 +18,51 @@ public class UserService {
     }
 
     // CREATE
-    public User create(User user) {
-        return userRepository.save(user);
+    public UserResponse create(UserRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new DuplicateEmailException("Email already exists");
+        }
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setAge(request.getAge());
+
+        User saved = userRepository.save(user);
+
+        return new UserResponse(
+            saved.getId(),
+            saved.getName(),
+            saved.getEmail()
+        );
     }
 
     // GET ALL
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserResponse> getAll() {
+        return userRepository.findAll().stream().map(user -> new UserResponse(user.getId(),user.getName(),user.getEmail())).toList();
     }
 
     // GET BY ID
-    public User getById(Integer id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public UserResponse getById(Integer id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return new UserResponse(
+                user.getId(),
+                user.getName(),
+                user.getEmail()
+        );
     }
 
     // UPDATE
-    public User update(Integer id, User newUser) {
-        User user = getById(id);
+    public UserResponse update(Integer id, UserRequest newUser) {
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setName(newUser.getName());
         user.setEmail(newUser.getEmail());
         user.setAge(newUser.getAge());
 
-        return userRepository.save(user);
+        User updated = userRepository.save(user);
+
+        return new UserResponse(updated.getId(),updated.getName(),updated.getEmail());
     }
 
     // DELETE

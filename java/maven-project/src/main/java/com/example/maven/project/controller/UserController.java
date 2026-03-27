@@ -3,8 +3,13 @@ package com.example.maven.project.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
+
+import com.example.maven.project.dto.UserRequest;
+import com.example.maven.project.dto.UserResponse;
 import com.example.maven.project.model.User;
 import com.example.maven.project.service.UserService;
+
+import jakarta.validation.Valid;
 
 
 
@@ -17,23 +22,24 @@ public class UserController {
         this.userService = userService;
     }
     @PostMapping
-    public User create(@RequestBody User user) {
-        return userService.create(user);
+    public UserResponse create(@RequestBody @Valid UserRequest request) {
+        return userService.create(request);
     }
 
     @GetMapping
-    public List<User> getAll() {
+    public List<UserResponse> getAll() {
         return userService.getAll();
     }
-
+    
     @GetMapping("/{id}")
-    public User getById(@PathVariable Integer id) {
+    public UserResponse getById(@PathVariable Integer id) {
         return userService.getById(id);
     }
 
     @PutMapping("/{id}")
-    public User update(@PathVariable Integer id, @RequestBody User user) {
-        return userService.update(id, user);
+    public UserResponse update(@PathVariable Integer id,
+                            @RequestBody @Valid UserRequest request) {
+        return userService.update(id, request);
     }
 
     @DeleteMapping("/{id}")
