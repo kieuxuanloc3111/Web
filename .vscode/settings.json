@@ -5,5 +5,6 @@
         "java/product-management/src",
         "java/maven-project/src/main/java/com/example/maven/project"
     ],
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "automatic"
 }
