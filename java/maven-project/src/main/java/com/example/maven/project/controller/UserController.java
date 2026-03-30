@@ -2,6 +2,7 @@ package com.example.maven.project.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.maven.project.dto.UserRequest;
@@ -21,7 +22,7 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-    @PostMapping
+    @PostMapping("/register")
     public UserResponse create(@RequestBody @Valid UserRequest request) {
         return userService.create(request);
     }
@@ -36,12 +37,14 @@ public class UserController {
         return userService.getById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public UserResponse update(@PathVariable Integer id,
                             @RequestBody @Valid UserRequest request) {
         return userService.update(id, request);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Integer id) {
         userService.delete(id);

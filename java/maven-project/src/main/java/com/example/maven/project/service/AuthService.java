@@ -23,6 +23,6 @@ public class AuthService {
             throw new RuntimeException("Wrong password");
         }
 
-        return jwtService.generateToken(user.getEmail());
+        return jwtService.generateToken(user);
     }
 }

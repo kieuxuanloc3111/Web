@@ -10,6 +10,7 @@ public class UserRequest {
 
     @Min(value = 1, message = "Age must be > 0")
     private int age;
+    
 
     public String getName() { return name; }
     public String getEmail() { return email; }
@@ -18,4 +19,6 @@ public class UserRequest {
     public void setName(String name) { this.name = name; }
     public void setEmail(String email) { this.email = email; }
     public void setAge(int age) { this.age = age; }
+    // 
+    
 }

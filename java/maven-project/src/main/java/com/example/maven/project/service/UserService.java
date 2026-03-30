@@ -8,13 +8,16 @@ import com.example.maven.project.repository.UserRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // CREATE
@@ -26,7 +29,8 @@ public class UserService {
         user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setAge(request.getAge());
-
+        user.setPassword(passwordEncoder.encode(request.getP));
+        user.setRole("USER");
         User saved = userRepository.save(user);
 
         return new UserResponse(
