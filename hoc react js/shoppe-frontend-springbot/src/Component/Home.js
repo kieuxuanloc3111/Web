@@ -18,9 +18,6 @@ const Home = () => {
       try {
         const res = await axios.get(
           "http://localhost:8080/api/product"
-          // "http://shoppe.test/api/product"
-          
-          // http://localhost/laravel8/laravel8/public/api/product
         );
         setProducts(res.data.data);
       } catch (err) {
@@ -52,23 +49,7 @@ const Home = () => {
     wishlistIds.includes(p.id)
   );
 
-  // const buildImageUrl = (item) => {
-  //   let imgArray = [];
-  //   try {
-  //     imgArray = JSON.parse(item.image);
-  //   } catch {
-  //     imgArray = [];
-  //   }
-  //   const firstImage = imgArray[0];
-  //   return "http://shoppe.test/upload/product/" + firstImage;
-  //   // "http://shoppe.test/upload/product/" + firstImage;
-  //   // return (
-  //   //   "http://localhost/laravel8/laravel8/public/upload/product/" +
-  //   //   item.id_user +
-  //   //   "/" +
-  //   //   firstImage
-  //   // );
-  // }
+
   const buildImageUrl = (item) => {
     console.log("Raw image from API:", item.image);
 

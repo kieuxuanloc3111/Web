@@ -33,7 +33,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://shoppe.test/api/login",
+        "http://localhost:8080/api/login",
         // http://shoppe.test/api/login
         form
       );
@@ -54,6 +54,8 @@ const Login = () => {
     } catch (error) {
       alert("Lỗi khi gửi API!");
       console.error(error);
+      console.log("FULL ERROR:", error.response);
+      console.log("DATA:", error.response?.data);
     }
   };
 
