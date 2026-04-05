@@ -96,10 +96,8 @@ const UpdateUser = () => {
 
     try {
       const res = await axios.post(
-        `http://shoppe.test/api/user/update/${userId}`,
-        // `http://localhost/laravel8/laravel8/public/api/user/update/${userId}`,
-        newdata,
-        {
+        `http://localhost:8080/api/user/update/${userId}`,
+        newdata,        {
           headers: {
             Authorization: "Bearer " + token,
             "Content-Type": "application/json",

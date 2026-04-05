@@ -22,12 +22,14 @@ const AddProduct = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(
-        "http://shoppe.test/api/category-brand"
-        // http://localhost/laravel8/laravel8/public/api/category-brand
-      );
+        "http://localhost:8080/api/category-brand"
 
+      );
+      
       setCategories(res.data.category );
       setBrands(res.data.brand );
+      console.log("categories:", res.data.category);
+      console.log("brands:", res.data.brand);
     };
 
     fetchData();
@@ -39,12 +41,12 @@ const AddProduct = () => {
   };
 
   const handleStatusChange = (e) => {
-    const value = Number(e.target.value);
- 
-    setForm({  
+    const value = e.target.value === "true"; // 🔥 true/false
+
+    setForm({
       ...form,
       status: value,
-      sale: value === 1 ? "" : form.sale,
+      sale: value ? "" : form.sale,
     });
   };
 
@@ -54,7 +56,7 @@ const AddProduct = () => {
 
     let newErrors = {};
 
-    if (avatar.length + 1 > 3) {
+    if (avatar.length + files.length > 3) {
       newErrors.images = "Chỉ được upload tối đa 3 ảnh!";
       setErrors(newErrors);
       return;
@@ -110,24 +112,21 @@ const AddProduct = () => {
     formData.append("category", form.category);
     formData.append("brand", form.brand);
     formData.append("status", form.status);
-    formData.append("sale", form.status === 0 ? form.sale : "");
+    formData.append("sale", form.sale || 0);
     formData.append("company", form.company);
     formData.append("detail", form.detail);
 
-    Object.keys(avatar).map((key) => {
-      formData.append("file[]", avatar[key]);
+    avatar.forEach((file) => {
+      formData.append("file", file); // 🔥 bỏ []
     });
 
     try {
       const res = await axios.post(
-    
-        "http://shoppe.test/api/user/product/add",
-        // http://localhost/laravel8/laravel8/public/api/user/product/add
+        "http://localhost:8080/api/user/product/add",
         formData,
         {
           headers: {
             Authorization: "Bearer " + token,
-            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -181,7 +180,7 @@ const AddProduct = () => {
               <option value="">Choose category</option>
               {categories.map((item) => (
                 <option key={item.id} value={item.id}>
-                  {item.category}
+                  {item.name}
                 </option>
               ))}
             </select>
@@ -198,7 +197,7 @@ const AddProduct = () => {
               <option value="">Choose brand</option>
               {brands.map((item) => (
                 <option key={item.id} value={item.id}>
-                  {item.brand}
+                  {item.name}
                 </option>
               ))}
             </select>
@@ -212,12 +211,12 @@ const AddProduct = () => {
               className="form-control"
               style={{ marginBottom: 15 }}
             >
-              <option value={1}>New</option>
-              <option value={0}>Sale</option>
+              <option value="false">New</option>
+              <option value="true">Sale</option>
             </select>
 
             {/* sale */}
-            {form.status === 0 && (
+            {form.status === true && (
               <div style={{ display: "flex", alignItems: "center", marginBottom: 15 }}>
                 <input
                   type="text"
@@ -246,7 +245,7 @@ const AddProduct = () => {
             <label style={{ marginTop: 10 }}>Images (max 3):</label>
             <input
               type="file"
-              name="file[]"
+              name="file"
               multiple
               onChange={handleFiles}
               style={{ marginBottom: 10 }}

@@ -10,9 +10,8 @@ const MyProduct = () => {
         const token = localStorage.getItem("token");
 
         const res = await axios.get(
-          "http://shoppe.test/api/user/my-product",
+          "http://localhost:8080/api/user/my-product",
           
-          // http://localhost/laravel8/laravel8/public/api/user/my-product
           {
             headers: { Authorization: "Bearer " + token }
           }
@@ -41,9 +40,8 @@ const MyProduct = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await axios.get(
-        `http://shoppe.test/api/user/product/delete/${idProduct}`,
-        // http://localhost/laravel8/laravel8/public/api/user/product/delete/${idProduct}
+      await axios.delete(
+        `http://localhost:8080/api/user/product/delete/${idProduct}`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -51,9 +49,6 @@ const MyProduct = () => {
         }
       );
 
-      console.log("delete return:", res.data);
-
-      // filter bỏ sản phẩm vừa delete
       setProducts((prev) => prev.filter((item) => item.id !== idProduct));
 
       alert("Xóa thành công!");
@@ -80,14 +75,25 @@ const MyProduct = () => {
           <tbody>
             {products.map((item) => {
               let imgArray = [];
-              try {
-                imgArray = JSON.parse(item.image);
-              } catch {
-                imgArray = [];
+
+              if (item.image) {
+                try {
+                  let parsed = JSON.parse(item.image);
+
+                  // 🔥 nếu vẫn là string → parse tiếp
+                  if (typeof parsed === "string") {
+                    parsed = JSON.parse(parsed);
+                  }
+
+                  imgArray = parsed;
+                } catch (e) {
+                  imgArray = [];
+                }
               }
 
               const firstImage = imgArray[0];
-              const imageUrl = `http://shoppe.test/upload/product/${firstImage}`;
+              const imageUrl = `http://localhost:8080/upload/product/${firstImage}`;
+              console.log("imageUrl:", imageUrl);
 
               return (
                 <tr key={item.id}>

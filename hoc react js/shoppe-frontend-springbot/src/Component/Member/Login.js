@@ -43,6 +43,7 @@ const Login = () => {
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("auth", JSON.stringify(res.data.Auth));
+        console.log("Đăng nhập thành công, token:", res.data.token);
 
         window.dispatchEvent(new Event("login"));
 
