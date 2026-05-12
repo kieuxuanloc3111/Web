@@ -83,6 +83,7 @@ function App() {
 
       return () => clearTimeout(t);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoPlay, current, points, status]);
 
   return (
@@ -95,7 +96,6 @@ function App() {
           type="number"
           value={totalPoints}
           onChange={(e) => setTotalPoints(+e.target.value)}
-          // disabled={status === "playing"} // đang chơi thì không cho sửa
         />
       </div>
 
